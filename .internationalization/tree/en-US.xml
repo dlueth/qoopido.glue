@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Glue>
+	<Tree id="public" breadcrumb="true">
+		<childnodes node="about">
+			<title>About</title>
+
+			<childnodes node="features">
+				<title>Features</title>
+			</childnodes>
+			<childnodes node="requirements">
+				<title>Requirements</title>
+			</childnodes>
+			<childnodes node="installation">
+				<title>Installation</title>
+			</childnodes>
+			<childnodes node="documentation">
+				<title>Documentation</title>
+			</childnodes>
+		</childnodes>
+
+		<childnodes node="flow">
+			<title>Flow</title>
+
+			<childnodes node="bootstrap">
+				<title>Bootstrap</title>
+			</childnodes>
+			<childnodes node="controller">
+				<title>Controller</title>
+			</childnodes>
+			<childnodes node="view">
+				<title>View</title>
+			</childnodes>
+		</childnodes>
+
+		<childnodes node="fundamentals">
+			<title>Fundamentals</title>
+
+			<childnodes node="core">
+				<title>Core</title>
+			</childnodes>
+			<childnodes node="components">
+				<title>Components</title>
+			</childnodes>
+			<childnodes node="adapter">
+				<title>Adapter</title>
+			</childnodes>
+			<childnodes node="handler">
+				<title>Handler</title>
+			</childnodes>
+			<childnodes node="modules">
+				<title>Modules</title>
+			</childnodes>
+			<childnodes node="objects">
+				<title>Objects</title>
+			</childnodes>
+			<childnodes node="listener">
+				<title>Listener</title>
+			</childnodes>
+			<childnodes node="helper">
+				<title>Helper</title>
+			</childnodes>
+		</childnodes>
+
+		<childnodes node="use-cases">
+			<title>Use cases</title>
+
+			<childnodes node="events">
+				<title>Events</title>
+			</childnodes>
+			<childnodes node="routing">
+				<title>Routing</title>
+			</childnodes>
+			<childnodes node="sessions">
+				<title>Sessions</title>
+			</childnodes>
+			<childnodes node="databases">
+				<title>Databases</title>
+			</childnodes>
+			<childnodes node="garbage-collection">
+				<title>Garbage collection</title>
+			</childnodes>
+			<childnodes node="caching">
+				<title>Caching</title>
+			</childnodes>
+			<childnodes node="forms">
+				<title>Forms</title>
+			</childnodes>
+			<childnodes node="querybuilder">
+				<title>Querybuilder</title>
+			</childnodes>
+			<childnodes node="thumbnails">
+				<title>Thumbnails</title>
+			</childnodes>
+		</childnodes>
+
+		<childnodes node="other-topics">
+			<title>Other topics</title>
+
+			<childnodes node="naming-conventions">
+				<title>Naming conventions</title>
+			</childnodes>
+			<childnodes node="exception-handling">
+				<title>Exception handling</title>
+			</childnodes>
+			<childnodes node="url-handling">
+				<title>URL handling</title>
+			</childnodes>
+			<childnodes node="multiple-sites">
+				<title>Multiple sites</title>
+			</childnodes>
+			<childnodes node="multiple-languages">
+				<title>Multiple languages</title>
+			</childnodes>
+			<childnodes node="multiple-themes">
+				<title>Multiple themes</title>
+			</childnodes>
+		</childnodes>
+	</Tree>
+	<Tree id="meta" breadcrumb="false">
+		<childnodes node="about">
+			<title>Home</title>
+		</childnodes>
+		<childnodes node="contact">
+			<title>Contact</title>
+		</childnodes>
+	</Tree>
+</Glue>

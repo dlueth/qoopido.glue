@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Language code="en-US" characterset="UTF-8">
+	<locales>
+		<locale>LC_ALL</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+	<locales>
+		<locale>LC_COLLATE</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+	<locales>
+		<locale>LC_CTYPE</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+	<locales>
+		<locale>LC_MONETARY</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+	<locales>
+		<locale>LC_NUMERIC</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+	<locales>
+		<locale>LC_TIME</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+	<locales>
+		<locale>LC_MESSAGES</locale>
+		<value>en_US@euro,en_US,eng_eng,en</value>
+	</locales>
+</Language>

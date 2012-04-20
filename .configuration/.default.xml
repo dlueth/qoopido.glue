@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Glue>
+	<Core>
+		<cache enabled="false">
+			<lifetime>+1 day</lifetime>
+		</cache>
+	</Core>
+	<Components>
+		<Url>
+			<identifier>
+				<switches>!</switches>
+			</identifier>
+			<switches>
+				<site>main</site>
+				<theme>default</theme>
+				<language>en-US</language>
+			</switches>
+		</Url>
+		<Routing enabled="true" i18n="true">
+			<route methods="get">
+				<pattern>(?:/route)/(first|second)(?:|/((?:[\w]+(?:/|)))*)</pattern>
+				<target>/use-cases/routing?example=\1&amp;parameters=\2</target>
+			</route>
+			<route methods="post">
+				<pattern>(?:/route)/(first|second)(?:|/((?:[\w]+(?:/|)))*)</pattern>
+				<target>/use-cases/routing?example=\1&amp;parameters=\2</target>
+			</route>
+		</Routing>
+		<Environment>
+			<defaults>
+				<node>about</node>
+				<site>main</site>
+				<theme>default</theme>
+				<language>en-US</language>
+				<timezone>Europe/Berlin</timezone>
+				<lifetime>2 weeks</lifetime>
+			</defaults>
+			<urlrewriting enabled="true" />
+			<compression enabled="false" level="9" />
+		</Environment>
+		<Session enabled="true">
+			<name>GlueSession</name>
+			<lifetime>1440</lifetime>
+			<directory>
+				<scope>global</scope>
+				<path>../../sessions</path>
+			</directory>
+		</Session>
+	</Components>
+	<Adapter>
+		<View>
+			<defaults>
+				<handler>smarty</handler>
+			</defaults>
+		</View>
+	</Adapter>
+	<Handler>
+		<View>
+			<Smarty>
+				<mimetype>text/html</mimetype>
+			</Smarty>
+			<Json>
+				<mimetype>application/json</mimetype>
+			</Json>
+			<Xml>
+				<mimetype>application/xml</mimetype>
+			</Xml>
+		</View>
+	</Handler>
+	<Modules>
+		<Database>
+			<type>mysql</type>
+			<hostname>localhost</hostname>
+			<port>3306</port>
+			<username>username</username>
+			<password>password</password>
+			<database>database</database>
+			<characterset>utf8</characterset>
+		</Database>
+		<Garbagecollection>
+			<probability>5</probability>
+			<lifetime>-1 month</lifetime>
+			<directory>cache</directory>
+			<directory>.cache</directory>
+		</Garbagecollection>
+	</Modules>
+	<Listener>
+		<Exception>
+			<display>true</display>
+			<file>true</file>
+		</Exception>
+	</Listener>
+	<Helper>
+		<Path>
+			<writeable>cache</writeable>
+			<writeable>.cache</writeable>
+			<writeable>.logfiles</writeable>
+			<writeable>temporary</writeable>
+		</Path>
+	</Helper>
+</Glue>
