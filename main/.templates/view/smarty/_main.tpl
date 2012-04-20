@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{$environment.language}" manifest="">
+<html lang="{$environment.language}">
 <head>
 	<title>{foreach $tree.public.breadcrumb as $node}{if $node.visible == true}{if !$node@first} &rsaquo; {/if}{$node.title}{/if}{/foreach} | Qoopido Glue - rich features, small footprint</title>
 	<meta charset="{$environment.characterset}" />
@@ -81,18 +81,6 @@
 				</nav>
 			{/if}
 
-			{*if count($tree.public.breadcrumb) > 1}
-				<aside class="breadcrumb">
-					<ul>
-						{foreach $tree.public.breadcrumb as $node}
-							{if $node.visible == true}
-								<li><a href="{url scope=global}{$node.slug}{/url}">{$node.title}</a></li>
-							{/if}
-						{/foreach}
-					</ul>
-				</aside>
-			{/if*}
-
 			{block name=aside}{/block}
 			{block name=content}{/block}
 		</section>
@@ -116,14 +104,8 @@
 
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     {*yui*}
-		{*
-		<script type="text/javascript" src="{url}js/qoopido.jquery.support.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.selector.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.function.proximity.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.function.spinner.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.function.prefetch.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.shrinkimage.js{/url}"></script>
-		*}
+		<script type="text/javascript" src="{url}js/qoopido.jquery.function.quid.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.emerge.js{/url}"></script>
 		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.lazyimage.js{/url}"></script>
         <script type="text/javascript" src="{url}js/general.js{/url}"></script>
     {*/yui*}
