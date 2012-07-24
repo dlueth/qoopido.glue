@@ -12,7 +12,7 @@
 		</p>
 
 		<p>
-			Components in general share that their configuration is statically fetched via the configuration component (which gets initialized before most other components for that reason) during the bootstrap process. At the time of this writing there are components for client, configuration, environment, exception, header, request, routing, server, session and url.
+			Components in general share the fact that their configuration is statically fetched via the configuration component (which gets initialized before most other components for that reason) during the bootstrap process. At the time of this writing there are components for client, configuration, environment, exception, header, request, routing, server, session and url.
 		</p>
 	</article>
 {/block}

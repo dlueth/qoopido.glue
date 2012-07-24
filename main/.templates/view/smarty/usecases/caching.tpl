@@ -59,7 +59,7 @@
 			]]></script>
 
 			<p>
-				As you might have seen the only thing invalidating this cache is a modification of its depending files - ideal if only files operations are involved. But there are more possibilities to invalidate a cache. And the best: They can all be combined! Let us say we wanted to additionally depend the cache from the prior example on the server's document root because it also stores some critical absolute path information:
+				As you might have seen the only thing invalidating this cache is a modification of its depending files - ideal if only file operations are involved. But there are more possibilities to invalidate a cache. And the best: They can all be combined! Let us say we wanted to additionally depend the cache from the prior example on the server's document root because it also stores some critical absolute path information:
 			</p>
 
 			<script type="syntaxhighlighter" class="brush: php"><![CDATA[

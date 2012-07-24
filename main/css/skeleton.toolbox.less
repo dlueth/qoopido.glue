@@ -5,6 +5,33 @@
 @color-delta:   #c30;    // accented color (e.g. link:active)
 @color-epsilon: #accce5; // accented color (e.g. button)
 
+html, body {
+	overflow: auto;
+	height: 100%;
+	margin: 0;
+	-webkit-overflow-scrolling: touch;
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+
+	&::-moz-focus-inner {
+		padding: 0;
+		border: none;
+	}
+
+	&::-webkit-focus-inner {
+		padding: 0;
+		border: none;
+	}
+}
+
 // LESS Mixins
 .menu () {
 	.clearfix;

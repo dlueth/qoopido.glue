@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # see: http://www.html5rocks.com/en/tutorials/appcache/beginner/
-# 2012-04-20 12:52:37
+# 2012-07-25 12:52:38
 
 # Explicitly cached entries
 
@@ -9,6 +9,7 @@ FALLBACK:
 
 # resources that require user to be online
 NETWORK:
+*
 
 # Additional resources to cache
 CACHE:
