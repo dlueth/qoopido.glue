@@ -70,24 +70,29 @@ class Url {
 				$url = preg_replace('/^' . preg_quote(self::$environment->get('url.absolute'), '/') . '/', '', $url);
 				$url = preg_replace('/^\/?' . preg_quote(self::$environment->get('site'), '/') . '/', '', $url);
 
-				if($scope === 'local') {
-					$url = (preg_match('/^\//', $url)) ? self::$environment->get('site') . $url : self::$environment->get('site') . '/' . $url;
-				} else {
-					$url = preg_replace('/^\//', '', $url);
+				switch($scope) {
+					case 'local':
+						$url = (!is_file(self::$environment->get('path.local') . '/' . $url)) ? $url . '/' : $url;
+						$url = (preg_match('/^\//', $url)) ? self::$environment->get('site') . $url : self::$environment->get('site') . '/' . $url;
+						break;
+					default:
+						$url = (!is_file(self::$environment->get('path.global') . '/' . $url)) ? $url . '/' : $url;
+						$url = preg_replace('/^\//', '', $url);
 
-					if($switches !== NULL) {
-						foreach($switches as $switch => $value) {
-							if(isset($parameters[$switch])) {
-								$value = $parameters[$switch];
+						if($switches !== NULL) {
+							foreach($switches as $switch => $value) {
+								if(isset($parameters[$switch])) {
+									$value = $parameters[$switch];
 
-								unset($parameters[$switch]);
-							}
+									unset($parameters[$switch]);
+								}
 
-							if($value !== NULL) {
-								$url = '!' . $value . '/' . $url;
+								if($value !== NULL) {
+									$url = '!' . $value . '/' . $url;
+								}
 							}
 						}
-					}
+						break;
 				}
 
 				if(self::$environment->get('urlrewriting') !== true) {

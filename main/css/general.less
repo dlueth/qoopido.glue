@@ -1,5 +1,6 @@
 // imports
 	@import 'normalize.less';
+	@import 'skeleton.reset.less';
 	@import 'skeleton.toolbox.less';
 	@import 'skeleton.typography.less';
 
@@ -72,7 +73,7 @@
 			}
 		}
 
-		nav {
+		nav > ul  {
 			.menu;
 			margin-top: -4px;
 
@@ -109,6 +110,15 @@
 		> nav {
 			.sidebar;
 
+			> h6 {
+				.gradient(42px);
+				margin: -15px -15px 21px -15px;
+				padding: 0 15px;
+				border-bottom: 1px solid #ddd;
+				font-size: 14px;
+				line-height: 41px;
+			}
+
 			ul {
 				list-style: none outside none;
 				margin: 0;
@@ -130,6 +140,15 @@
 		> aside.sidebar {
 			.sidebar;
 			.size-deci;
+
+            > h6 {
+                .gradient(42px);
+                margin: -15px -15px 21px -15px;
+                padding: 0 15px;
+                border-bottom: 1px solid #ddd;
+                font-size: 14px;
+                line-height: 41px;
+            }
 
 			> dl {
 				margin-bottom: 0;

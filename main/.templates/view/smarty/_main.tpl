@@ -21,20 +21,38 @@
 	<link rel="icon" href="{url}img/favicon.png{/url}" />
 	<link rel="apple-touch-icon" href="{url}img/favicon.png{/url}" type="image/png" />
 
-	<!--[if lt IE 9]>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-	<script type="text/javascript">
-		if(typeof window.html5 === 'undefined') {
-			document.write(decodeURI("%3Cscript src='{url}js/html5shiv.3.6.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));
-		}
-	</script>
-	<![endif]-->
-
 	{*yui*}
 		<link rel="stylesheet" media="all" href="{url}css/general.css{/url}" />
 	{*/yui*}
 
 	{block name=css}{/block}
+
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
+		<script type="text/javascript">
+			if(typeof window.html5 === 'undefined') {
+				document.write(decodeURI("%3Cscript src='{url}js/html5shiv.3.6.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));
+			}
+		</script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		if(typeof jQuery === 'undefined') {
+			document.write(decodeURI("%3Cscript src='{url}js/jquery.1.8.1.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));
+		}
+	</script>
+
+	{*yui*}
+		<script type="text/javascript" src="{url}js/qoopido.base.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido.jquery.listener.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido.jquery.function.quid.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.emerge.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.lazyimage.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/general.js{/url}"></script>
+	{*/yui*}
+
+	{block name=js}{/block}
 </head>
 <body>
 	<div id="canvas">
@@ -65,6 +83,7 @@
 		<section id="content">
 			{if isset($tree.public.current.childnodes)}
 				<nav>
+					<h6>Further topics</h6>
 					<ul>
 						{foreach $tree.public.current.childnodes as $node}
 							{if $node.visible == true}
@@ -76,6 +95,7 @@
 			{/if}
 			{if isset($tree.public.current.parent.childnodes)}
 				<nav>
+					<h6>Further topics</h6>
 					<ul>
 						{foreach $tree.public.current.parent.childnodes as $node}
 							{if $node.visible == true}
@@ -106,22 +126,6 @@
 			</section>
 		</footer>
 	</div>
-
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript">
-		if(typeof jQuery === 'undefined') {
-			document.write(decodeURI("%3Cscript src='{url}js/jquery.1.7.2.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));
-		}
-	</script>
-    {*yui*}
-		<script type="text/javascript" src="{url}js/qoopido.jquery.listener.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.function.quid.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.emerge.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.lazyimage.js{/url}"></script>
-        <script type="text/javascript" src="{url}js/general.js{/url}"></script>
-    {*/yui*}
-
-    {block name=js}{/block}
 
 	{literal}
 		<script type="jscript">

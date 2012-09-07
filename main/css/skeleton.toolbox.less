@@ -5,34 +5,7 @@
 @color-delta:   #c30;    // accented color (e.g. link:active)
 @color-epsilon: #accce5; // accented color (e.g. button)
 
-html, body {
-	overflow: auto;
-	height: 100%;
-	margin: 0;
-	-webkit-overflow-scrolling: touch;
-}
-
-button {
-	margin: 0;
-	padding: 0;
-	border: 0 none;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-moz-box-sizing: content-box;
-	-webkit-box-sizing: content-box;
-
-	&::-moz-focus-inner {
-		padding: 0;
-		border: none;
-	}
-
-	&::-webkit-focus-inner {
-		padding: 0;
-		border: none;
-	}
-}
-
-// LESS Mixins
+//// LESS Mixins
 .menu () {
 	.clearfix;
 	zoom: 1;
@@ -61,12 +34,14 @@ button {
 
 .sidebar () {
 	.shadow();
-	.round(10px, 10px, 10px, 0);
+	.round();
+	overflow: hidden;
 	clear: right;
 	float: right;
+	position: relative;
 	width: 180px;
 	margin: 21px 21px 21px 21px;
-	padding: 21px;
+	padding: 15px;
 	background-color: #fff;
 }
 
@@ -85,13 +60,13 @@ button {
 	background-clip: padding-box;
 }
 
-.gradient () {
-	background: -moz-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 21px);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0, 0, .05)), color-stop(21px, rgba(0, 0, 0, 0)));
-	background: -webkit-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 21px);
-	background: -o-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 21px);
-	background: -ms-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 21px);
-	background: linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 21px);
+.gradient (@size: 21px) {
+	background: -moz-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0, 0, .05)), color-stop(@size, rgba(0, 0, 0, 0)));
+	background: -webkit-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
+	background: -o-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
+	background: -ms-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
+	background: linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
 }
 
 .clearfix () {

@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '0.9 (beta)';
+		const VERSION = '0.9.8';
 
 		/**
 		 * Private property to store core path information
@@ -227,7 +227,14 @@ namespace Glue {
 
 			$view->register('core', $this);
 
-			$content = \Glue\Helper\Modifier::convertCharset($view->render());
+			try {
+				$content = $view->render();
+			} catch(\Exception $exception) {
+				header('HTTP/1.0 404 Not Found');
+				exit();
+			}
+
+			$content = \Glue\Helper\Modifier::convertCharset($content);
 
 			$dispatcher->notify(new \Glue\Event('glue.core.render.post', array(&$content)));
 

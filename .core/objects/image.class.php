@@ -7,6 +7,7 @@ namespace Glue\Objects;
  * @require PHP "GD" extension
  * @require PHP "imageconvolution" function for sharpen() and blur()
  * @require PHP "CURL" extension or "allow_url_fopen = On" for load([remote file])
+ * @require PHP "Exif" extension to read correct orientation from JPEG
  *
  * @author Dirk Lüth <dirk@qoopido.de>
  */
@@ -57,6 +58,11 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	protected static $urlfopen = NULL;
 
 	/**
+	 * Property to store presence of Exif
+	 */
+	protected static $exif = NULL;
+
+	/**
 	 * Static, once only constructor
 	 *
 	 * @throw \LogicException
@@ -73,6 +79,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			self::$imagelayereffect = function_exists('imagelayereffect');
 			self::$curl             = extension_loaded('curl');
 			self::$urlfopen         = (bool) ini_get('allow_url_fopen');
+			self::$exif             = extension_loaded('exif');
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -87,11 +94,11 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 */
 	public function __initialize($image = NULL) {
 		try {
+			$this->temporary = array('images' => array(), 'colors' => array());
+
 			if($image !== NULL && !empty($image)) {
 				$this->load($image);
 			}
-
-			$this->temporary = array('images' => array(), 'colors' => array());
 
 			unset($image);
 		} catch(\Exception $exception) {
@@ -142,9 +149,12 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	public function load($image) {
 		try {
 			// try to initialize from source image
+				$orientation = 0;
+
 				if(is_resource($image) && get_resource_type($image) === 'gd') {
 					$this->_set($image, imagesx($image), imagesy($image));
 				} else {
+
 					// source image is NOT a GD resource
 						if(is_file($image) && is_readable($image)) {
 							// source image is a path to an existing and readable file
@@ -156,7 +166,19 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 											$image = imagecreatefromgif($image);
 											break;
 										case 2: // JPEG
-											$image = imagecreatefromjpeg($image);
+											if(self::$exif === true) {
+												$exif  = exif_read_data($image);
+												$image = imagecreatefromjpeg($image);
+
+												if(isset($exif['Orientation']) && $exif['Orientation'] > 1) {
+													$orientation = $exif['Orientation'];
+												}
+
+												unset($exif);
+											} else {
+												$image = imagecreatefromjpeg($image);
+											}
+
 											break;
 										case 3: // PNG
 											$image = imagecreatefrompng($image);
@@ -206,6 +228,36 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 				}
 
 			unset($image);
+
+			if($orientation > 1) {
+				switch($orientation) {
+					case 2: // horizontal flip
+						$this->flip(1);
+						break;
+					case 3: // 180 rotate left
+						$this->rotate(-180);
+						break;
+					case 4: // vertical flip
+						$this->flip(2);
+						break;
+					case 5: // vertical flip + 90 rotate right
+						$this->flip(2);
+						$this->rotate(90);
+						break;
+					case 6: // 90 rotate right
+						$this->rotate(90);
+						break;
+					case 7: // horizontal flip + 90 rotate right
+						$this->flip(1);
+						$this->rotate(90);
+						break;
+					case 8: // 90 rotate left
+						$this->rotate(-90);
+						break;
+				}
+			}
+
+			unset($orientation);
 
 			return $this;
 		} catch(\Exception $exception) {
@@ -533,6 +585,42 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	}
 
 	/**
+	 * Method to rotate the image clockwise
+	 *
+	 * @param int $angle
+	 *
+	 * @return object
+	 *
+	 * @throw \InvalidArgumentException
+	 * @throw \RuntimeException
+	 */
+	public function rotate($angle) {
+		if(($result = \Glue\Helper\validator::batch(array(
+			'$angle'   => array($angle, 'isNumeric')
+		))) !== true) {
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+		}
+
+		try {
+			// process
+				$angle = 360 - $angle;
+
+				$this->temporary['images']['final'] = imagerotate($this->image, $angle, -1);
+
+				imagealphablending($this->temporary['images']['final'], false);
+				imagesavealpha($this->temporary['images']['final'], true);
+
+				$this->_set($this->temporary['images']['final'], imagesx($this->temporary['images']['final']), imagesy($this->temporary['images']['final']));
+
+				unset($degrees, $result);
+
+			return $this;
+		} catch(\Exception $exception) {
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+		}
+	}
+
+	/**
 	 * Method to flip the image around x- or y-axes
 	 *
 	 * axes = 1: flip around x-axes
@@ -586,7 +674,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 						break;
 				}
 
-				$this->_set($temp);
+				$this->_set($this->temporary['images']['final']);
 
 			unset($axes, $result);
 

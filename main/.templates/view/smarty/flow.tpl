@@ -3,8 +3,8 @@
 {block name=content}
 	<article>
 		<hgroup>
-			<h6>Subline</h6>
-			<h1>Headline</h1>
+			<h6>Application flow</h6>
+			<h1>The order of things</h1>
 		</hgroup>
 
 		<p>

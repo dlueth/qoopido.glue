@@ -45,6 +45,9 @@ final class Request extends \Glue\Abstracts\Base\Singleton {
 		try {
 			global $_PUT, $_DELETE;
 
+			//echo '<pre>' . print_r($_REQUEST, true) . '</pre>';
+			//die();
+
 			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.adapter.view.render.pre');
 
 			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_WRITE);

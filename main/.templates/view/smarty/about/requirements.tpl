@@ -46,7 +46,7 @@
 		<h5>Optional requirements</h5>
 		<ul>
 			<li>Apache modules: mod_rewrite, mod_deflate</li>
-			<li>PHP extensions: apc <sup>1</sup>, curl <sup>1</sup>, fileinfo, gd <sup>1, 2</sup>, iconv, mcrypt <sup>1</sup>, pdo <sup>3</sup>, session, zlib</li>
+			<li>PHP extensions: apc <sup>1</sup>, curl <sup>1</sup>, fileinfo, gd <sup>1, 2</sup>, iconv, mcrypt <sup>1</sup>, pdo <sup>3</sup>, session, zlib, exif</li>
 		</ul>
 
 		<h5>Additional recommendations</h5>

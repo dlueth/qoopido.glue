@@ -136,6 +136,7 @@ class Form {
 					$this->sent = false;
 
 					foreach($this->elements as $element) {
+						//echo '=> ' . $element->name . ': ' . $element->sent . '<br />';
 						if($element->sent !== false) {
 							$this->sent = true;
 							break;
