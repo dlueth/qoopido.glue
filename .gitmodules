@@ -1,0 +1,3 @@
+[submodule "main/js/qoopido-jquery"]
+	path = main/js/qoopido-jquery
+	url = https://dlueth@github.com/dlueth/Qoopido-jQuery.git

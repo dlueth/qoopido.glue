@@ -21,10 +21,7 @@
 	<link rel="icon" href="{url}img/favicon.png{/url}" />
 	<link rel="apple-touch-icon" href="{url}img/favicon.png{/url}" type="image/png" />
 
-	{*yui*}
-		<link rel="stylesheet" media="all" href="{url}css/general.css{/url}" />
-	{*/yui*}
-
+	<link rel="stylesheet" media="all" href="{url}css/general.css{/url}" />
 	{block name=css}{/block}
 
 	<!--[if lt IE 9]>
@@ -43,15 +40,15 @@
 		}
 	</script>
 
-	{*yui*}
-		<script type="text/javascript" src="{url}js/qoopido.base.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.listener.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.function.quid.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.emerge.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido.jquery.plugin.lazyimage.js{/url}"></script>
+	{uglify}
+		<script type="text/javascript" src="{url}js/qoopido-jquery/qoopido.base.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido-jquery/extensions/qoopido.jquery.listener.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido-jquery/functions/qoopido.jquery.function.quid.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido-jquery/plugins/qoopido.jquery.plugin.emerge.js{/url}"></script>
+		<script type="text/javascript" src="{url}js/qoopido-jquery/plugins/qoopido.jquery.plugin.lazyimage.js{/url}"></script>
 		<script type="text/javascript" src="{url}js/general.js{/url}"></script>
-	{*/yui*}
-
+		{block name=uglify}{/block}
+	{/uglify}
 	{block name=js}{/block}
 </head>
 <body>

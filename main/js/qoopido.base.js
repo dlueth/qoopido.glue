@@ -1,1 +1,0 @@
-/Users/dlueth/Sites/qoopido.jquery/qoopido.base.js

@@ -1,1 +1,0 @@
-/Users/dlueth/Sites/qoopido.jquery/plugins/qoopido.jquery.plugin.emerge.js

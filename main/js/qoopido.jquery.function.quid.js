@@ -1,1 +1,0 @@
-/Users/dlueth/Sites/qoopido.jquery/functions/qoopido.jquery.function.quid.js
