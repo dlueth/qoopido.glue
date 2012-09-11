@@ -2,13 +2,13 @@
 namespace Glue\Helper;
 
 /**
- * Helper for YUI compressor
+ * Helper for Uglify js-compressor
  *
  * @require PHP "CURL" extension or "allow_url_fopen = On" in php.ini
  *
  * @author Dirk Lüth <dirk@qoopido.de>
  */
-class Yui {
+class Uglify {
 	/**
 	 * Property to store presence of CURL
 	 */
@@ -34,7 +34,7 @@ class Yui {
 	}
 
 	/**
-	 * Method to compress a string via YUI
+	 * Method to compress a string via Uglify webservice
 	 *
 	 * @param string $type
 	 * @param string $source
@@ -44,9 +44,8 @@ class Yui {
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function compress($type, $source) {
+	public static function compress( $source) {
 		if(($result = \Glue\Helper\validator::batch(array(
-			'$type'        => array($type, 'isString', array('matchesPattern', array('^css|js$'))),
 			'$source'      => array($source, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
@@ -54,20 +53,13 @@ class Yui {
 
 		try {
 			$return = false;
-			$type   = strtolower($type);
 			$source = trim($source);
 
 			if(empty($source)) {
 				return false;
 			}
 
-			$url  = 'http://refresh-sf.com/yui/';
-			$type = strtoupper($type);
-			$data = http_build_query(array(
-				'compresstext' => $source,
-				'type'         => $type,
-				'redirect'     => '1'
-			));
+			$url  = 'http://marijnhaverbeke.nl/uglifyjs';
 
 			if(self::$curl === true) {
 				$curl    = \Glue\Modules\Curl::getInstance();
@@ -79,29 +71,29 @@ class Yui {
 					CURLOPT_HEADER         => false,
 					CURLOPT_FOLLOWLOCATION => true,
 					CURLOPT_MAXREDIRS      => 10,
-					CURLOPT_POSTFIELDS     => $data
+					CURLOPT_POSTFIELDS     => 'js_code=' . urlencode($source)
 				));
 
 				$request = $curl->add($request);
 
-				$return = $request->response;
+				$return = $request->response . ';';
 
 				unset($curl, $request);
 			} elseif(self::$urlfopen === true) {
 				$options = array('http' => array(
 					'method'  => 'POST',
 					'header'  => 'Content-type: application/x-www-form-urlencoded',
-					'content' => $data
+					'content' => 'js_code=' . urlencode($source)
 				));
 
 				$context = stream_context_create($options);
 
-				$return = @file_get_contents($url, false, $context);
+				$return = @file_get_contents($url, false, $context) . ';';
 
 				unset($options, $context);
 			}
 
-			unset($type, $source, $result, $url, $data);
+			unset($type, $source, $result, $url);
 
 			return $return;
 		} catch(\Exception $exception) {
