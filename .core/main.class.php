@@ -227,14 +227,7 @@ namespace Glue {
 
 			$view->register('core', $this);
 
-			try {
-				$content = $view->render();
-			} catch(\Exception $exception) {
-				header('HTTP/1.0 404 Not Found');
-				exit();
-			}
-
-			$content = \Glue\Helper\Modifier::convertCharset($content);
+			$content = \Glue\Helper\Modifier::convertCharset($view->render());
 
 			$dispatcher->notify(new \Glue\Event('glue.core.render.post', array(&$content)));
 

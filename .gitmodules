@@ -1,3 +1,6 @@
 [submodule "main/js/qoopido-jquery"]
 	path = main/js/qoopido-jquery
 	url = https://dlueth@github.com/dlueth/Qoopido-jQuery.git
+[submodule ".core/libraries/haanga"]
+	path = .core/libraries/haanga
+	url = git://github.com/crodas/Haanga.git

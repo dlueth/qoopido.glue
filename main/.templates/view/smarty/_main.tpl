@@ -40,13 +40,9 @@
 		}
 	</script>
 
+	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/qoopido.library.min.js{/url}"></script>
+	<script type="text/javascript" src="{url}js/general.js{/url}"></script>
 	{uglify}
-		<script type="text/javascript" src="{url}js/qoopido-jquery/qoopido.base.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido-jquery/extensions/qoopido.jquery.listener.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido-jquery/functions/qoopido.jquery.function.quid.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido-jquery/plugins/qoopido.jquery.plugin.emerge.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/qoopido-jquery/plugins/qoopido.jquery.plugin.lazyimage.js{/url}"></script>
-		<script type="text/javascript" src="{url}js/general.js{/url}"></script>
 		{block name=uglify}{/block}
 	{/uglify}
 	{block name=js}{/block}

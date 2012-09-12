@@ -5,9 +5,6 @@ class Forms extends \Glue\Controller\General {
 	protected function __initialize() {
 		parent::__initialize();
 
-		//echo '=> ' . $this->environment->get('path.local') . '<br />';
-		//die();
-
 		// initialize a new form (parameters: id, method)
 			$form = new \Glue\Objects\Form('example', 'post');
 
