@@ -16,7 +16,7 @@ class Smarty extends \Glue\Abstracts\Handler\View {
 		try {
 			$environment = self::$environment->get();
 
-			require_once($environment['path']['global'] . '/.core/libraries/smarty/Smarty.class.php');
+			require_once($environment['path']['global'] . '/.core/libraries/smarty/distribution/libs/Smarty.class.php');
 
 			// set directories
 				$directories              = array();

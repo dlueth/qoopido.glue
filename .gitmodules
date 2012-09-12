@@ -4,3 +4,6 @@
 [submodule ".core/libraries/haanga"]
 	path = .core/libraries/haanga
 	url = git://github.com/crodas/Haanga.git
+[submodule ".core/libraries/smarty"]
+	path = .core/libraries/smarty
+	url = git://github.com/cebe/smarty.git
