@@ -220,6 +220,30 @@ abstract class Element {
 	}
 
 	/**
+	 * Magic method for checking the existance of unkown or restricted properties
+	 *
+	 * @param string $property
+	 *
+	 * @return bool
+	 */
+	final public function __isset($property) {
+		switch($property) {
+			case 'id';
+			case 'name';
+			case 'type';
+			case 'value';
+			case 'sent';
+			case 'errors';
+			case 'valid':
+				return true;
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
+
+	/**
 	 * Magic mathod to set restricted properties
 	 *
 	 * @param string $property

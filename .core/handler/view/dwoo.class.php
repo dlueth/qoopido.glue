@@ -17,7 +17,7 @@ class Dwoo extends \Glue\Abstracts\Handler\View {
 			$environment = self::$environment->get();
 			$id          = $environment['theme'] . '/' . $environment['language'] . '/' . $environment['node'];
 
-			require_once($environment['path']['global'] . '/.core/libraries/dwoo/dwooAutoload.php');
+			require_once($environment['path']['global'] . '/.core/libraries/dwoo/lib/dwooAutoload.php');
 
 			// set directories
 				$directories              = array();

@@ -5,7 +5,7 @@
  * File:     block.url.php
  * Purpose:  creates a clean URL
  *
- * Author:   Dirk Lüth <dlskynet@gmx.de>
+ * Author:   Dirk Lüth <info@qoopido.de>
  * Version:  1.0.0
  * Internet: http://www.ministry.de
  *

@@ -5,7 +5,7 @@
  * File:     block.image.php
  * Purpose:  creates thumbnails
  *
- * Author:   Dirk Lüth <dlskynet@gmx.de>
+ * Author:   Dirk Lüth <info@qoopido.de>
  * Version:  1.0.0
  * Internet: http://www.ministry.de
  *
@@ -146,6 +146,8 @@ function smarty_block_image($parameters, $buffer, Smarty_Internal_Template $temp
 							} else {
 								$return = ($_return[1] == 'relative') ? '<img src="' . \Glue\Helper\Url::make($cache->cid) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . $_alt . '" title="' . $_title . '" ' . $_attributes . ' />' : '<img src="' . ($url['relative'] . '/' . \Glue\Helper\Url::make($cache->cid)) . '" width="' . $size[0] . '" height="' . $size[1] . '" alt="' . $_alt . '" title="' . $_title . '" ' . $_attributes . ' />';
 							}
+
+							$return = preg_replace('/\w+=""/i', '', $return);
 
 							unset($size);
 							break;

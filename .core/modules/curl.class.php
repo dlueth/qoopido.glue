@@ -209,7 +209,7 @@ namespace Glue\Objects {
 		}
 
 		/**
-		 * Magic mathod to retrieve restricted properties
+		 * Magic method to retrieve restricted properties
 		 *
 		 * @param string $property
 		 *
@@ -222,11 +222,11 @@ namespace Glue\Objects {
 		}
 
 		/**
-		 * Magic mathod to check existance of restricted properties
+		 * Magic method for checking the existance of unkown or restricted properties
 		 *
 		 * @param string $property
 		 *
-		 * @return mixed
+		 * @return bool
 		 */
 		function __isset($property){
 			$value = self::__get($property);

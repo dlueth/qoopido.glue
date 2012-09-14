@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{$environment.language}">
 <head>
-	<title>{foreach $tree.public.breadcrumb as $node}{if $node.visible == true}{if !$node@first} &rsaquo; {/if}{$node.title}{/if}{/foreach} | Qoopido Glue - rich features, small footprint</title>
+	<title>{foreach $tree.public.breadcrumb node}{if $node.visible == true}{if !$dwoo.foreach.default.first} &rsaquo; {/if}{$node.title}{/if}{/foreach} | Qoopido Glue - rich features, small footprint</title>
 	<meta charset="{$environment.characterset}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
 	<meta name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10.0, initial-scale=1.0, user-scalable=yes" />
@@ -61,7 +61,7 @@
 
 			<nav>
 				<ul>
-					{foreach $tree.public.childnodes as $node}
+					{foreach $tree.public.childnodes node}
 						{if $node.visible == true}
 							{if $node.status == 0}
 								<li><a href="{url scope=global}{$node.slug}{/url}">{$node.title}</a></li>
@@ -79,7 +79,7 @@
 				<nav>
 					<h6>Further topics</h6>
 					<ul>
-						{foreach $tree.public.current.childnodes as $node}
+						{foreach $tree.public.current.childnodes node}
 							{if $node.visible == true}
 								<li><a href="{url scope=global}{$node.slug}{/url}">{$node.title}</a></li>
 							{/if}
@@ -91,7 +91,7 @@
 				<nav>
 					<h6>Further topics</h6>
 					<ul>
-						{foreach $tree.public.current.parent.childnodes as $node}
+						{foreach $tree.public.current.parent.childnodes node}
 							{if $node.visible == true}
 								<li><a href="{url scope=global}{$node.slug}{/url}"{if $node.node == $environment.node} class="active"{/if}>{$node.title}</a></li>
 							{/if}
@@ -107,7 +107,7 @@
 		<footer>
 			<nav>
 				<ul>
-					{foreach $tree.meta.childnodes as $node}
+					{foreach $tree.meta.childnodes node}
 						{if $node.visible == true}
 							<li><a href="{url scope=global}{$node.slug}{/url}">{$node.title}</a></li>
 						{/if}
@@ -116,7 +116,7 @@
 			</nav>
 
 			<section>
-				Qoopido Glue: {$core->version} | {$core->profile.duration|string_format:"%.4f"}s | {$core->profile.memory}
+				Qoopido Glue: {$core->version} | {$core->profile.duration|string_format:'%.4f'}s | {$core->profile.memory}
 			</section>
 		</footer>
 	</div>

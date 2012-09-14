@@ -1,10 +1,10 @@
 jQuery(document).ready(function() {
 	SyntaxHighlighter.autoloader(
-		'php  http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPhp.js',
-		'js jscript javascript  http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js',
-		'css  http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCss.js',
-		'text plain  http://alexgorbatchev.com/pub/sh/current/scripts/shBrushPlain.js',
-		'xml xhtml html  http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js'
+		'php  //alexgorbatchev.com/pub/sh/current/scripts/shBrushPhp.js',
+		'js jscript javascript  //alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js',
+		'css  //alexgorbatchev.com/pub/sh/current/scripts/shBrushCss.js',
+		'text plain  //alexgorbatchev.com/pub/sh/current/scripts/shBrushPlain.js',
+		'xml xhtml html  //alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js'
 	);
 
 	SyntaxHighlighter.defaults['toolbar'] = false;

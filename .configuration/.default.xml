@@ -50,7 +50,7 @@
 	<Adapter>
 		<View>
 			<defaults>
-				<handler>smarty</handler>
+				<handler>dwoo</handler>
 			</defaults>
 		</View>
 	</Adapter>

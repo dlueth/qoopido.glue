@@ -327,8 +327,6 @@ namespace Glue {
 		 * @param string $property
 		 *
 		 * @return mixed
-		 *
-		 * @throw \LogicException
 		 */
 		final public function &__get($property) {
 			switch($property) {
@@ -346,6 +344,26 @@ namespace Glue {
 					$this->profile['files']    = get_included_files();
 
 					return $this->profile;
+					break;
+			}
+		}
+
+		/**
+		 * Magic method for checking the existance of unkown or restricted properties
+		 *
+		 * @param string $property
+		 *
+		 * @return bool
+		 */
+		final public function __isset($property) {
+			switch($property) {
+				case 'path';
+				case 'version';
+				case 'profile':
+					return true;
+					break;
+				default:
+					return false;
 					break;
 			}
 		}

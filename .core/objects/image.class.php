@@ -138,6 +138,25 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	}
 
 	/**
+	 * Magic method for checking the existance of unkown or restricted properties
+	 *
+	 * @param string $property
+	 *
+	 * @return bool
+	 */
+	final public function __isset($property) {
+		switch($property) {
+			case 'width';
+			case 'height':
+				return true;
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
+
+	/**
 	 * Method to load an image from whatever is passed in
 	 *
 	 * @param mixed $image

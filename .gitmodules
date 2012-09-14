@@ -1,9 +1,12 @@
 [submodule "main/js/qoopido-jquery"]
 	path = main/js/qoopido-jquery
 	url = https://dlueth@github.com/dlueth/Qoopido-jQuery.git
-[submodule ".core/libraries/haanga"]
-	path = .core/libraries/haanga
-	url = git://github.com/crodas/Haanga.git
 [submodule ".core/libraries/smarty"]
 	path = .core/libraries/smarty
 	url = git://github.com/cebe/smarty.git
+[submodule ".core/libraries/dwoo"]
+	path = .core/libraries/dwoo
+	url = git://github.com/Seldaek/Dwoo.git
+[submodule "main/css/normalize.css"]
+	path = main/css/normalize.css
+	url = git://github.com/necolas/normalize.css.git

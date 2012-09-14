@@ -109,6 +109,28 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	}
 
 	/**
+	 * Magic method for checking the existance of unkown or restricted properties
+	 *
+	 * @param string $property
+	 *
+	 * @return bool
+	 */
+	final public function __isset($property) {
+		switch($property) {
+			case 'dependencies';
+			case 'cid';
+			case 'lifetime';
+			case 'timestamp';
+			case 'extras':
+				return true;
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
+
+	/**
 	 * Method used to set lifetime
 	 *
 	 * @param string $lifetime [optional]

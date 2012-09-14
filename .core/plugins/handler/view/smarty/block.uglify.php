@@ -5,7 +5,7 @@
  * File:     block.uglify.php
  * Purpose:  compresses and caches js
  *
- * Author:   Dirk Lüth <dlskynet@gmx.de>
+ * Author:   Dirk Lüth <info@qoopido.de>
  * Version:  1.0.0
  * Internet: http://www.ministry.de
  *

@@ -160,6 +160,31 @@ class Form {
 	}
 
 	/**
+	 * Magic method for checking the existance of unkown or restricted properties
+	 *
+	 * @param string $property
+	 *
+	 * @return bool
+	 */
+	final public function __isset($property) {
+		switch($property) {
+			case 'id';
+			case 'method';
+			case 'errors';
+			case 'valid';
+			case 'sent';
+			case 'elements';
+			case 'validator';
+			case 'modifier':
+				return true;
+				break;
+			default:
+				return false;
+				break;
+		}
+	}
+
+	/**
 	 * Method to validate form
 	 *
 	 * @throw \RuntimeException

@@ -38,13 +38,22 @@ final class Event {
 	 * @param string $property
 	 *
 	 * @return mixed
-	 *
-	 * @throw \LogicException
 	 */
 	final public function __get($property) {
 		if(isset($this->$property)) {
 			return $this->$property;
 		}
+	}
+
+	/**
+	 * Magic method for checking the existance of unkown or restricted properties
+	 *
+	 * @param string $property
+	 *
+	 * @return bool
+	 */
+	final public function __isset($property) {
+		return isset($this->$property);
 	}
 }
 ?>
