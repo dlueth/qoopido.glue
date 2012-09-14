@@ -40,7 +40,7 @@
 		}
 	</script>
 
-	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/qoopido.library.min.js{/url}"></script>
+	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/packages/qoopido.lazyimage.min.js{/url}"></script>
 	<script type="text/javascript" src="{url}js/general.js{/url}"></script>
 	{uglify}
 		{block name=uglify}{/block}
