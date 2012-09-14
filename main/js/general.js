@@ -2,6 +2,7 @@
 	'use strict';
 
 	$(document).ready(function() {
+		$.prefetch();
 		$('img[data-lazyimage]').lazyimage();
 	});
 })(jQuery, window, document);

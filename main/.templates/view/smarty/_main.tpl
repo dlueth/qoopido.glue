@@ -20,7 +20,7 @@
 	<link rel="shortcut icon" href="{url}img/favicon.png{/url}" />
 	<link rel="icon" href="{url}img/favicon.png{/url}" />
 	<link rel="apple-touch-icon" href="{url}img/favicon.png{/url}" type="image/png" />
-
+	<link rel=”canonical” href=”{$environment.url.absolute}{$environment.slug}” />
 	<link rel="stylesheet" media="all" href="{url}css/general.css{/url}" />
 	{block name=css}{/block}
 
@@ -40,7 +40,7 @@
 		}
 	</script>
 
-	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/packages/qoopido.lazyimage.min.js{/url}"></script>
+	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/qoopido.library.min.js{/url}"></script>
 	<script type="text/javascript" src="{url}js/general.js{/url}"></script>
 	{uglify}
 		{block name=uglify}{/block}
@@ -64,7 +64,7 @@
 					{foreach $tree.public.childnodes as $node}
 						{if $node.visible == true}
 							{if $node.status == 0}
-								<li><a href="{url scope=global}{$node.slug}{/url}">{$node.title}</a></li>
+								<li><a href="{url scope=global}{$node.slug}{/url}" rel="prefetch">{$node.title}</a></li>
 							{else}
 								<li class="active"><a href="{url scope=global}{$node.slug}{/url}">{$node.title}</a></li>
 							{/if}
