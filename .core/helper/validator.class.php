@@ -11,7 +11,7 @@ namespace Glue\Helper;
 /**
  * Helper for general validator
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Validator {
 	/**
@@ -257,7 +257,7 @@ class Validator {
 					break;
 				case 'object':
 					switch(get_class($value)) {
-						case 'Glue\Objects\File':
+						case 'Glue\Entity\File':
 							$return = ($value->status == UPLOAD_ERR_NO_FILE) ? false : true;
 							break;
 						default:
@@ -297,7 +297,7 @@ class Validator {
 					break;
 				case 'object':
 					switch(get_class($value)) {
-						case 'Glue\Objects\File':
+						case 'Glue\Entity\File':
 							$return = ($value->status == UPLOAD_ERR_NO_FILE) ? true : false;
 							break;
 						default:
@@ -390,7 +390,7 @@ class Validator {
 
 			$return = false;
 
-			$value = strtotime($value, \Glue\Components\Environment::getInstance()->get('time'));
+			$value = strtotime($value, \Glue\Component\Environment::getInstance()->get('time'));
 
 			if($value !== false && $value !== -1) {
 				$return = checkdate(date('m', $value), date('d', $value), date('Y', $value));
@@ -747,9 +747,9 @@ class Validator {
 			static $expression = NULL;
 
 			if($expression === NULL) {
-				if(\Glue\Factory::getInstance()->exists('\Glue\Components\Environment') === true) {
-					$paths    = \Glue\Components\Environment::getInstance()->get('path');
-					$settings = \Glue\Components\Configuration::getInstance()->get(__CLASS__);
+				if(\Glue\Factory::getInstance()->exists('\Glue\Component\Environment') === true) {
+					$paths    = \Glue\Component\Environment::getInstance()->get('path');
+					$settings = \Glue\Component\Configuration::getInstance()->get(__CLASS__);
 
 					if(isset($settings['writeable'])) {
 						$expression = '/^(' . preg_quote($paths['local'], '/') . '|' . preg_quote($paths['global'], '/') . ')\/(?:' . implode('|', array_map('preg_quote', $settings['writeable'], array('/'))) . ')|' . preg_quote(realpath(sys_get_temp_dir()), '/') . '(?:\/.*|)$/';
@@ -806,7 +806,7 @@ class Validator {
 	 *
 	 * @throw \RuntimeException
 	 */
-	public static function isFileUpload(\Glue\Objects\File $file, $status = true) {
+	public static function isFileUpload(\Glue\Entity\File $file, $status = true) {
 		try {
             if(\Glue\Helper\validator::batch(array(
                 '$status' => array($status, 'isBoolean')
@@ -843,7 +843,7 @@ class Validator {
 	 *
 	 * @throw \RuntimeException
 	 */
-	public static function isFileSize(\Glue\Objects\File $file, $min = 0, $max = INF) {
+	public static function isFileSize(\Glue\Entity\File $file, $min = 0, $max = INF) {
 		try {
             if(\Glue\Helper\validator::batch(array(
                 '$min' => array($min, 'isNumeric', array('isGreater', array(0))),
@@ -874,7 +874,7 @@ class Validator {
 	 *
 	 * @throw \RuntimeException
 	 */
-	public static function isMimetype(\Glue\Objects\File $file, $mimetype) {
+	public static function isMimetype(\Glue\Entity\File $file, $mimetype) {
 		try {
             $mimetype = (is_string($mimetype)) ? (array) $mimetype : $mimetype;
 

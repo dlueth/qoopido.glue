@@ -4,7 +4,7 @@ namespace Glue;
 /**
  * Centralized event object
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Event {
 	/**

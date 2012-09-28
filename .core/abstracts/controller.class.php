@@ -4,7 +4,7 @@ namespace Glue\Abstracts;
 /**
  * Abstract controller class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 abstract class Controller extends \Glue\Abstracts\Base {
 	/**
@@ -63,14 +63,14 @@ abstract class Controller extends \Glue\Abstracts\Base {
 
 			$this->dispatcher    = \Glue\Dispatcher::getInstance();
 			$this->factory       = \Glue\Factory::getInstance();
-			$this->configuration = $this->factory->get('\Glue\Components\Configuration');
-			$this->url           = $this->factory->get('\Glue\Components\Url');
-			$this->request       = $this->factory->get('\Glue\Components\Request');
-			$this->client        = $this->factory->get('\Glue\Components\Client');
-			$this->environment   = $this->factory->get('\Glue\Components\Environment');
-			$this->header        = $this->factory->get('\Glue\Components\Header');
-			$this->session       = $this->factory->get('\Glue\Components\Session');
-			$this->view          = $this->factory->get('\Glue\Adapter\View');
+			$this->configuration = $this->factory->get('\Glue\Component\Configuration');
+			$this->url           = $this->factory->get('\Glue\Component\Url');
+			$this->request       = $this->factory->get('\Glue\Component\Request');
+			$this->client        = $this->factory->get('\Glue\Component\Client');
+			$this->environment   = $this->factory->get('\Glue\Component\Environment');
+			$this->header        = $this->factory->get('\Glue\Component\Header');
+			$this->session       = $this->factory->get('\Glue\Component\Session');
+			$this->view          = $this->factory->get('\Glue\Gateway\View');
 
 			if(count($arguments) > 0) {
 				call_user_func_array(array('parent', '__construct'), $arguments);

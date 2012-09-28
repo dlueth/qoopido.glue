@@ -6,7 +6,7 @@ class Databases extends \Glue\Controller\General {
 		parent::__initialize();
 
 		// initialize database
-			$database = $this->factory->load('\Glue\Modules\Database');
+			$database = $this->factory->load('\Glue\Module\Database');
 
 		// directly execute a query
 			$result = $database->execute('SELECT id, title, abstract, published FROM news WHERE published <= :date ORDER BY published DESC LIMIT 25', array('date' => date('Y-m-d')));

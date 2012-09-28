@@ -6,7 +6,7 @@ class Querybuilder extends \Glue\Controller\General {
 		parent::__initialize();
 
 		// a rather complex select query
-			$query = \Glue\Objects\Query\Select::getInstance()
+			$query = \Glue\Entity\Query\Select::getInstance()
 				->addColumn('id, category, title, abstract, published')
 				->addFrom('news')
 				->addWhere('category = :category', array('category' => 25))
@@ -14,7 +14,7 @@ class Querybuilder extends \Glue\Controller\General {
 				->limit(25);
 
 		// another (simple) query
-			$subquery = \Glue\Objects\Query\Select::getInstance()
+			$subquery = \Glue\Entity\Query\Select::getInstance()
 				->addColumn('id')
 				->addFrom('published')
 				->addWhere('published = :state', array('state' => true));
@@ -23,8 +23,8 @@ class Querybuilder extends \Glue\Controller\General {
 			$query->addWhere('id IN (:subquery)', array('subquery' => $subquery));
 
 		// an update query using an expression
-			$query = \Glue\Objects\Query\Update::getInstance()
-				->addValue(array('views' => new \Glue\Objects\Query\Expression('(views + 1)')))
+			$query = \Glue\Entity\Query\Update::getInstance()
+				->addValue(array('views' => new \Glue\Entity\Query\Expression('(views + 1)')))
 				->in('news')
 				->addWhere('id = :id', array('id' => 5));
 
@@ -32,7 +32,7 @@ class Querybuilder extends \Glue\Controller\General {
 			$query = $query->build();
 
 		// initialize database
-			$database = $this->factory->load('\Glue\Modules\Database');
+			$database = $this->factory->load('\Glue\Module\Database');
 
 		// execute the query
 			$result = $database->execute($query->sql, $query->bindings);

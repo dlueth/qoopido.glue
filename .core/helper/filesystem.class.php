@@ -8,7 +8,7 @@ namespace Glue\Helper;
  * @require PHP "mime_content_type" function for getMimetype()
  * @require PHP.ini setting "mime_magic.magicfile" for getMimetype()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Filesystem {
 	/**

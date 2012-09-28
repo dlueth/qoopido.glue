@@ -7,13 +7,13 @@ namespace Glue;
  * @event glue.factory.load.pre(string $classname, string $instancename) > load()
  * @event glue.factory.load.post(string $classname, string $instancename) > load()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Factory extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Private property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -24,7 +24,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 	 */
 	final protected function __initialize() {
 		try {
-			$this->registry = new \Glue\Objects\Registry($this);
+			$this->registry = new \Glue\Entity\Registry($this);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -45,7 +45,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 	final public function &load($classname, $arguments = NULL, $instancename = NULL) {
 		$instancename = ($instancename === NULL) ? $classname : $instancename;
 
-		if(($instance = $this->registry->get($instancename)) !== NULL && is_subclass_of($instance, '\Glue\Abstracts\Base\Singleton')) {
+		if(($instance = $this->registry->get($instancename)) !== NULL && is_subclass_of($instance, '\Glue\Abstract\Base\Singleton')) {
 			throw new \LogicException(\Glue\Helper\General::replace(array('class' => $classname), EXCEPTION_CLASS_SINGLETON));
 		}
 

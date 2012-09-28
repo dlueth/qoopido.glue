@@ -4,7 +4,7 @@ namespace Glue\Abstracts;
 /**
  * Abstract base class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 abstract class Base {
 	/**

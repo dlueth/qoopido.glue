@@ -6,7 +6,7 @@ namespace Glue;
  *
  * @require PHP "SIMPLEXML" extension
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Dispatcher extends \Glue\Abstracts\Base\Singleton {
 	/**
@@ -52,6 +52,7 @@ final class Dispatcher extends \Glue\Abstracts\Base\Singleton {
 	 *
 	 * @param object $callback
 	 * @param string $events
+	 * @param bool $once
 	 *
 	 * @return bool
 	 *

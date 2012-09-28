@@ -6,7 +6,7 @@ namespace Glue\Helper;
  *
  * @require PHP "MCRYPT" extension
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Cryptology {
 	/**

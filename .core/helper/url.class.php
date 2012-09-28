@@ -4,7 +4,7 @@ namespace Glue\Helper;
 /**
   * General helper for urls
   *
-  * @author Dirk Lüth <dirk@qoopido.de>
+  * @author Dirk Lüth <info@qoopido.de>
   */
 class Url {
 	/**
@@ -24,8 +24,8 @@ class Url {
 	 */
 	public static function __once() {
 		try {
-			self::$environment = \Glue\Components\Environment::getInstance();
-			self::$url         = \Glue\Components\Url::getInstance();
+			self::$environment = \Glue\Component\Environment::getInstance();
+			self::$url         = \Glue\Component\Url::getInstance();
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -129,7 +129,7 @@ class Url {
 	 *
 	 * @throw \RuntimeException
 	 */
-	public static function redirect($url, $scope = 'auto', $parameters = array(), $anchor = false) {
+	public static function redirect($url, $scope = 'global', $parameters = array(), $anchor = false) {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$url'        => array($url, 'isString'),
 			'$scope'      => array($scope, 'isString', array('matchesPattern', array('^global|local$'))),

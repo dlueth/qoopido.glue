@@ -6,7 +6,7 @@ namespace Glue\Helper;
  *
  * @require PHP "CURL" extension or "allow_url_fopen = On" in php.ini
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Uglify {
 	/**
@@ -36,7 +36,6 @@ class Uglify {
 	/**
 	 * Method to compress a string via Uglify webservice
 	 *
-	 * @param string $type
 	 * @param string $source
 	 *
 	 * @return string
@@ -44,7 +43,7 @@ class Uglify {
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function compress( $source) {
+	public static function compress($source) {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$source'      => array($source, 'isString')
 		))) !== true) {
@@ -62,7 +61,7 @@ class Uglify {
 			$url  = 'http://marijnhaverbeke.nl/uglifyjs';
 
 			if(self::$curl === true) {
-				$curl    = \Glue\Modules\Curl::getInstance();
+				$curl    = \Glue\Module\Curl::getInstance();
 				$request = curl_init($url);
 
 				curl_setopt_array($request, array(

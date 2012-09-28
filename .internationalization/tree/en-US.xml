@@ -41,17 +41,17 @@
 			<childnodes node="components">
 				<title>Components</title>
 			</childnodes>
+			<childnodes node="gateways">
+				<title>Gateways</title>
+			</childnodes>
 			<childnodes node="adapter">
 				<title>Adapter</title>
-			</childnodes>
-			<childnodes node="handler">
-				<title>Handler</title>
 			</childnodes>
 			<childnodes node="modules">
 				<title>Modules</title>
 			</childnodes>
-			<childnodes node="objects">
-				<title>Objects</title>
+			<childnodes node="entities">
+				<title>Entities</title>
 			</childnodes>
 			<childnodes node="listener">
 				<title>Listener</title>

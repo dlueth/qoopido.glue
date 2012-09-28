@@ -4,7 +4,7 @@ namespace Glue\Helper;
 /**
   * General helper class to generate RFC UUIDs
   *
-  * @author Dirk Lüth <dirk@qoopido.de>
+  * @author Dirk Lüth <info@qoopido.de>
   */
 class Uuid {
 	const NS_DNS     = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
@@ -45,7 +45,7 @@ class Uuid {
 	 * Method to generate a UUID, version 3 (Name-based, md5)
 	 *
 	 * @param string $namespace
-	 * @paramstring $name
+	 * @param string $name
 	 *
 	 * @return string
 	 *
@@ -116,7 +116,7 @@ class Uuid {
 	 * Method to generate a UUID, version 5 (Name-based, sha1)
 	 *
 	 * @param string $namespace
-	 * @paramstring $name
+	 * @param string $name
 	 *
 	 * @return string
 	 *

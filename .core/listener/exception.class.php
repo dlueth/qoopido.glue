@@ -7,7 +7,7 @@ namespace Glue\Listener;
  * @listen glue.exception > handleException()
  * @listen glue.error > handleException()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Exception extends \Glue\Abstracts\Base  {
 	/**
@@ -44,8 +44,8 @@ class Exception extends \Glue\Abstracts\Base  {
 	 * @param object $exception
 	 */
 	public function handleException(\Glue\Event $event, $exception) {
-		if(\Glue\Factory::getInstance()->exists('\Glue\Components\Environment') === true) {
-			$configuration = \Glue\Helper\General::merge(array('display' => false, 'file' => true), (array) \Glue\Components\Configuration::getInstance()->get(__CLASS__));
+		if(\Glue\Factory::getInstance()->exists('\Glue\Component\Environment') === true) {
+			$configuration = \Glue\Helper\General::merge(array('display' => false, 'file' => true), (array) \Glue\Component\Configuration::getInstance()->get(__CLASS__));
 		} else {
 			$configuration = array('display' => true, 'file' => true);
 		}

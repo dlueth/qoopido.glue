@@ -7,7 +7,7 @@ namespace Glue\Helper;
  * @require PHP "MBSTRING" extension for convertCharset() and transliterate()
  * @require PHP "ICONV" extension for transliterate()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Modifier {
 	/**
@@ -184,7 +184,7 @@ class Modifier {
 
 		try {
 			if($characterset === NULL) {
-				$characterset = \Glue\Components\Environment::getInstance()->get('characterset');
+				$characterset = \Glue\Component\Environment::getInstance()->get('characterset');
 			}
 
 			$return =  (mb_check_encoding($value, $characterset) === true) ? $value : mb_convert_encoding($value, $characterset);
@@ -254,7 +254,7 @@ class Modifier {
 
 		try {
 			if($characterset === NULL) {
-				$characterset = \Glue\Components\Environment::getInstance()->get('characterset');
+				$characterset = \Glue\Component\Environment::getInstance()->get('characterset');
 			}
 
 			$return = iconv(mb_detect_encoding($value, NULL, true), $characterset . '//IGNORE//TRANSLIT', trim($value));

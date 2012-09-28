@@ -6,7 +6,7 @@ class Forms extends \Glue\Controller\General {
 		parent::__initialize();
 
 		// initialize a new form (parameters: id, method)
-			$form = new \Glue\Objects\Form('example', 'post');
+			$form = new \Glue\Entity\Form('example', 'post');
 
 		// populate the form with some fields (parameters: id, type, required)
 			$firstname = $form->register('firstname', 'textfield', true)

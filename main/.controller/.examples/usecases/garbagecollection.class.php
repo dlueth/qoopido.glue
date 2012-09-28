@@ -6,7 +6,7 @@ class Garbagecollection extends \Glue\Controller\General {
 		parent::__initialize();
 
 		// initialize garbage collection
-			$this->factory->load('\Glue\Modules\Garbagecollection');
+			$this->factory->load('\Glue\Module\Garbagecollection');
 	}
 }
 ?>

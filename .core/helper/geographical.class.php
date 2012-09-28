@@ -4,7 +4,7 @@ namespace Glue\Helper;
 /**
  * Helper for general geographical operations
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Geographical {
 	const METHOD_CIRCLE        = 1;

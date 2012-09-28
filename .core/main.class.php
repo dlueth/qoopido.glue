@@ -49,7 +49,7 @@ namespace {
 	 */
 	const EXCEPTION_CLASS_INITIALIZE   = '{class}: failed to initialize';
 	const EXCEPTION_CLASS_SINGLETON    = '{class}: singleton already initialized';
-	const EXCEPTION_CLASS_CONTROLLER   = '{class}: controller must extend \Glue\Abstracts\Controller';
+	const EXCEPTION_CLASS_CONTROLLER   = '{class}: controller must extend \Glue\Abstract\Controller';
 	const EXCEPTION_METHOD_FAILED      = '{method}: failed unexpectedly';
 	const EXCEPTION_METHOD_PERMISSIONS = '{method}: insufficient permissions';
 	const EXCEPTION_METHOD_CONTEXT     = '{method}: unavailable in context';
@@ -88,23 +88,23 @@ namespace Glue {
 	 * @event glue.core.output.pre()
 	 * @event glue.core.output.post()
 	 *
-	 * @author Dirk Lüth <dirk@qoopido.de>
+	 * @author Dirk Lüth <info@qoopido.de>
 	 *
-	 * @todo Implement "\Glue\Objects\Cache\Sqlite"
+	 * @todo Implement "\Glue\Entity\Cache\Sqlite"
 	 * @todo Implement database session storage
-	 * @todo "\Glue\Objects\Image": check caman.js for additional features to implement
-	 * @todo "\Glue\Objects\Image": check caman.js for preset features
-	 * @todo "\Glue\Handler\View\Xml": Implement handling for array and string data (general check)
-	 * @todo "\Glue\Objects\Form\Elements": Implement new exception concept
-	 * @todo "\Glue\Objects\Query": Implement new exception concept
-	 * @todo "\Glue\Objects\Query\Insert": Implement support for "ON DUPLICATE KEY UPDATE"
-	 * @todo "\Glue\Objects\Query\Select": Implement support for "UNION"
+	 * @todo "\Glue\Entity\Image": check caman.js for additional features to implement
+	 * @todo "\Glue\Entity\Image": check caman.js for preset features
+	 * @todo "\Glue\Adapter\View\Xml": Implement handling for array and string data (general check)
+	 * @todo "\Glue\Entity\Form\Elements": Implement new exception concept
+	 * @todo "\Glue\Entity\Query": Implement new exception concept
+	 * @todo "\Glue\Entity\Query\Insert": Implement support for "ON DUPLICATE KEY UPDATE"
+	 * @todo "\Glue\Entity\Query\Select": Implement support for "UNION"
 	 */
 	final class Core {
 		/**
 		 * Version
 		 */
-		const VERSION = '0.9.9';
+		const VERSION = '1.0.0';
 
 		/**
 		 * Private property to store core path information
@@ -155,21 +155,21 @@ namespace Glue {
 				$factory->register($this);
 
 				// initialize error/exception handling
-				$factory->load('\Glue\Components\Exception');
+				$factory->load('\Glue\Component\Exception');
 				$factory->load('\Glue\Listener\Exception', $this->path);
 
 				// initialize core components
-				$configuration = $factory->load('\Glue\Components\Configuration');
-				$url           = $factory->load('\Glue\Components\Url');
-				$request       = $factory->load('\Glue\Components\Request');
-				if($configuration->get('Components.Routing.@attributes.enabled') === true) {
-					$routing   = $factory->load('\Glue\Components\Routing');
+				$configuration = $factory->load('\Glue\Component\Configuration');
+				$url           = $factory->load('\Glue\Component\Url');
+				$request       = $factory->load('\Glue\Component\Request');
+				if($configuration->get('Component.Routing.@attributes.enabled') === true) {
+					$routing   = $factory->load('\Glue\Component\Routing');
 				}
-				$client        = $factory->load('\Glue\Components\Client');
-				$environment   = $factory->load('\Glue\Components\Environment');
-				$header        = $factory->load('\Glue\Components\Header');
-				if($configuration->get('Components.Session.@attributes.enabled') === true) {
-					$session   = $factory->load('\Glue\Components\Session');
+				$client        = $factory->load('\Glue\Component\Client');
+				$environment   = $factory->load('\Glue\Component\Environment');
+				$header        = $factory->load('\Glue\Component\Header');
+				if($configuration->get('Component.Session.@attributes.enabled') === true) {
+					$session   = $factory->load('\Glue\Component\Session');
 				}
 			} catch(\Exception $exception) {
 				throw new \CoreException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
@@ -184,9 +184,9 @@ namespace Glue {
 				$id = $this->path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . $environment->get('theme') . '/' . $environment->get('language') . '/' . sha1(serialize(array($environment->get('node'), $compression)));
 
 				if(extension_loaded('apc') === true) {
-					$cache = \Glue\Objects\Cache\Apc::getInstance($id);
+					$cache = \Glue\Entity\Cache\Apc::getInstance($id);
 				} else {
-					$cache = \Glue\Objects\Cache\File::getInstance($id);
+					$cache = \Glue\Entity\Cache\File::getInstance($id);
 				}
 
 				if(($content = $cache->get()) !== false) {
@@ -212,8 +212,8 @@ namespace Glue {
 				}
 			}
 
-			// load view adapter
-			$view = $factory->load('\Glue\Adapter\View');
+			// load view gateway
+			$view = $factory->load('\Glue\Gateway\View');
 
 			// run controller
 			$controller = $environment->get('controller');

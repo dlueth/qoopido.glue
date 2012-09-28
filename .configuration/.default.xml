@@ -5,7 +5,7 @@
 			<lifetime>+1 day</lifetime>
 		</cache>
 	</Core>
-	<Components>
+	<Component>
 		<Url>
 			<identifier>
 				<switches>!</switches>
@@ -46,16 +46,19 @@
 				<path>../../sessions</path>
 			</directory>
 		</Session>
-	</Components>
-	<Adapter>
+	</Component>
+	<Gateway>
 		<View>
 			<defaults>
-				<handler>dwoo</handler>
+				<adapter>dwoo</adapter>
 			</defaults>
 		</View>
-	</Adapter>
-	<Handler>
+	</Gateway>
+	<Adapter>
 		<View>
+			<Dwoo>
+				<mimetype>text/html</mimetype>
+			</Dwoo>
 			<Smarty>
 				<mimetype>text/html</mimetype>
 			</Smarty>
@@ -66,8 +69,8 @@
 				<mimetype>application/xml</mimetype>
 			</Xml>
 		</View>
-	</Handler>
-	<Modules>
+	</Adapter>
+	<Module>
 		<Database>
 			<type>mysql</type>
 			<hostname>localhost</hostname>
@@ -83,7 +86,7 @@
 			<directory>cache</directory>
 			<directory>.cache</directory>
 		</Garbagecollection>
-	</Modules>
+	</Module>
 	<Listener>
 		<Exception>
 			<display>true</display>

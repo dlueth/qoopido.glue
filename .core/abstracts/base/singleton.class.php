@@ -4,7 +4,7 @@ namespace Glue\Abstracts\Base;
 /**
  * Abstract singleton class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 abstract class Singleton extends \Glue\Abstracts\Base {
 	/**

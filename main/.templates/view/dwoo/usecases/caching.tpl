@@ -16,7 +16,7 @@
 		</p>
 
 		<p>
-			Qoopido Glue comes with built-in cache objects which try to avoid such drawbacks and offer other means instead. There currently are cache objects for filesystem and APC caches which are totally interchangeable from the developers point of view. The framework components for configuration and server use either APC or filesystem caches to store there processed information. Language and tree module do the same for their processed files.
+			Qoopido Glue comes with built-in cache entities which try to avoid such drawbacks and offer other means instead. There currently are cache entities for filesystem and APC caches which are totally interchangeable from the developers point of view. The framework components for configuration and server use either APC or filesystem caches to store there processed information. Language and tree module do the same for their processed files.
 		</p>
 
 		<section>
@@ -38,7 +38,7 @@
 			$id = $this->environment->get('path.local) . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize($files));
 
 			// initialize cache and set dependencies to local files
-			$cache = \Glue\Objects\Cache\File::getInstance($id)
+			$cache = \Glue\Entity\Cache\File::getInstance($id)
 				->setDependencies($files);
 
 			// try to fetch content of cache
@@ -66,22 +66,22 @@
 			...
 
 			// take the last example...
-			$cache = \Glue\Objects\Cache\File::getInstance($id)
+			$cache = \Glue\Entity\Cache\File::getInstance($id)
 				->setDependencies($files);
 
 			// ... and change it to
-			$cache = \Glue\Objects\Cache\File::getInstance($id)
+			$cache = \Glue\Entity\Cache\File::getInstance($id)
 				->setDependencies($files)
 				->setComparator(sha1($_SERVER['DOCUMENT_ROOT']));
 
 			// ... and for those missing a lifetime
-			$cache = \Glue\Objects\Cache\File::getInstance($id)
+			$cache = \Glue\Entity\Cache\File::getInstance($id)
 				->setLifetime(strtotime('+1 hour'))
 				->setDependencies($files)
 				->setComparator(sha1($_SERVER['DOCUMENT_ROOT']));
 
 			// ... and even more funky stuff
-			$cache = \Glue\Objects\Cache\File::getInstance($id)
+			$cache = \Glue\Entity\Cache\File::getInstance($id)
 				->setReload(true)
 				->setLifetime(strtotime('+1 hour'))
 				->setDependencies($files)
@@ -90,7 +90,7 @@
 			]]></script>
 
 			<p>
-				The last example shows one of the special features of Qoopido Glue as it also focuses on correct handling of request and response headers and offers ways to behave accordingly. "reload" is a flag stored in the client component which represents if the user did a forced/hard or a soft reload. Cache objects can be enabled to react on this flag invalidating themselves when a user forces a hard reload.
+				The last example shows one of the special features of Qoopido Glue as it also focuses on correct handling of request and response headers and offers ways to behave accordingly. "reload" is a flag stored in the client component which represents if the user did a forced/hard or a soft reload. Cache entities can be enabled to react on this flag invalidating themselves when a user forces a hard reload.
 			</p>
 		</section>
 	</article>
