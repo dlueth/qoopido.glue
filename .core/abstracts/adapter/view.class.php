@@ -1,11 +1,11 @@
 <?php
-namespace Glue\Abstracts\Handler;
+namespace Glue\Abstracts\Adapter;
 
 /**
  * Abstract view handler class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-abstract class View extends \Glue\Abstracts\Handler implements \Glue\Interfaces\Handler\View {
+abstract class View extends \Glue\Abstracts\Adapter implements \Glue\Interfaces\Adapter\View {
 }
 ?>

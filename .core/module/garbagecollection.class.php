@@ -7,7 +7,7 @@ namespace Glue\Module;
  * @event glue.module.garbagecollection.process.pre() > process()
  * @event glue.module.garbagecollection.process.post(array $files) > process()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Garbagecollection extends \Glue\Abstracts\Base {
 	/**

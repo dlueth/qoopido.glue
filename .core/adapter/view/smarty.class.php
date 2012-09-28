@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Handler\View;
+namespace Glue\Adapter\View;
 
 /**
- * View handler for Smarty
+ * View adapter for Smarty
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Smarty extends \Glue\Abstracts\Handler\View {
+class Smarty extends \Glue\Abstracts\Adapter\View {
 	/**
 	 * Method to fetch the view's output
 	 *
@@ -23,9 +23,9 @@ class Smarty extends \Glue\Abstracts\Handler\View {
 				$directories['cache']     = \Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.cache/' . strtolower(__CLASS__)) . '/cache';
 				$directories['compile']   = \Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.cache/' . strtolower(__CLASS__)) . '/compile';
 				$directories['plugins']   = array(
-					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.core/plugins/handler/view/smarty'),
-					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.custom/plugins/handler/view/smarty'),
-					\Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.custom/plugins/handler/view/smarty'),
+					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.core/plugins/adapter/view/smarty'),
+					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.custom/plugins/adapter/view/smarty'),
+					\Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.custom/plugins/adapter/view/smarty'),
 				);
 				$directories['templates'] = array(
 					$environment['path']['local'] . '/.templates/view/smarty/' . $environment['theme'] . '/' . $environment['language'] . '/',
@@ -60,7 +60,7 @@ class Smarty extends \Glue\Abstracts\Handler\View {
 			$smarty->setCompileDir($directories['compile']);
 			$smarty->setCacheDir($directories['cache']);
 
-			$smarty->assign($this->adapter->get());
+			$smarty->assign($this->gateway->get());
 
 			$template = $this->template . '.tpl';
 			$return   = $smarty->fetch($template);

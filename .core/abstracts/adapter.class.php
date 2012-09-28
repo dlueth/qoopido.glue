@@ -2,15 +2,15 @@
 namespace Glue\Abstracts;
 
 /**
- * Abstract handler class
+ * Abstract adapter class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-abstract class Handler extends \Glue\Abstracts\Base {
+abstract class Adapter extends \Glue\Abstracts\Base {
 	/**
-	 * Property to provide adapter
+	 * Property to provide gateway
 	 */
-	protected $adapter = NULL;
+	protected $gateway = NULL;
 
 	/**
 	 * Property to provide environment
@@ -24,7 +24,7 @@ abstract class Handler extends \Glue\Abstracts\Base {
 	 */
 	public static function __once() {
 		try {
-			self::$environment = \Glue\Components\Environment::getInstance();
+			self::$environment = \Glue\Component\Environment::getInstance();
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -33,16 +33,16 @@ abstract class Handler extends \Glue\Abstracts\Base {
 	/**
 	 * Class constructor
 	 *
-	 * @param object $adapter
+	 * @param object $gateway
 	 *
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	final public function __construct(\Glue\Abstracts\Adapter &$adapter) {
+	final public function __construct(\Glue\Abstracts\Gateway &$gateway) {
 		try {
 			$arguments = func_get_args();
 
-			$this->adapter =& $adapter;
+			$this->gateway =& $gateway;
 
 			if(count($arguments) > 0) {
 				call_user_func_array(array('parent', '__construct'), $arguments);
@@ -50,7 +50,7 @@ abstract class Handler extends \Glue\Abstracts\Base {
 				parent::__construct();
 			}
 
-			unset($adapter, $arguments);
+			unset($gateway, $arguments);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}

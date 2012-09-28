@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Object;
+namespace Glue\Entity;
 
 /**
- * Object for form handling
+ * Entity for form handling
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Form {
 	/**
@@ -238,7 +238,7 @@ class Form {
 			$return = false;
 
 			if(!isset($this->elements[$id])) {
-				$classname = '\Glue\Object\Form\Elements\\' . ucfirst($type);
+				$classname = '\Glue\Entity\Form\Elements\\' . ucfirst($type);
 
 				$this->elements[$id] = new $classname($id, $type, $this);
 

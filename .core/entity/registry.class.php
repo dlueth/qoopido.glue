@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Object;
+namespace Glue\Entity;
 
 /**
- * Object providing registry capabilities
+ * Entity providing registry capabilities
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Registry {
 	const PERMISSION_OWNER             = 0;

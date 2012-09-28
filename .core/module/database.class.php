@@ -9,7 +9,7 @@ namespace Glue\Module;
  * @event glue.module.database.connect.pre() > connect()
  * @event glue.module.database.connect.post() > connect()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Database extends \Glue\Abstracts\Base {
 	/**

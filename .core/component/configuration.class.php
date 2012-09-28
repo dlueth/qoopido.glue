@@ -6,12 +6,12 @@ namespace Glue\Component;
  *
  * @require PHP "SIMPLEXML" extension
  *
- * @event glue.components.configuration.load.pre(array $files) > load()
- * @event glue.components.configuration.load.post(array $files, array $data) > load()
+ * @event glue.component.configuration.load.pre(array $files) > load()
+ * @event glue.component.configuration.load.post(array $files, array $data) > load()
  *
- * @listen glue.gateways.view.render.pre > onPreRender()
+ * @listen glue.gateway.view.render.pre > onPreRender()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Configuration extends \Glue\Abstracts\Base\Singleton {
 	/**
@@ -24,7 +24,7 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -32,7 +32,7 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 	 * Event listener
 	 */
 	final public function onPreRender() {
-		\Glue\Factory::getInstance()->get('\Glue\Gateways\View')->register('configuration', $this->registry->get());
+		\Glue\Factory::getInstance()->get('\Glue\Gateway\View')->register('configuration', $this->registry->get());
 	}
 
 	/**
@@ -49,15 +49,13 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Class constructor
 	 *
-	 * @param array $path
-	 *
 	 * @throw \RuntimeException
 	 */
 	final protected function __initialize() {
 		try {
-			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.adapter.view.render.pre');
+			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateway.view.render.pre');
 
-			$this->registry =  new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_READ);
+			$this->registry =  new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
 
 			$path =& \Glue\Factory::getInstance()->get('\Glue\Core')->path;
 
@@ -70,9 +68,9 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 			$id = $path['global'] . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize($files));
 
 			if(extension_loaded('apc') === true) {
-				$cache = \Glue\Objects\Cache\Apc::getInstance($id);
+				$cache = \Glue\Entity\Cache\Apc::getInstance($id);
 			} else {
-				$cache = \Glue\Objects\Cache\File::getInstance($id);
+				$cache = \Glue\Entity\Cache\File::getInstance($id);
 			}
 
 			$cache->setDependencies($files);

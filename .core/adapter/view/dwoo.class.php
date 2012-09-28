@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Handler\View;
+namespace Glue\Adapter\View;
 
 /**
- * View handler for Dwoo
+ * View adapter for Dwoo
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Dwoo extends \Glue\Abstracts\Handler\View {
+class Dwoo extends \Glue\Abstracts\Adapter\View {
 	/**
 	 * Method to fetch the view's output
 	 *
@@ -24,9 +24,9 @@ class Dwoo extends \Glue\Abstracts\Handler\View {
 				$directories['cache']     = \Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.cache/' . strtolower(__CLASS__)) . '/cache';
 				$directories['compile']   = \Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.cache/' . strtolower(__CLASS__)) . '/compile';
 				$directories['plugins']   = array(
-					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.core/plugins/handler/view/dwoo'),
-					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.custom/plugins/handler/view/dwoo'),
-					\Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.custom/plugins/handler/view/dwoo'),
+					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.core/plugins/adapter/view/dwoo'),
+					\Glue\Helper\Modifier::cleanPath($environment['path']['global'] . '/.custom/plugins/adapter/view/dwoo'),
+					\Glue\Helper\Modifier::cleanPath($environment['path']['local'] . '/.custom/plugins/adapter/view/dwoo'),
 				);
 				$directories['templates'] = array(
 					$environment['path']['local'] . '/.templates/view/dwoo/' . $environment['theme'] . '/' . $environment['language'] . '/',
@@ -58,10 +58,9 @@ class Dwoo extends \Glue\Abstracts\Handler\View {
 				}
 			}
 
-			$template = $this->template . '.tpl';
-			$template = new \Dwoo_Template_File($template, NULL, $id, $id, $directories['templates']);
+			$template = new \Dwoo_Template_File($this->template . '.tpl', NULL, $id, $id, $directories['templates']);
 
-			$return = $dwoo->get($template, $this->adapter->get());
+			$return = $dwoo->get($template, $this->gateway->get());
 
 			unset($environment, $id, $directories, $dwoo, $loader, $template);
 

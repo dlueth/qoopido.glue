@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Handler\View;
+namespace Glue\Adapter\View;
 
 /**
- * View handler for JSON
+ * View adapter for JSON
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Json extends \Glue\Abstracts\Handler\View {
+class Json extends \Glue\Abstracts\Adapter\View {
 	/**
 	 * Method to fetch the view's output
 	 *
@@ -14,7 +14,7 @@ class Json extends \Glue\Abstracts\Handler\View {
 	 */
 	public function fetch() {
 		try {
-			return @json_encode($this->adapter->get('data'));
+			return @json_encode($this->gateway->get('data'));
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}

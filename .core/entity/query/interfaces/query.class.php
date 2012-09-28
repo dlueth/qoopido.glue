@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Object\Query\Interfaces;
+namespace Glue\Entity\Query\Interfaces;
 
 /**
  * Interface for all queries
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 interface Query {
 	public function build();

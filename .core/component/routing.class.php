@@ -4,7 +4,7 @@ namespace Glue\Component;
 /**
  * Component to handle routing
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Routing extends \Glue\Abstracts\Base\Singleton {
 	/**
@@ -30,9 +30,9 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 				$id = $path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize($language));
 
 				if(extension_loaded('apc') === true) {
-					$cache = \Glue\Objects\Cache\Apc::getInstance($id);
+					$cache = \Glue\Entity\Cache\Apc::getInstance($id);
 				} else {
-					$cache = \Glue\Objects\Cache\File::getInstance($id);
+					$cache = \Glue\Entity\Cache\File::getInstance($id);
 				}
 
 				$cache->setDependencies($dependencies);
@@ -116,6 +116,7 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 	 * Method to parse tree
 	 *
 	 * @param array $tree
+	 * @param array $parent [optional]
 	 *
 	 * @return array
 	 *

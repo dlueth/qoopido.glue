@@ -1,13 +1,13 @@
 <?php
-namespace Glue\Object\Form\Elements;
+namespace Glue\Entity\Form\Elements;
 
 /**
  * form element file
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class File extends \Glue\Object\Form\Abstracts\Element {
-	public function __construct($id, $type, \Glue\Object\Form &$form) {
+class File extends \Glue\Entity\Form\Abstracts\Element {
+	public function __construct($id, $type, \Glue\Entity\Form &$form) {
 		call_user_func_array('parent::__construct', func_get_args());
 
 		$this->value = \Glue\Component\Request::getInstance()->get('files.' . $this->form->id . '.' . $this->id);
@@ -27,7 +27,7 @@ class File extends \Glue\Object\Form\Abstracts\Element {
 	 * @param string $property
 	 * @param object $value
 	 */
-	public function __set($property, \Glue\Object\File $value) {
+	public function __set($property, \Glue\Entity\File $value) {
 		switch($property) {
 			case 'value':
 				$this->valid = NULL;

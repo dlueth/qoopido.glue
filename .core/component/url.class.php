@@ -4,13 +4,13 @@ namespace Glue\Component;
 /**
  * Component for url handling
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Url extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Private property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -25,7 +25,7 @@ final class Url extends \Glue\Abstracts\Base\Singleton {
 			$configuration = \Glue\Component\Configuration::getInstance();
 			$settings      =  $configuration->get(__CLASS__);
 
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_READ);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
 
 			$this->registry->register('switches', array());
 

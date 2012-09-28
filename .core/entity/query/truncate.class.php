@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Object\Query;
+namespace Glue\Entity\Query;
 
 /**
  * Class for building truncate queries
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-final class Truncate extends \Glue\Object\Query\Abstracts\Query {
+final class Truncate extends \Glue\Entity\Query\Abstracts\Query {
 	/**
 	 * Sets a table
 	 *

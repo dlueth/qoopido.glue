@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Object\Query\Abstracts;
+namespace Glue\Entity\Query\Abstracts;
 
 /**
  * Abstract base class for all queries
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-abstract class Query extends \Glue\Abstracts\Base\Chainable implements \Glue\Object\Query\Interfaces\Query {
+abstract class Query extends \Glue\Abstracts\Base\Chainable implements \Glue\Entity\Query\Interfaces\Query {
 	/**
 	 * Protected property to store table information
 	 */

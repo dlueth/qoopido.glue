@@ -5,15 +5,15 @@ namespace Glue\Component;
  * Component for client/visitor abstraction
  *
 
- * @listen glue.gateways.view.render.pre > onPreRender()
+ * @listen glue.gateway.view.render.pre > onPreRender()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Client extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Private property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -21,7 +21,7 @@ final class Client extends \Glue\Abstracts\Base\Singleton {
 	 * Event listener
 	 */
 	final public function onPreRender() {
-		\Glue\Factory::getInstance()->get('\Glue\Gateways\View')->register('client', $this->registry->get());
+		\Glue\Factory::getInstance()->get('\Glue\Gateway\View')->register('client', $this->registry->get());
 	}
 
 	/**
@@ -31,9 +31,9 @@ final class Client extends \Glue\Abstracts\Base\Singleton {
 	 */
 	final protected function __initialize() {
 		try {
-			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateways.view.render.pre');
+			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateway.view.render.pre');
 
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_READ);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
 
 			$data                           = array();
 			$data['reload']                 = (isset($_SERVER['HTTP_CACHE_CONTROL']) && preg_match('/max-age=0|no-cache/i', $_SERVER['HTTP_CACHE_CONTROL'])) ? true : false;

@@ -1,11 +1,11 @@
 <?php
-namespace Glue\Object\Form\Elements;
+namespace Glue\Entity\Form\Elements;
 
 /**
  * form element hidden
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Hidden extends \Glue\Object\Form\Abstracts\Element {
+class Hidden extends \Glue\Entity\Form\Abstracts\Element {
 }
 ?>

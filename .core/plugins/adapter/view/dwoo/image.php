@@ -32,15 +32,15 @@ class Dwoo_Plugin_image extends Dwoo_Block_Plugin {
 
 	public function init($return = 'path:absolute', $lazy = NULL, $alt = NULL, $title = NULL, $directory = NULL, $interlace = NULL, $quality = NULL, $filter = NULL, array $rest = array()) {
 		if(self::$methods === NULL) {
-			self::$methods = array_flip(get_class_methods('\Glue\Objects\Image'));
+			self::$methods = array_flip(get_class_methods('\Glue\Entity\Image'));
 		}
 
 		if(self::$path === NULL) {
-			self::$path = \Glue\Components\Environment::getInstance()->get('path');
+			self::$path = \Glue\Component\Environment::getInstance()->get('path');
 		}
 
 		if(self::$url === NULL) {
-			self::$url = \Glue\Components\Environment::getInstance()->get('url');
+			self::$url = \Glue\Component\Environment::getInstance()->get('url');
 		}
 
 		$this->return     = (!isset($return)) ? 'path:absolute' : preg_replace('/^(path|url|tag)$/', '\1:relative', strtolower($return));
@@ -59,7 +59,7 @@ class Dwoo_Plugin_image extends Dwoo_Block_Plugin {
 				$_name = preg_replace('/\d*$/i', '', $name);
 
 				if(isset(self::$methods[$_name])) {
-					$reflection = new ReflectionMethod('\Glue\Objects\Image', $_name);
+					$reflection = new ReflectionMethod('\Glue\Entity\Image', $_name);
 
 					if($reflection->isPublic() === true && $reflection->isConstructor() === false && $reflection->isDestructor() === false) {
 						$index = count($this->calls);
@@ -102,14 +102,14 @@ class Dwoo_Plugin_image extends Dwoo_Block_Plugin {
 		$return = false;
 
 		$id     = (empty($_directory)) ? self::$path['local'] . '/cache/image/' . sha1(serialize(array($this->buffer, $this->interlace, $this->quality, $this->filter, $this->calls))) . '.png' : self::$path['local'] . '/cache/img/' . $_directory . '/' . sha1(serialize(array($this->buffer, $this->interlace, $this->quality, $this->filter, $this->calls))) . '.png';
-		$cache  = \Glue\Objects\Cache\File::getInstance($id)->setMode('raw');
+		$cache  = \Glue\Entity\Cache\File::getInstance($id)->setMode('raw');
 
 		if(\Glue\Helper\Validator::isLocal($this->buffer)) {
 			$cache->setDependencies(self::$path['global'] . '/' . $this->buffer);
 		}
 
 		if(($data = $cache->get()) === false) {
-			$image = new \Glue\Objects\Image($this->buffer);
+			$image = new \Glue\Entity\Image($this->buffer);
 
 			foreach($this->calls as $call) {
 				if(isset($call->parameters)) {

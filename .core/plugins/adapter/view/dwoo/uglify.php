@@ -17,8 +17,8 @@ class Dwoo_Plugin_uglify extends Dwoo_Block_Plugin {
 	private $path, $url, $files, $source;
 
 	public function init() {
-		$this->path        = \Glue\Components\Environment::getInstance()->get('path');
-		$this->url         = \Glue\Components\Environment::getInstance()->get('url');
+		$this->path        = \Glue\Component\Environment::getInstance()->get('path');
+		$this->url         = \Glue\Component\Environment::getInstance()->get('url');
 		$this->files       = array();
 		$this->source      = array();
 		$this->return      = array();
@@ -34,13 +34,13 @@ class Dwoo_Plugin_uglify extends Dwoo_Block_Plugin {
 		}
 
 		if(count($this->files) > 0) {
-			$cache = \Glue\Objects\Cache\File::getInstance($this->path['local'] . '/cache/uglify/' . sha1(implode(';', $this->files)) . '.js')
+			$cache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/uglify/' . sha1(implode(';', $this->files)) . '.js')
 				->setMode('raw')
 				->setDependencies($this->files);
 
 			if($cache->get() === false) {
 				foreach($this->files as $file) {
-					$fcache = \Glue\Objects\Cache\File::getInstance($this->path['local'] . '/cache/uglify/.src/' . sha1($file) . '.js')
+					$fcache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/uglify/.src/' . sha1($file) . '.js')
 						->setMode('raw')
 						->setDependencies($file);
 

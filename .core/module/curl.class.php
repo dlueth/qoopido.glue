@@ -5,7 +5,7 @@ namespace Glue\Module {
 	 *
 	 * @require PHP "CURL" extension
 	 *
-	 * @author Dirk Lüth <dirk@qoopido.de>
+	 * @author Dirk Lüth <info@qoopido.de>
 	 *
 	 * @credits https://github.com/jmathai/php-multi-curl
 	 */
@@ -94,7 +94,7 @@ namespace Glue\Module {
 						$this->status = curl_multi_exec($this->curl, $this->running);
 					} while($this->status === CURLM_CALL_MULTI_PERFORM);
 
-					return new \Glue\Objects\Curlrequest($key, $this);
+					return new \Glue\Entity\Curlrequest($key, $this);
 				}
 
 				return $status;
@@ -188,9 +188,9 @@ namespace Glue\Module {
 /**
  * Object for curl request handling
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-namespace Glue\Objects {
+namespace Glue\Entity {
 	class Curlrequest {
 		protected $key    = NULL;
 		protected $module = NULL;

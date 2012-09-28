@@ -1,15 +1,15 @@
 <?php
-namespace Glue\Object;
+namespace Glue\Entity;
 
 /**
- * Object for image manipulation
+ * Entity for image manipulation
  *
  * @require PHP "GD" extension
  * @require PHP "imageconvolution" function for sharpen() and blur()
  * @require PHP "CURL" extension or "allow_url_fopen = On" for load([remote file])
  * @require PHP "Exif" extension to read correct orientation from JPEG
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Image extends \Glue\Abstracts\Base\Chainable {
 	/**

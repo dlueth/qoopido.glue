@@ -1,17 +1,17 @@
 <?php
-namespace Glue\Object\Cache;
+namespace Glue\Entity\Cache;
 
 /**
  * Cache class for APC
  *
  * @require PHP "APC" extension
  *
- * @event glue.objects.cache.hit.apc(string $cid, mixed $data) > get()
- * @event glue.objects.cache.miss.apc(string $cid) > get()
+ * @event glue.entity.cache.hit.apc(string $cid, mixed $data) > get()
+ * @event glue.entity.cache.miss.apc(string $cid) > get()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-final class Apc extends \Glue\Object\Cache\Abstracts\Base {
+final class Apc extends \Glue\Entity\Cache\Abstracts\Base {
 	/**
 	 * Static, once only constructor
 	 *

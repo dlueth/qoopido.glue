@@ -1,15 +1,15 @@
 <?php
-namespace Glue\Object\Cache;
+namespace Glue\Entity\Cache;
 
 /**
  * Cache class for files
  *
- * @event glue.objects.cache.hit.file(string $cid, mixed $data) > get()
- * @event glue.objects.cache.miss.file(string $cid) > get()
+ * @event glue.entity.cache.hit.file(string $cid, mixed $data) > get()
+ * @event glue.entity.cache.miss.file(string $cid) > get()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-final class File extends \Glue\Object\Cache\Abstracts\Base {
+final class File extends \Glue\Entity\Cache\Abstracts\Base {
 	/**
 	 * Property to store mode
 	 */

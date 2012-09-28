@@ -4,13 +4,13 @@ namespace Glue\Component;
 /**
  * Component for header abstraction
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Header extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Private property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 	
@@ -21,7 +21,7 @@ final class Header extends \Glue\Abstracts\Base\Singleton {
 	 */
 	final protected function __initialize() {
 		try {
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_WRITE);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_WRITE);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}

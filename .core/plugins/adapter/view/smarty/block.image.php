@@ -20,15 +20,15 @@ function smarty_block_image($parameters, $buffer, Smarty_Internal_Template $temp
 		static $url     = NULL;
 
 		if($methods === NULL) {
-			$methods = array_flip(get_class_methods('\Glue\Objects\Image'));
+			$methods = array_flip(get_class_methods('\Glue\Entity\Image'));
 		}
 
 		if($path === NULL) {
-			$path = \Glue\Components\Environment::getInstance()->get('path');
+			$path = \Glue\Component\Environment::getInstance()->get('path');
 		}
 
 		if($url === NULL) {
-			$url = \Glue\Components\Environment::getInstance()->get('url');
+			$url = \Glue\Component\Environment::getInstance()->get('url');
 		}
 
 		$return      = false;
@@ -58,7 +58,7 @@ function smarty_block_image($parameters, $buffer, Smarty_Internal_Template $temp
 				$_name = preg_replace('/\d*$/i', '', $name);
 
 				if(isset($methods[$_name])) {
-					$reflection = new ReflectionMethod('\Glue\Objects\Image', $_name);
+					$reflection = new ReflectionMethod('\Glue\Entity\Image', $_name);
 
 					if($reflection->isPublic() === true && $reflection->isConstructor() === false && $reflection->isDestructor() === false) {
 						$index = count($_calls);
@@ -100,14 +100,14 @@ function smarty_block_image($parameters, $buffer, Smarty_Internal_Template $temp
 
 		// process
 			$id    = (empty($_directory)) ? $path['local'] . '/cache/image/' . sha1(serialize(array($buffer, $_interlace, $_quality, $_filter, $_calls))) . '.png' : $path['local'] . '/cache/img/' . $_directory . '/' . sha1(serialize(array($buffer, $_interlace, $_quality, $_filter, $_calls))) . '.png';
-			$cache = \Glue\Objects\Cache\File::getInstance($id)->setMode('raw');
+			$cache = \Glue\Entity\Cache\File::getInstance($id)->setMode('raw');
 
 			if(\Glue\Helper\Validator::isLocal($buffer)) {
 				$cache->setDependencies($path['global'] . '/' . $buffer);
 			}
 
 			if(($data = $cache->get()) === false) {
-				$image = new \Glue\Objects\Image($buffer);
+				$image = new \Glue\Entity\Image($buffer);
 
 				foreach($_calls as $call) {
 					if(isset($call->parameters)) {

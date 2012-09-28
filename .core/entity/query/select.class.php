@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Object\Query;
+namespace Glue\Entity\Query;
 
 /**
  * Class for building select queries
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Select extends \Glue\Object\Query\Abstracts\Query {
+class Select extends \Glue\Entity\Query\Abstracts\Query {
 	/**
 	 * Sets a column or columns
 	 *

@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Interfaces\Handler;
+namespace Glue\Interfaces\Adapter;
 
 /**
- * Interface for all view handler
+ * Interface for all view adapter
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 interface View {
 	/**

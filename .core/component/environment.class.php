@@ -6,15 +6,15 @@ namespace Glue\Component;
  *
  * @require PHP "ZLIB" extension [optional]
  *
- * @listen glue.gateways.view.render.pre > onPreRender()
+ * @listen glue.gateway.view.render.pre > onPreRender()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Environment extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Private property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -22,7 +22,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 	 * Event listener
 	 */
 	final public function onPreRender() {
-		\Glue\Factory::getInstance()->get('\Glue\Gateways\View')->register('environment', $this->registry->get());
+		\Glue\Factory::getInstance()->get('\Glue\Gateway\View')->register('environment', $this->registry->get());
 	}
 
 	/**
@@ -33,9 +33,9 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 	 */
 	final protected function __initialize() {
 		try {
-			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateways.view.render.pre');
+			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateway.view.render.pre');
 
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_READ | \Glue\Objects\Registry::PERMISSION_SET);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ | \Glue\Entity\Registry::PERMISSION_SET);
 
 			$settings = \Glue\Component\Configuration::getInstance()->get(__CLASS__);
 			$url      = \Glue\Component\Url::getInstance();

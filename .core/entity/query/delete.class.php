@@ -1,12 +1,12 @@
 <?php
-namespace Glue\Object\Query;
+namespace Glue\Entity\Query;
 
 /**
  * Class for building delete queries
  * 
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-final class Delete extends \Glue\Object\Query\Abstracts\Query {
+final class Delete extends \Glue\Entity\Query\Abstracts\Query {
 	/**
 	 * Sets a table
 	 * 
@@ -210,7 +210,7 @@ final class Delete extends \Glue\Object\Query\Abstracts\Query {
 		$return->sql = preg_replace('/(([^\s]+) = :{BINDING})/', '\2 = :\2', $return->sql);
 		
 		foreach($return->bindings as $binding => $parameter) {
-			if(is_object($parameter) && get_class($parameter) === 'Glue\Object\Query\Expression') {
+			if(is_object($parameter) && get_class($parameter) === 'Glue\Entity\Query\Expression') {
 				$return->sql = preg_replace('/:' . $binding . '(?!\w)/', (string) $parameter, $return->sql);
 				unset($return->bindings[$binding]);
 			}

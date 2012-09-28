@@ -9,7 +9,7 @@ namespace Glue\Module;
  * @event glue.module.language.apply.pre(array $data) > apply()
  * @event glue.module.language.apply.post(array $data) > apply()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class Language extends \Glue\Abstracts\Base {
 	/**
@@ -40,7 +40,7 @@ class Language extends \Glue\Abstracts\Base {
 	 */
 	protected function __initialize() {
 		try {
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_WRITE ^ \Glue\Objects\Registry::PERMISSION_UNREGISTER);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_WRITE ^ \Glue\Entity\Registry::PERMISSION_UNREGISTER);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -123,9 +123,9 @@ class Language extends \Glue\Abstracts\Base {
 			$id = self::$path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize($language));
 
 			if(extension_loaded('apc') === true) {
-				$cache = \Glue\Objects\Cache\Apc::getInstance($id);
+				$cache = \Glue\Entity\Cache\Apc::getInstance($id);
 			} else {
-				$cache = \Glue\Objects\Cache\File::getInstance($id);
+				$cache = \Glue\Entity\Cache\File::getInstance($id);
 			}
 
 			$cache->setDependencies($dependencies);

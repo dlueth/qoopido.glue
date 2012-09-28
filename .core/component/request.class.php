@@ -6,15 +6,15 @@ namespace Glue\Component;
  *
  * @require PHP "SIMPLEXML" extension
  *
- * @listen glue.gateways.view.render.pre > onPreRender()
+ * @listen glue.gateway.view.render.pre > onPreRender()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Request extends \Glue\Abstracts\Base\Singleton {
 	/**
 	 * Private property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -22,7 +22,7 @@ final class Request extends \Glue\Abstracts\Base\Singleton {
 	 * Event listener
 	 */
 	final public function onPreRender() {
-		\Glue\Factory::getInstance()->get('\Glue\Gateways\View')->register('request', $this->registry->get());
+		\Glue\Factory::getInstance()->get('\Glue\Gateway\View')->register('request', $this->registry->get());
 	}
 
 	/**
@@ -48,9 +48,9 @@ final class Request extends \Glue\Abstracts\Base\Singleton {
 			//echo '<pre>' . print_r($_REQUEST, true) . '</pre>';
 			//die();
 
-			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateways.view.render.pre');
+			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateway.view.render.pre');
 
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_WRITE);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_WRITE);
 
 			$method   = (isset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'])) ? strtoupper($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']) : strtoupper($_SERVER['REQUEST_METHOD']);
 
@@ -116,7 +116,7 @@ final class Request extends \Glue\Abstracts\Base\Singleton {
 			$files = $this->_prepareFiles($node, new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><files></files>'));
 
 			foreach($files as $k => $v) {
-				$this->registry->registerReference($k, new \Glue\Objects\File($v['tmp_name'], $v['name'], $v['type'], $v['size'], $v['error']));
+				$this->registry->registerReference($k, new \Glue\Entity\File($v['tmp_name'], $v['name'], $v['type'], $v['size'], $v['error']));
 			}
 
 			$return = $this->registry->getReference('files');

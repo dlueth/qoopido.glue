@@ -1,15 +1,15 @@
 <?php
-namespace Glue\Handler\View;
+namespace Glue\Adapter\View;
 
 /**
- * View handler for XML
+ * View adapter for XML
  *
  * @require PHP "SIMPLEXML" extension
  * @require PHP "LIBXML" extension
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Xml extends \Glue\Abstracts\Handler\View {
+class Xml extends \Glue\Abstracts\Adapter\View {
 	/**
 	 * Static, once only constructor
 	 *
@@ -32,7 +32,7 @@ class Xml extends \Glue\Abstracts\Handler\View {
 	 */
 	public function fetch() {
 		try {
-			$data = $this->adapter->get('data');
+			$data = $this->gateway->get('data');
 
 			if(is_object($data)) {
 				switch(get_class($data)) {

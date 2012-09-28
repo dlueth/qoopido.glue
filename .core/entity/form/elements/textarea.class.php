@@ -1,11 +1,11 @@
 <?php
-namespace Glue\Object\Form\Elements;
+namespace Glue\Entity\Form\Elements;
 
 /**
  * form element textarea
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Textarea extends \Glue\Object\Form\Abstracts\Element {
+class Textarea extends \Glue\Entity\Form\Abstracts\Element {
 }
 ?>

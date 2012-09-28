@@ -19,11 +19,11 @@ function smarty_block_uglify($parameters, $buffer, Smarty_Internal_Template $tem
 		static $url  = NULL;
 
 		if($path === NULL) {
-			$path = \Glue\Components\Environment::getInstance()->get('path');
+			$path = \Glue\Component\Environment::getInstance()->get('path');
 		}
 
 		if($url === NULL) {
-			$url = \Glue\Components\Environment::getInstance()->get('url');
+			$url = \Glue\Component\Environment::getInstance()->get('url');
 		}
 
 		$files       = array();
@@ -39,13 +39,13 @@ function smarty_block_uglify($parameters, $buffer, Smarty_Internal_Template $tem
 		}
 
 		if(count($files) > 0) {
-			$cache = \Glue\Objects\Cache\File::getInstance($path['local'] . '/cache/uglify/' . sha1(implode(';', $files)) . '.js')
+			$cache = \Glue\Entity\Cache\File::getInstance($path['local'] . '/cache/uglify/' . sha1(implode(';', $files)) . '.js')
 				->setMode('raw')
 				->setDependencies($files);
 
 			if($cache->get() === false) {
 				foreach($files as $file) {
-					$fcache = \Glue\Objects\Cache\File::getInstance($path['local'] . '/cache/uglify/.src/' . sha1($file) . '.js')
+					$fcache = \Glue\Entity\Cache\File::getInstance($path['local'] . '/cache/uglify/.src/' . sha1($file) . '.js')
 						->setMode('raw')
 						->setDependencies($file);
 

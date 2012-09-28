@@ -1,11 +1,11 @@
 <?php
-namespace Glue\Object\Form\Elements;
+namespace Glue\Entity\Form\Elements;
 
 /**
  * form element radiobutton
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-class Radiobutton extends \Glue\Object\Form\Abstracts\Element {
+class Radiobutton extends \Glue\Entity\Form\Abstracts\Element {
 }
 ?>

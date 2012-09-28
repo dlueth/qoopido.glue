@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Object;
+namespace Glue\Entity;
 
 /**
- * Object for unified access to uploadedfiles
+ * Entity for unified access to uploaded files
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 class File {
 	/**

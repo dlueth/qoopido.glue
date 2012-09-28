@@ -4,16 +4,16 @@ namespace Glue\Gateway;
 /**
  * View gateway
  *
- * @event glue.adapters.view.render.pre(string $handler) > render()
- * @event glue.adapters.view.render.post(string $handler, string &$content) > render()
+ * @event glue.gateway.view.render.pre(string $handler) > render()
+ * @event glue.gateway.view.render.post(string $handler, string &$content) > render()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class View extends \Glue\Abstracts\Gateway {
 	/**
 	 * Property to provide registry
 	 *
-	 * @object \Glue\Objects\Registry
+	 * @object \Glue\Entity\Registry
 	 */
 	private $registry = NULL;
 
@@ -38,7 +38,7 @@ final class View extends \Glue\Abstracts\Gateway {
 	 */
 	protected function __initialize() {
 		try {
-			$this->registry = new \Glue\Objects\Registry($this, \Glue\Objects\Registry::PERMISSION_READ | \Glue\Objects\Registry::PERMISSION_REGISTER);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ | \Glue\Entity\Registry::PERMISSION_REGISTER);
 
 			$this->setAdapter(\Glue\Component\Configuration::getInstance()->get(__CLASS__ . '.defaults.adapter'));
 		} catch(\Exception $exception) {
@@ -157,6 +157,7 @@ final class View extends \Glue\Abstracts\Gateway {
 
 			return $return;
 		} catch(\Exception $exception) {
+			$this->dispatcher->notify(new \Glue\Event($this->id . '.render.error', array($exception)));
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}

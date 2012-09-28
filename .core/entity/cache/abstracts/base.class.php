@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Object\Cache\Abstracts;
+namespace Glue\Entity\Cache\Abstracts;
 
 /**
  * Abstract cache class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	/**

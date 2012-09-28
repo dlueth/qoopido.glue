@@ -2,10 +2,10 @@
 namespace Glue\Abstracts;
 
 /**
- * Abstract for all adapter
+ * Abstract for all gateways
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-abstract class Adapter extends \Glue\Abstracts\Base implements \Glue\Interfaces\Adapter {
+abstract class Gateway extends \Glue\Abstracts\Base implements \Glue\Interfaces\Gateway {
 }
 ?>

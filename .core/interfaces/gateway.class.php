@@ -2,16 +2,16 @@
 namespace Glue\Interfaces;
 
 /**
- * Interface for all adapter
+ * Interface for all gateways
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
-interface Adapter {
+interface Gateway {
 	/**
-	 * Method to set handler for the adapter
+	 * Method to set an adapter for the gateway
 	 *
-	 * @param string $handler
+	 * @param string $adapter
 	 */
-	public function setHandler($handler);
+	public function setAdapter($adapter);
 }
 ?>

@@ -22,7 +22,7 @@ namespace Glue\Component;
  * @event glue.error.user.deprecated(ErrorException $exception) > handleError()
  * @event glue.error.recoverable.error(ErrorException $exception) > handleError()
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 final class Exception extends \Glue\Abstracts\Base\Singleton {
 	/**

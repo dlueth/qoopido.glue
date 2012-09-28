@@ -1,10 +1,10 @@
 <?php
-namespace Glue\Object\Form\Abstracts;
+namespace Glue\Entity\Form\Abstracts;
 
 /**
  * Abstract form element class
  *
- * @author Dirk Lüth <dirk@qoopido.de>
+ * @author Dirk Lüth <info@qoopido.de>
  */
 abstract class Element {
 	/**
@@ -70,7 +70,7 @@ abstract class Element {
 	 * @param string $type
 	 * @param object $form
 	 */
-	public function __construct($id, $type, \Glue\Object\Form &$form) {
+	public function __construct($id, $type, \Glue\Entity\Form &$form) {
 		$this->id    =  $id;
 		$this->name  =  $form->id . '[' . $id . ']';
 		$this->type  =  $type;
