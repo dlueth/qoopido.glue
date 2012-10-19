@@ -3,16 +3,20 @@
 {block name=content}
 	<article>
 		<hgroup>
-			<h6>Subline</h6>
-			<h1>Headline</h1>
+			<h6>Continued abstraction</h6>
+			<h1>Gateways to the world</h1>
 		</hgroup>
 
 		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae velit et enim euismod tristique. Donec vulputate tempor blandit. Aliquam nisl est, ornare ac malesuada id, pellentesque sed nisi. Nam id volutpat dolor. Quisque eget mi risus. Cras placerat nisi a nulla scelerisque nec scelerisque magna porttitor. In tortor tortor, placerat tempus ultrices et, porta eget erat. Quisque facilisis, eros porta convallis rutrum, felis dolor suscipit metus, eu rutrum lectus felis non diam. Aenean nec nibh quis ante mollis lacinia. Sed suscipit, nisi et faucibus molestie, erat leo viverra sapien, in placerat lectus eros vitae mi. Vestibulum ut massa enim, volutpat laoreet enim. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eleifend facilisis lectus sed malesuada. Aenean sed laoreet ipsum.
+			Gateways are used to provide a unified and adapter independent access to certain functions. At the time of this writing only one view gateway exists in Qoopido Glue, but more might be developed in the future.
 		</p>
 
 		<p>
-			Nulla facilisi. Vivamus pulvinar lacinia mi, ut congue lacus adipiscing sed. Quisque mollis suscipit lorem. Mauris purus ipsum, ultricies eu ornare non, tempor ac massa. In neque ante, imperdiet ut pulvinar vitae, pulvinar pellentesque felis. Duis ac aliquam est. Nulla facilisi. In id dolor eget risus adipiscing varius nec eget tortor. Vestibulum mauris lorem, ultricies a eleifend quis, molestie sit amet lectus. Curabitur mattis ipsum vel mi volutpat tempor at a tortor. Morbi magna felis, consectetur vel placerat at, aliquam sit amet ipsum. Nunc quis nibh mauris. Ut venenatis, erat ac mattis vestibulum, dolor nisi vehicula turpis, vel accumsan enim ligula ut eros.
+			In contrast to a simple interface a gateway takes abstraction one step further. Where an interface needs to be implemented by an adapter which will be directly instantiated a gateway will only instantiate the adapter at the very last stage. So the adapter might be changed at any time without having to re-process what you would normally have passed to the adapter directly.
+		</p>
+
+		<p>
+			Taking the view gateway as the only one currently provided as an example you can e.g. pass data to the view at any stage in any controller and change the view adapter later without having to re-assign the data passed.
 		</p>
 	</article>
 {/block}

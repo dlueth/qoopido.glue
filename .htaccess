@@ -2,15 +2,16 @@ DirectoryIndex index.php
 Options -Indexes
 Options +FollowSymLinks
 
+# AddType application/json .shrunk # shrinkimage
+# AddType application/javascript .shrunk.jsonp # shrinkimage
+AddType text/cache-manifest .manifest # offline caching
+
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	RewriteBase /
 
 	# protect files/directories with a leading "."
 	RewriteRule ((^|\/)\..*) ./ [F,L]
-
-	# offline caching
-	AddType text/cache-manifest .manifest
 
 	# prevent hotlinking
 	# RewriteCond %{HTTP_REFERER} !^http://(.+\.)?mysite\.com/ [NC]
@@ -29,8 +30,8 @@ Options +FollowSymLinks
 
 	# shrinkimage
     # RewriteCond %{REQUEST_FILENAME} !-f
-    # RewriteRule ^(.+).shrunk$ shrinkimage.php?file=$1 [QSA,L]
-    # RewriteRule ^(.+).shrunk.jsonp$ shrinkimage.php?file=$1&jsonp=1 [QSA,L]
+	# RewriteRule ^(.+.q(?:[0-9]+).shrunk)$ shrinkimage.php?file=$1 [QSA,L]
+	# RewriteRule ^(.+.q(?:[0-9]+).shrunk.jsonp)$ shrinkimage.php?file=$1&jsonp=1 [QSA,L]
 
 	# set rewrite condition and rule
 	RewriteCond %{REQUEST_FILENAME} !-f

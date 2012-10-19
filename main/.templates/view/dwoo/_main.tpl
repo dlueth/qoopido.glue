@@ -4,7 +4,8 @@
 	<title>{foreach $tree.public.breadcrumb node}{if $node.visible == true}{if !$dwoo.foreach.default.first} &rsaquo; {/if}{$node.title}{/if}{/foreach} | Qoopido Glue - rich features, small footprint</title>
 	<meta charset="{$environment.characterset}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
-	<meta name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10.0, initial-scale=1.0, user-scalable=yes" />
+	<!-- <meta name="viewport" content="width=device-width, minimum-scale=0.1, maximum-scale=10.0, initial-scale=1.0, user-scalable=yes" /> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 	<meta name="keywords" lang="{$environment.language}" content="" />
 	<meta name="description" content="" />
 	<meta name="language" content="{$environment.language}" />
@@ -26,20 +27,10 @@
 
 	<!--[if lt IE 9]>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
-		<script type="text/javascript">
-			if(typeof window.html5 === 'undefined') {
-				document.write(decodeURI("%3Cscript src='{url}js/html5shiv.3.6.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));
-			}
-		</script>
+		<script type="text/javascript">window.html5 || document.write(decodeURI("%3Cscript src='{url}js/html5shiv.3.6.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));</script>
 	<![endif]-->
-
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		if(typeof jQuery === 'undefined') {
-			document.write(decodeURI("%3Cscript src='{url}js/jquery.1.8.1.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));
-		}
-	</script>
-
+	<script type="text/javascript">window.jQuery || document.write(decodeURI("%3Cscript src='{url}js/jquery.1.8.1.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));</script>
 	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/qoopido.library.min.js{/url}"></script>
 	<script type="text/javascript" src="{url}js/general.js{/url}"></script>
 	{uglify}
@@ -76,7 +67,7 @@
 
 		<section id="content">
 			{if isset($tree.public.current.childnodes)}
-				<nav>
+				<nav class="sidebar">
 					<h6>Further topics</h6>
 					<ul>
 						{foreach $tree.public.current.childnodes node}
@@ -88,7 +79,7 @@
 				</nav>
 			{/if}
 			{if isset($tree.public.current.parent.childnodes)}
-				<nav>
+				<nav class="sidebar">
 					<h6>Further topics</h6>
 					<ul>
 						{foreach $tree.public.current.parent.childnodes node}

@@ -1,0 +1,145 @@
+@import 'lesshat/lesshat.less';
+@import 'normalize.less';
+@import 'skeleton.reset.less';
+@import 'skeleton.toolbox.less';
+@import 'skeleton.colors.less';
+@import 'skeleton.typography.less';
+@import 'skeleton.classes.less';
+
+// formatting
+	* {
+		.box-sizing(border-box);
+	}
+
+	body {
+		background-color: #efefef;
+		background: -webkit-repeating-linear-gradient(-45deg, #fff, #fff 6px, #eee 8px, #efefef 12px, #ececec 16px, #fff 18px);
+		background: -moz-repeating-linear-gradient(-45deg, #fff, #fff 6px, #eee 8px, #efefef 12px, #ececec 16px, #fff 18px);
+		background: repeating-linear-gradient(-45deg, #fff, #fff 6px, #eee 8px, #efefef 12px, #ececec 16px, #fff 18px);
+	}
+
+	body, button, input, select, textarea {
+		font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+		color: @color-beta;
+		line-height: 1.5rem;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-family: "Trebuchet MS", Tahoma, Arial, sans-serif;
+		font-weight: bold;
+		color: @color-delta;
+	}
+
+	h6 {
+		color: @color-beta;
+	}
+
+	a {
+		color: @color-beta;
+		text-decoration: underline;
+
+		&:hover {
+			color: @color-gamma;
+		}
+
+		&.active, &.active:hover {
+			color: @color-delta;
+		}
+	}
+
+	ul {
+		list-style: none outside disc;
+		margin-left: 2rem;
+	}
+
+	ol {
+		list-style: none outside decimal;
+		margin-left: 2rem;
+	}
+
+	dl {
+		padding-left: 1rem;
+
+		dt {
+			float: left;
+			margin-left: -1rem;
+		}
+	}
+
+	article {
+		margin-top: 1.5rem;
+
+		> * {
+			margin-top: 1.5rem;
+		}
+
+		> section {
+			> hgroup, > h1, > h2, > h3, > h4, > h5, > h6 {
+				margin-top: 3rem;
+			}
+		}
+	}
+
+	article > :first-child {
+		margin-top: 0;
+	}
+
+	form {
+		fieldset {
+			margin-bottom: 1.5rem;
+			border: 0;
+
+			legend {
+				width: 100%;
+				font-weight: bold;
+				margin-bottom: 1.429rem;
+				border-bottom: 0.071rem dotted @color-border;
+			}
+
+			&.buttons {
+				.clearfix();
+				width: 28rem;
+				padding-left: 7rem;
+
+				button {
+					float: right;
+				}
+			}
+		}
+
+		label {
+			display: block;
+			margin-bottom: 1.5rem;
+			padding-left: 7rem;
+
+			span {
+				float: left;
+				vertical-align: middle;
+				margin-left: -7rem;
+			}
+
+			input {
+				width: 20rem;
+				margin: 0;
+				padding: 0 0.357rem;
+				border: 0.071rem solid @color-border;
+			}
+
+			&.error {
+				span {
+					color: @color-delta;
+				}
+			}
+		}
+
+		button {
+			.border-radius(0.5rem 0.5rem 0 0.5rem);
+			.background-clip(padding-box);
+			cursor: pointer;
+			padding: 0.75rem 1rem;
+			background-color: @color-epsilon;
+			color: @color-cta;
+			font-weight: bold;
+			text-align: center;
+		}
+	}

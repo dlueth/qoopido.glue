@@ -18,20 +18,6 @@
 			</childnodes>
 		</childnodes>
 
-		<childnodes node="flow">
-			<title>Flow</title>
-
-			<childnodes node="bootstrap">
-				<title>Bootstrap</title>
-			</childnodes>
-			<childnodes node="controller">
-				<title>Controller</title>
-			</childnodes>
-			<childnodes node="view">
-				<title>View</title>
-			</childnodes>
-		</childnodes>
-
 		<childnodes node="fundamentals">
 			<title>Fundamentals</title>
 

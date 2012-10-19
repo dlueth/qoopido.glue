@@ -1,34 +1,45 @@
 // Fixes iOS Safari weird resizing events firing on page loads
-html, body {
-	overflow: auto;
-	height: 100%;
-	margin: 0;
-	-webkit-overflow-scrolling: touch;
-}
+	html, body {
+		overflow: auto;
+		height: 100%;
+		margin: 0;
+		-webkit-overflow-scrolling: touch;
+	}
+
+// reset margin/padding
+	* {
+		margin: 0;
+		padding: 0;
+	}
 
 // Suppresses dotted outline
-a {
-	overflow: auto;
-	outline: none;
-}
+	a {
+		overflow: auto;
+		outline: none;
+	}
+
+// image interpolation fix for
+	img {
+		-ms-interpolation-mode: bicubic;
+	}
 
 // Further resets weird button default styles
-button {
-	margin: 0;
-	padding: 0;
-	border: 0 none;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	-moz-box-sizing: content-box;
-	-webkit-box-sizing: content-box;
-
-	&::-moz-focus-inner {
+	button {
+		margin: 0;
 		padding: 0;
-		border: none;
-	}
+		border: 0 none;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
 
-	&::-webkit-focus-inner {
-		padding: 0;
-		border: none;
+		&::-moz-focus-inner {
+			padding: 0;
+			border: none;
+		}
+
+		&::-webkit-focus-inner {
+			padding: 0;
+			border: none;
+		}
 	}
-}

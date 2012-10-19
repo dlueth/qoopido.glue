@@ -7,6 +7,9 @@
 [submodule ".core/libraries/dwoo"]
 	path = .core/libraries/dwoo
 	url = git://github.com/Seldaek/Dwoo.git
-[submodule "main/css/normalize.css"]
-	path = main/css/normalize.css
+[submodule "main/css/lesshat"]
+	path = main/css/lesshat
+	url = git://github.com/CSSHat/LESSHat.git
+[submodule "main/css/normalize"]
+	path = main/css/normalize
 	url = git://github.com/necolas/normalize.css.git

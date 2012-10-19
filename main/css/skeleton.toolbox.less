@@ -1,12 +1,4 @@
-// LESS Variables
-@color-alpha:   #999;    // unaccented/light color
-@color-beta:    #666;    // base color
-@color-gamma:   #333;    // accented color (e.g. link:hover)
-@color-delta:   #c30;    // accented color (e.g. link:active)
-@color-epsilon: #accce5; // accented color (e.g. button)
-
-//// LESS Mixins
-.menu () {
+.menu() {
 	.clearfix;
 	zoom: 1;
 	list-style: none outside none;
@@ -28,48 +20,13 @@
 	}
 
 	li + li {
-		margin-left: 15px;
+		margin-left: 1rem;
 	}
 }
 
-.sidebar () {
-	.shadow();
-	.round();
+.clearfix() {
 	overflow: hidden;
-	clear: right;
-	float: right;
-	position: relative;
-	width: 180px;
-	margin: 21px 21px 21px 21px;
-	padding: 15px;
-	background-color: #fff;
-}
 
-.shadow (@size: 10px) {
-	-webkit-box-shadow: 0px 0px @size rgba(0,0,0,.2);
-	-moz-box-shadow: 0px 0px @size rgba(0,0,0,.2);
-	box-shadow: 0px 0px @size rgba(0,0,0,.2);
-}
-
-.round (@topleft: 6px, @topright: 6px, @bottomright: 0, @bottomleft: 6px) {
-	-webkit-border-radius: @topleft @topright @bottomright @bottomleft;
-	-moz-border-radius: @topleft @topright @bottomright @bottomleft;
-	border-radius: @topleft @topright @bottomright @bottomleft;
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding;
-	background-clip: padding-box;
-}
-
-.gradient (@size: 21px) {
-	background: -moz-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0, 0, .05)), color-stop(@size, rgba(0, 0, 0, 0)));
-	background: -webkit-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
-	background: -o-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
-	background: -ms-linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
-	background: linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) @size);
-}
-
-.clearfix () {
 	&:after {
 		content: ".";
 		clear: both;
@@ -81,19 +38,19 @@
 	}
 }
 
-.min-width (@width) {
+.min-width(@width) {
 	min-width: @width;
 	width: auto !important;
 	width: @width;
 }
 
-.min-height (@height) {
+.min-height(@height) {
 	min-height: @height;
 	height: auto !important;
 	height: @height;
 }
 
-.replace () {
+.replace() {
 	overflow: hidden;
 	text-indent: 100%;
 	white-space: nowrap;
