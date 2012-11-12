@@ -42,7 +42,7 @@
 	<div id="canvas">
 		<header>
 			<hgroup>
-				<svg  xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 42 42" overflow="visible" preserveAspectRatio="none" enable-background="new 0 0 42 42" xml:space="preserve">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 42 42" overflow="visible" preserveAspectRatio="none" enable-background="new 0 0 42 42" xml:space="preserve">
 					<path fill="#cc3300" d="M33.353,19.765c3.285,0,6.298,1.166,8.646,3.106V12.353V12C42,5.373,36.626,0,30,0H12C5.373,0,0,5.373,0,12v18c0,6.628,5.373,12,12,12h0.353h10.518c-1.94-2.35-3.106-5.362-3.106-8.646C19.765,25.849,25.848,19.765,33.353,19.765z"/>
 					<path fill="#ff9719" d="M42,33.353c0-4.775-3.871-8.646-8.646-8.646s-8.647,3.871-8.647,8.647c0,4.775,3.872,8.646,8.647,8.646H42V33.353L42,33.353z"/>
 				</svg>

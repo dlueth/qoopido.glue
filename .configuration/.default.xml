@@ -11,25 +11,15 @@
 				<switches>!</switches>
 			</identifier>
 			<switches>
-				<site>main|portfolio</site>
+				<site>main|portfolio|responsive</site>
 				<theme>default</theme>
 				<language>en-US</language>
 			</switches>
 		</Url>
-		<Routing enabled="true" i18n="true">
-			<route methods="get">
-				<pattern>(?:/route)/(first|second)(?:|/((?:[\w]+(?:/|)))*)</pattern>
-				<target>/use-cases/routing?example=\1&amp;parameters=\2</target>
-			</route>
-			<route methods="post">
-				<pattern>(?:/route)/(first|second)(?:|/((?:[\w]+(?:/|)))*)</pattern>
-				<target>/use-cases/routing?example=\1&amp;parameters=\2</target>
-			</route>
-		</Routing>
 		<Environment>
 			<defaults>
-				<node>about</node>
-				<site>main</site>
+				<node>home</node>
+				<site>portfolio</site>
 				<theme>default</theme>
 				<language>en-US</language>
 				<timezone>Europe/Berlin</timezone>
