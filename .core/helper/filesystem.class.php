@@ -84,37 +84,40 @@ class Filesystem {
 	 * Method to get subdirectories of a directory
 	 *
 	 * @param string $directory
+	 * @param bool $recursive [optional]
+	 * @param string $pattern [optional]
+	 * @param bool $absolute [optional]
 	 *
 	 * @return mixed
 	 *
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function getDirectories($directory) {
+	public static function getDirectories($directory, $recursive = false, $pattern = NULL, $absolute = false) {
 		if(($result = \Glue\Helper\validator::batch(array(
-			'$directory' => array($directory, 'isString', 'isNotEmpty', 'isPathValid')
+			'$directory' => array($directory, 'isString', 'isNotEmpty', 'isPathValid'),
+			'$recursive' => array($recursive, 'isBoolean'),
+			'$pattern'   => array($pattern, 'isString', 'isNotEmpty'),
+			'$absolute'  => array($absolute, 'isBoolean')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
 		}
 
 		try {
-			$return = false;
+			$return    = array();
+			$iterator  = ($recursive === false) ? new \FilesystemIterator($directory, \FilesystemIterator::SKIP_DOTS) : new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::SELF_FIRST);
+			$iterator  = ($pattern !== NULL) ? new \RegexIterator($iterator, '/' . $pattern . '/i') : $iterator;
+			$directory = preg_quote($directory . '/', '/');
 
-			if(is_dir($directory)) {
-				$return = scandir($directory);
-
-				foreach($return as $k => $v) {
-					if($v == '.' || $v == '..' || !is_dir($directory . '/' . $v)) {
-						unset($return[$k]);
-					}
+			foreach($iterator as $path) {
+				if($path->isDir() === true) {
+					$return[] = ($absolute !== false) ? $path->getPathname() : preg_replace('/^' . $directory . '/', '', $path->getPathname());
 				}
-
-				sort($return);
-
-				unset($k, $v);
 			}
 
-			unset($directory, $result);
+			sort($return);
+
+			unset($directory, $absolute, $iterator);
 
 			return $return;
 		} catch(\Exception $exception) {
@@ -127,6 +130,7 @@ class Filesystem {
 	 *
 	 * @param string $directory
 	 * @param bool $recursive [optional]
+	 * @param string $pattern [optional]
 	 * @param bool $absolute [optional]
 	 *
 	 * @return mixed
@@ -134,57 +138,31 @@ class Filesystem {
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function getFiles($directory, $recursive = false, $absolute = false) {
+	public static function getFiles($directory, $recursive = false, $pattern = NULL, $absolute = false) {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$directory' => array($directory, 'isString', 'isNotEmpty', 'isPathValid'),
 			'$recursive' => array($recursive, 'isBoolean'),
+			'$pattern'   => array($pattern, 'isString', 'isNotEmpty'),
 			'$absolute'  => array($absolute, 'isBoolean')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
 		}
 
 		try {
-			static $base = NULL;
-			$return      = false;
+			$return    = array();
+			$iterator  = ($recursive === false) ? new \FilesystemIterator($directory, \FilesystemIterator::SKIP_DOTS) : new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::SELF_FIRST);
+			$iterator  = ($pattern !== NULL) ? new \RegexIterator($iterator, '/' . $pattern . '/i') : $iterator;
+			$directory = preg_quote($directory . '/', '/');
 
-			if(is_dir($directory)) {
-				if($base === NULL) {
-					$base = $directory;
+			foreach($iterator as $path) {
+				if($path->isFile() === true) {
+					$return[] = ($absolute !== false) ? $path->getPathname() : preg_replace('/^' . $directory . '/', '', $path->getPathname());
 				}
-
-				$files  = scandir($directory);
-				$return = array();
-
-				foreach($files as $k => $v) {
-					unset($files[$k]);
-
-					if(preg_match('/^\.+/', $v) === 0) {
-						if($recursive === true && is_dir($directory . '/' . $v)) {
-							$return = array_merge($return, self::getFiles($directory . '/' . $v, true, $absolute));
-						} else {
-							if($base !== $directory) {
-								$v = preg_replace('/^' . preg_quote($base, '/') . '\//', '', $directory) . '/' . $v;
-							}
-
-							if($absolute === true) {
-								$v = $base . '/' . $v;
-							}
-
-							$return[] = $v;
-						}
-					}
-				}
-
-				sort($return);
-
-				if($base === $directory) {
-					$base = NULL;
-				}
-
-				unset($files, $k, $v);
 			}
 
-			unset($directory, $recursive, $absolute, $result);
+			sort($return);
+
+			unset($directory, $recursive, $pattern, $absolute, $iterator);
 
 			return $return;
 		} catch(\Exception $exception) {
@@ -210,29 +188,19 @@ class Filesystem {
 		}
 
 		try {
-			$directory = \Glue\Helper\Modifier::cleanPath($directory);
+			$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::CHILD_FIRST );
 
-			if(is_dir($directory)) {
-				$dh = dir($directory);
-
-				while(false !== ($entry = $dh->read())) {
-					if(!empty($entry) && substr($entry, 0, 1) != '.') {
-						$entry = $dh->path . '/' . $entry;
-
-						if(is_dir($entry)) {
-							self::removeDirectory($entry);
-						} else {
-							self::removeFile($entry);
-						}
-					}
+			foreach($iterator as $path) {
+				if($path->isFile() === true) {
+					self::removeFile($path->getPathname());
+				} else if($path->isDir() === true) {
+					self::removeDirectory($path->getPathname());
 				}
-
-				$dh->close();
-
-				unset($dh, $entry);
 			}
 
-			unset($directory, $result);
+			sort($return);
+
+			unset($directory, $iterator);
 
 			return true;
 		} catch(\Exception $exception) {
@@ -264,9 +232,7 @@ class Filesystem {
 			if(is_dir($directory)) {
 				self::emptyDirectory($directory);
 
-				if(rmdir($directory)) {
-					$return = true;
-				}
+				$return = rmdir($directory);
 			}
 
 			unset($directory, $result);

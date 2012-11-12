@@ -1,46 +1,47 @@
 html {
-	font-size: 0.875em;
-	line-height: 1.5em;
+	font-size: @base-size;
+	.rem('line-height', 21px);
 }
 
 hgroup, h1, h2, h3, h4, h5, h6, ul, ol, dl, fieldset, aside, p, table, pre, hr {
-	margin-bottom: 1.5rem;
+	.rem('margin-bottom', 21px);
 }
 
 form, article, section {
-	margin-bottom: 2rem;
+	.rem('margin-bottom', 21px);
 }
 
 hgroup {
 	h1, h2, h3, h4, h5, h6 {
-		margin-bottom: 0;
+		margin: 0;
 	}
 }
 
 h1, .size-alpha {
-	font-size: 1.429rem;
+	.rem('font-size', 20px);
 }
 
 h2, .size-beta {
-	font-size: 1.357rem;
+	.rem('font-size', 19px);
 }
 
 h3, .size-gamma {
-	font-size: 1.286rem;
+	.rem('font-size', 18px);
 }
 
 h4, .size-delta {
-	font-size: 1.214rem;
+	.rem('font-size', 17px);
 }
 
 h5, .size-epsilon {
-	font-size: 1.413rem;
+	.rem('font-size', 16px);
 }
 
 h6, .size-zeta {
-	font-size: 1.071rem;
+	font-size: 14px;
+	.rem('font-size', 15px);
 }
 
 .size-deci {
-	font-size: 0.857rem;
+	.rem('font-size', 12px);
 }

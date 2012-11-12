@@ -8,7 +8,7 @@
 		</hgroup>
 
 		<p>
-			As website layouts very often tend to need differently sized or even manipulated representations of the same image Qoopido Glue comes with it's very own image class. The class itself is integrated in the form of a chainable object.
+			As website layouts very often tend to need differently sized or even manipulated representations of the same image Qoopido Glue comes with it's very own image class. The class itself is integrated in the form of a chainable entity.
 		</p>
 
 		<p>

@@ -187,7 +187,7 @@ class Modifier {
 				$characterset = \Glue\Component\Environment::getInstance()->get('characterset');
 			}
 
-			$return =  (mb_check_encoding($value, $characterset) === true) ? $value : mb_convert_encoding($value, $characterset);
+			$return = (mb_check_encoding($value, $characterset) === true) ? $value : mb_convert_encoding($value, $characterset);
 
 			unset($value, $characterset, $result);
 

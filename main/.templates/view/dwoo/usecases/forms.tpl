@@ -8,7 +8,7 @@
 		</hgroup>
 
 		<p>
-			Qoopido Glue has a very flexible and versatile abstraction for making handling and validation of HTML-forms a breeze. It utilizes the frameworks abstracted request component and its static modifiers/validators and is build as an object itself.
+			Qoopido Glue has a very flexible and versatile abstraction for making handling and validation of HTML-forms a breeze. It utilizes the frameworks abstracted request component and its static modifiers/validators and is build as an entity itself.
 		</p>
 
 		<section>

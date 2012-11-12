@@ -14,7 +14,7 @@
 		<section>
 			<h5>Controller code</h5>
 			<p>
-				The Querybuilder is an object and can be used in any controller. If you still have the example about database abstraction in mind here is how the controller code would look like utilizing the Querybuilder instead of directly writing the SQL:
+				The Querybuilder is an entity and can be used in any controller. If you still have the example about database abstraction in mind here is how the controller code would look like utilizing the Querybuilder instead of directly writing the SQL:
 			</p>
 
 			<script type="syntaxhighlighter" class="brush: php"><![CDATA[

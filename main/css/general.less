@@ -1,46 +1,53 @@
+@import 'lesshat/lesshat.less';
+@import 'normalize.less';
+@import 'skeleton.reset.less';
+@import 'skeleton.variables.less';
+@import 'skeleton.toolbox.less';
+@import 'skeleton.typography.less';
 @import 'skeleton.base.less';
+@import 'skeleton.classes.less';
 
 // id based formatting
 	#canvas {
 		.box-shadow(~"0px 0px 1rem rgba(0,0,0,.2)");
-		width: 65.714rem;
+		.rem('width', 920px);
+		.rem('padding', 21px, 14px, 21px, 14px);
 		margin: 0 auto;
-		padding: 1.5rem 1rem 1rem 1.5rem;
 		background-color: #fff;
 	}
 
 	#content {
 		.gradient(~"linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 1rem)");
-		.min-height(36rem);
+		.rem('min-height', 504px);
+		.rem('padding', 42px, 0px, 42px, 0px);
 		position: relative;
-		padding: 3rem 0;
 	}
 
 // structural formatting
 	header {
-		margin-bottom: -0.071rem;
-		border-bottom: 0.071rem solid #ccc;
+		.rem('margin-bottom', 1px);
+		.rem('border-bottom', 1px, #ccc);
 
 		hgroup {
 			text-align: right;
 
 			svg {
+				.rem('width', 42px);
+				.rem('height', 42px);
+				.rem('margin-left', 14px);
 				float: right;
-				width: 3rem;
-				height: 3rem;
-				margin-left: 1rem;
 			}
 		}
 
 		nav ul {
 			.menu;
-			margin-top: -0.286rem;
+			.rem('margin-top', -4px);
 
 			li {
-				border-top: 0.286rem solid transparent;
+				.rem('border-top', 4px, transparent);
 
 				&:hover, &.active {
-					border-top: 0.286rem solid @color-delta;
+					border-top-color: @color-delta;
 				}
 			}
 		}
@@ -48,9 +55,9 @@
 
 	footer {
 		.gradient(~"linear-gradient(top, rgba(0, 0, 0, .05) 0, rgba(0, 0, 0, 0) 1rem)");
-		margin-top: -0.071rem;
-		padding-top: 1rem;
-		border-top: 0.071rem dotted #ccc;
+		.rem('margin-top', -1px);
+		.rem('padding-top', 14px);
+		.rem('border-top', 1px, #ccc);
 
 		nav {
 			ul {

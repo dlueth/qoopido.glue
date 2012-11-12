@@ -127,6 +127,9 @@ namespace Glue {
 		 */
 		final public function __construct() {
 			try {
+				// ignore user abort
+				ignore_user_abort(true);
+
 				// initiate path
 				$this->path = array(
 					'global' => str_replace('\\', '/', __BASE__),
@@ -279,6 +282,13 @@ namespace Glue {
 				$this->_output($content, $header->get());
 			}
 
+			// flush output and clean outputbuffer
+			flush();
+
+			while(ob_get_level() > 0) {
+				ob_end_clean();
+			}
+
 			$dispatcher->notify(new \Glue\Event('glue.core.output.post'));
 
 			// write core cache
@@ -315,6 +325,8 @@ namespace Glue {
 					@header($name, true);
 				}
 			}
+
+			@header('Connection: close', true);
 
 			echo $content;
 

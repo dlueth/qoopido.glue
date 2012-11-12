@@ -29,8 +29,8 @@
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
 		<script type="text/javascript">window.html5 || document.write(decodeURI("%3Cscript src='{url}js/html5shiv.3.6.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));</script>
 	<![endif]-->
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-	<script type="text/javascript">window.jQuery || document.write(decodeURI("%3Cscript src='{url}js/jquery.1.8.1.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));</script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript">window.jQuery || document.write(decodeURI("%3Cscript src='{url}js/jquery.1.8.2.min.js{/url}' type='text/javascript'%3E%3C/script%3E"));</script>
 	<script type="text/javascript" src="{url}js/qoopido-jquery/dist/qoopido.library.min.js{/url}"></script>
 	<script type="text/javascript" src="{url}js/general.js{/url}"></script>
 	{uglify}

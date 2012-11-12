@@ -1,3 +1,176 @@
+.rem(@attribute, @value) when (@attribute = 'font-size') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	font-size: ~"@{value}px";
+	font-size: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'line-height') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	line-height: ~"@{value}px";
+	line-height: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'width') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	width: ~"@{value}px";
+	width: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'min-width') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	min-width: ~"@{value}px";
+	min-width: ~"@{rem}rem";
+	width: auto !important;
+	width: ~"@{value}px";
+	width: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'height') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	height: ~"@{value}px";
+	height: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'min-height') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	min-height: ~"@{value}px";
+	min-height: ~"@{rem}rem";
+	height: auto !important;
+	height: ~"@{value}px";
+	height: ~"@{rem}rem";
+}
+
+.rem(@attribute, @top: 0, @right: 0, @bottom: 0, @left: 0) when (@attribute = 'margin') {
+	@remTop:    ((round((@top / @base-size) * 100000)) / 100000);
+	@remRight:  ((round((@right / @base-size) * 100000)) / 100000);
+	@remBottom: ((round((@bottom / @base-size) * 100000)) / 100000);
+	@remLeft:   ((round((@left / @base-size) * 100000)) / 100000);
+
+	margin: ~"@{top}px @{right}px @{bottom}px @{left}px";
+	margin: ~"@{remTop}rem @{remRight}rem @{remBottom}rem @{remLeft}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'margin-all') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	margin: ~"@{value}px";
+	margin: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'margin-top') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	margin-top: ~"@{value}px";
+	margin-top: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'margin-right') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	margin-right: ~"@{value}px";
+	margin-right: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'margin-bottom') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	margin-bottom: ~"@{value}px";
+	margin-bottom: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'margin-left') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	margin-left: ~"@{value}px";
+	margin-left: ~"@{rem}rem";
+}
+
+.rem(@attribute, @top: 0, @right: 0, @bottom: 0, @left: 0) when (@attribute = 'padding') {
+	@remTop:    ((round((@top / @base-size) * 100000)) / 100000);
+	@remRight:  ((round((@right / @base-size) * 100000)) / 100000);
+	@remBottom: ((round((@bottom / @base-size) * 100000)) / 100000);
+	@remLeft:   ((round((@left / @base-size) * 100000)) / 100000);
+
+	padding: ~"@{top}px @{right}px @{bottom}px @{left}px";
+	padding: ~"@{remTop}rem @{remRight}rem @{remBottom}rem @{remLeft}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'padding-all') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	padding: ~"@{value}px";
+	padding: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'padding-top') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	padding-top: ~"@{value}px";
+	padding-top: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'padding-right') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	padding-right: ~"@{value}px";
+	padding-right: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'padding-bottom') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	padding-bottom: ~"@{value}px";
+	padding-bottom: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value) when (@attribute = 'padding-left') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	padding-left: ~"@{value}px";
+	padding-left: ~"@{rem}rem";
+}
+
+.rem(@attribute, @value, @color, @style: solid) when (@attribute = 'border') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	border: ~"@{value}px @{style} @{color}";
+	border: ~"@{rem}rem @{style} @{color}";
+}
+
+.rem(@attribute, @value, @color, @style: solid) when (@attribute = 'border-top') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	border-top: ~"@{value}px @{style} @{color}";
+	border-top: ~"@{rem}rem @{style} @{color}";
+}
+
+.rem(@attribute, @value, @color, @style: solid) when (@attribute = 'border-right') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	border-right: ~"@{value}px @{style} @{color}";
+	border-right: ~"@{rem}rem @{style} @{color}";
+}
+
+.rem(@attribute, @value, @color, @style: solid) when (@attribute = 'border-bottom') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	border-bottom: ~"@{value}px @{style} @{color}";
+	border-bottom: ~"@{rem}rem @{style} @{color}";
+}
+
+.rem(@attribute, @value, @color, @style: solid) when (@attribute = 'border-left') {
+	@rem: ((round((@value / @base-size) * 100000)) / 100000);
+
+	border-left: ~"@{value}px @{style} @{color}";
+	border-left: ~"@{rem}rem @{style} @{color}";
+}
+
 .menu() {
 	.clearfix;
 	zoom: 1;
@@ -20,7 +193,7 @@
 	}
 
 	li + li {
-		margin-left: 1rem;
+		.rem('margin-left', 14px);
 	}
 }
 
@@ -39,15 +212,15 @@
 }
 
 .min-width(@width) {
-	min-width: @width;
+	min-width: ~"@{width}px";
 	width: auto !important;
-	width: @width;
+	width: ~"@{width}px";
 }
 
 .min-height(@height) {
-	min-height: @height;
+	min-height: ~"@{height}px";
 	height: auto !important;
-	height: @height;
+	height: ~"@{height}px";
 }
 
 .replace() {

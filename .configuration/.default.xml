@@ -11,7 +11,7 @@
 				<switches>!</switches>
 			</identifier>
 			<switches>
-				<site>main</site>
+				<site>main|portfolio</site>
 				<theme>default</theme>
 				<language>en-US</language>
 			</switches>
