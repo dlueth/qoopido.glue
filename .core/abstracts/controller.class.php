@@ -66,6 +66,7 @@ abstract class Controller extends \Glue\Abstracts\Base {
 			$this->configuration = $this->factory->get('\Glue\Component\Configuration');
 			$this->url           = $this->factory->get('\Glue\Component\Url');
 			$this->request       = $this->factory->get('\Glue\Component\Request');
+			$this->routing       = $this->factory->get('\Glue\Component\Routing');
 			$this->client        = $this->factory->get('\Glue\Component\Client');
 			$this->environment   = $this->factory->get('\Glue\Component\Environment');
 			$this->header        = $this->factory->get('\Glue\Component\Header');

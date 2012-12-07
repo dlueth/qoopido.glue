@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.1.0';
+		const VERSION = '1.1.1';
 
 		/**
 		 * Private property to store core path information
@@ -165,9 +165,7 @@ namespace Glue {
 				$configuration = $factory->load('\Glue\Component\Configuration');
 				$url           = $factory->load('\Glue\Component\Url');
 				$request       = $factory->load('\Glue\Component\Request');
-				if($configuration->get('Component.Routing.@attributes.enabled') === true) {
-					$routing   = $factory->load('\Glue\Component\Routing');
-				}
+				$routing       = $factory->load('\Glue\Component\Routing');
 				$client        = $factory->load('\Glue\Component\Client');
 				$environment   = $factory->load('\Glue\Component\Environment');
 				$header        = $factory->load('\Glue\Component\Header');
@@ -184,7 +182,7 @@ namespace Glue {
 
 			// check core cache
 			if($settings['cache']['@attributes']['enabled'] === true) {
-				$id = $this->path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . $environment->get('theme') . '/' . $environment->get('language') . '/' . sha1(serialize(array($environment->get('node'), $compression)));
+				$id = $this->path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize(array($environment->get('id'), $compression)));
 
 				if(extension_loaded('apc') === true) {
 					$cache = \Glue\Entity\Cache\Apc::getInstance($id);

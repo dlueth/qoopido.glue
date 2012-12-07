@@ -8,12 +8,22 @@ namespace Glue\Component;
  */
 final class Routing extends \Glue\Abstracts\Base\Singleton {
 	/**
+	 * Private property to provide registry
+	 *
+	 * @object \Glue\Entity\Registry
+	 */
+	private $registry = NULL;
+
+	/**
 	 * Class constructor
 	 *
 	 * @throw \RuntimeException
 	 */
 	final protected function __initialize() {
 		try {
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
+
+			$data     = array('modifier' => array(), 'parameter' => array());
 			$settings = \Glue\Component\Configuration::getInstance()->get(__CLASS__);
 			$method   = \Glue\Component\Request::getInstance()->get('method');
 			$uri      = (isset($_REQUEST['Glue']['node'])) ? '/' . \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true) : '/';
@@ -67,17 +77,22 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 			}
 
 			if(isset($settings['route'])) {
-				$routes = array();
+				$routes   = array();
+				$modifier = array();
 
 				if(isset($settings['route']['pattern'])) {
 					$settings['route'] = array($settings['route']);
 				}
 
 				foreach((array) $settings['route'] as $route) {
-					$methods = (isset($route['@attributes']['methods'])) ? explode(',', strtoupper(preg_replace('/\s/', '', $route['@attributes']['methods']))) : NULL;
+					$methods  = (isset($route['@attributes']['methods'])) ? explode(',', strtoupper(preg_replace('/\s/', '', $route['@attributes']['methods']))) : NULL;
 
 					if(isset($route['pattern']) && isset($route['target']) && ($methods === NULL || in_array($method, $methods))) {
 						$routes['/^' . str_replace('/', '\/', $route['pattern']) . '$/'] = $route['target'];
+					}
+
+					if(isset($route['@attributes']['modifier'])) {
+						$modifier = array_merge($modifier, explode(',', preg_replace('/\s/', '', $route['@attributes']['modifier'])));
 					}
 				}
 
@@ -88,25 +103,28 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 				$uri = parse_url(urldecode($uri));
 
 				if(isset($uri['query'])) {
-					parse_str($uri['query'], $parameters);
+					parse_str($uri['query'], $parameter);
 
-					$_GET = array_merge($_GET, $parameters);
+					$data['parameter'] = array_merge($data['parameter'], $parameter);
 
-					foreach($parameters as $key => $value) {
-						if(!isset($_POST[$key]) && !isset($_PUT[$key]) && !isset($_DELETE[$key]) && !isset($_COOKIE[$key])) {
-							$_REQUEST[$key] = $value;
+					foreach($parameter as $key => $value) {
+						if(in_array($key, $modifier) === true) {
+							$data['modifier'][$key] = $value;
 						}
 					}
 
-					unset($parameters, $key, $value);
+					unset($parameter, $key, $value);
 				}
 
-				$_REQUEST['Glue']['node'] = \Glue\Helper\Modifier::cleanPath($uri['path']);
+				$_REQUEST['Glue']['node']     = \Glue\Helper\Modifier::cleanPath($uri['path']);
+				$_REQUEST['Glue']['modifier'] = $data['modifier'];
 
-				unset($routes, $route, $methods);
+				unset($routes, $modifier, $route, $methods);
 			}
 
-			unset($settings, $method, $uri);
+			$this->registry->set(NULL, $data['parameter']);
+
+			unset($data, $settings, $method, $uri);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -160,6 +178,20 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 			return $return;
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+		}
+	}
+
+	/**
+	 * Magic method to allow registry access
+	 *
+	 * @param string $method
+	 * @param mixed $arguments
+	 *
+	 * @return mixed
+	 */
+	final public function __call($method, $arguments) {
+		if(method_exists($this->registry, $method) === true) {
+			return call_user_func_array(array(&$this->registry, $method), (array) $arguments);
 		}
 	}
 }

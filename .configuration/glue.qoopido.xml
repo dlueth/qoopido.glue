@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Glue>
 	<Component>
-		<Routing enabled="true" i18n="true">
+		<Routing i18n="true">
 			<route methods="get">
 				<pattern>(?:/route)/(first|second)(?:|/((?:[\w]+(?:/|)))*)</pattern>
 				<target>/use-cases/routing?example=\1&amp;parameters=\2</target>

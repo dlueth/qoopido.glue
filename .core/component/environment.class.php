@@ -58,7 +58,9 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				$data['node']                 = (!empty($_REQUEST['Glue']['node'])) ? \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true) : \Glue\Helper\Modifier::cleanPath($settings['defaults']['node'], true);
 				$data['alias']                = str_replace('/', '.', $data['node']);
 				$data['slug']                 = str_replace('.', '/', preg_replace('/[^\w.]/', '', $data['alias']));
-				$data['id']                   = \Glue\Helper\Modifier::cleanPath('site:' . $data['site'] . '/theme:' . $data['theme'] . '/language:' . $data['language'] . '/' . $data['node'] . '/', true);
+				$data['modifier']             = $_REQUEST['Glue']['modifier'];
+				$data['id']                   = (count($data['modifier']) > 0) ? 'site:' . $data['site'] . '/theme:' . $data['theme'] . '/language:' . $data['language'] . '/' . $data['node'] . '/' . implode('/', $data['modifier']) : 'site:' . $data['site'] . '/theme:' . $data['theme'] . '/language:' . $data['language'] . '/' . $data['node'] . '/';
+				$data['id']                   = \Glue\Helper\Modifier::cleanPath($data['id'], true);
 
 			// set secondary environment variables
 				$data['mimetype']             = false;

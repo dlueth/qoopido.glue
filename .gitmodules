@@ -13,3 +13,6 @@
 [submodule "main/css/normalize"]
 	path = main/css/normalize
 	url = git://github.com/necolas/normalize.css.git
+[submodule "portfolio/assets/vendor/qoopido-jquery"]
+	path = portfolio/assets/vendor/qoopido-jquery
+	url = git://github.com/dlueth/Qoopido-jQuery.git
