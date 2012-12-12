@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.1.2';
+		const VERSION = '1.1.3';
 
 		/**
 		 * Private property to store core path information
