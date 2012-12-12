@@ -23,10 +23,11 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 		try {
 			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
 
-			$data     = array('modifier' => array(), 'parameter' => array());
-			$settings = \Glue\Component\Configuration::getInstance()->get(__CLASS__);
-			$method   = \Glue\Component\Request::getInstance()->get('method');
-			$uri      = (isset($_REQUEST['Glue']['node'])) ? '/' . \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true) : '/';
+			$modifier  = array();
+			$parameter = array();
+			$settings  = \Glue\Component\Configuration::getInstance()->get(__CLASS__);
+			$method    = \Glue\Component\Request::getInstance()->get('method');
+			$uri       = (isset($_REQUEST['Glue']['node'])) ? '/' . \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true) : '/';
 
 			if(isset($settings['@attributes']['i18n']) && $settings['@attributes']['i18n'] === true) {
 				$path         = \Glue\Factory::getInstance()->get('\Glue\Core')->path;
@@ -78,7 +79,6 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 
 			if(isset($settings['route'])) {
 				$routes   = array();
-				$modifier = array();
 
 				if(isset($settings['route']['pattern'])) {
 					$settings['route'] = array($settings['route']);
@@ -103,28 +103,30 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 				$uri = parse_url(urldecode($uri));
 
 				if(isset($uri['query'])) {
-					parse_str($uri['query'], $parameter);
+					parse_str($uri['query'], $uriParameter);
 
-					$data['parameter'] = array_merge($data['parameter'], $parameter);
+					$parameter = array_merge($parameter, $uriParameter);
 
 					foreach($parameter as $key => $value) {
 						if(in_array($key, $modifier) === true) {
-							$data['modifier'][$key] = $value;
+							$modifier[$key] = $value;
+						} else {
+							unset($modifier[$key]);
 						}
 					}
 
-					unset($parameter, $key, $value);
+					unset($uriParameter, $key, $value);
 				}
 
 				$_REQUEST['Glue']['node']     = \Glue\Helper\Modifier::cleanPath($uri['path']);
-				$_REQUEST['Glue']['modifier'] = $data['modifier'];
+				$_REQUEST['Glue']['modifier'] = $modifier;
 
 				unset($routes, $modifier, $route, $methods);
 			}
 
-			$this->registry->set(NULL, $data['parameter']);
+			$this->registry->set(NULL, $parameter);
 
-			unset($data, $settings, $method, $uri);
+			unset($modifier, $parameter, $settings, $method, $uri);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -153,7 +155,7 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 					unset($tree[$index]['@attributes']);
 				}
 
-				$tree[$index]['slug'] = (isset($tree[$index]['slug'])) ? $tree[$index]['slug'] : NULL;
+				$tree[$index]['slug'] = (isset($tree[$index]['slug'])) ? \Glue\Helper\Modifier::sluggify($tree[$index]['slug']) : \Glue\Helper\Modifier::sluggify($tree[$index]['title']);
 
 				$node = ($parent === NULL) ? '/' . $tree[$index]['node'] : $parent['node'] . '/' . $tree[$index]['node'];
 				$slug = ($parent === NULL) ? '/' . \Glue\Helper\Modifier::sluggify($tree[$index]['slug'] ?: $tree[$index]['title']) : $parent['slug'] . '/' . \Glue\Helper\Modifier::sluggify($tree[$index]['slug'] ?: $tree[$index]['title']);

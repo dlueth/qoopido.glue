@@ -241,9 +241,8 @@ class Tree extends \Glue\Abstracts\Base {
 					$tree[$index]['slug'] = $pointer['slug'] . '/' . $tree[$index]['slug'];
 				}
 
-				$tree[$index]['alias'] = str_replace('/', '.', $tree[$index]['node']);
-
-				$tree[$index]['visible'] =  (!isset($subtree['visible']) || !is_bool($subtree['visible'])) ? true : $subtree['visible'];
+				$tree[$index]['alias']   = str_replace('/', '.', $tree[$index]['node']);
+				$tree[$index]['visible'] =  (!isset($subtree['@attributes']['visible']) || !is_bool($subtree['@attributes']['visible'])) ? true : $subtree['@attributes']['visible'];
 				$tree[$index]['status']  =  0;
 
 				if(isset($subtree['childnodes']) && is_array($subtree['childnodes']) && count($subtree['childnodes']) > 0) {
