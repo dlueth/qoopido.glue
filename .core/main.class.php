@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.1.3';
+		const VERSION = '1.1.4';
 
 		/**
 		 * Private property to store core path information
@@ -126,6 +126,9 @@ namespace Glue {
 		 * @throw \CoreException
 		 */
 		final public function __construct() {
+			$node      = $_REQUEST['Glue']['node'];
+			$cacheable = false;
+
 			try {
 				// ignore user abort
 				ignore_user_abort(true);
@@ -181,7 +184,8 @@ namespace Glue {
 			$compression = $environment->get('compression');
 
 			// check core cache
-			if($settings['cache']['@attributes']['enabled'] === true) {
+			$cacheable = !in_array($node, (array) $settings['cache']['exclude']);
+			if($settings['cache']['@attributes']['enabled'] === true && $cacheable === true) {
 				$id = $this->path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize(array($environment->get('id'), $compression)));
 
 				if(extension_loaded('apc') === true) {
@@ -290,7 +294,7 @@ namespace Glue {
 			$dispatcher->notify(new \Glue\Event('glue.core.output.post'));
 
 			// write core cache
-			if($settings['cache']['@attributes']['enabled'] === true) {
+			if($settings['cache']['@attributes']['enabled'] === true && $cacheable === true) {
 				$cache
 					->setLifetime(strtotime($settings['cache']['lifetime']))
 					->setExtras(array('etag' => $etag, 'header' => $header->get()))
@@ -298,7 +302,7 @@ namespace Glue {
 					->set();
 			}
 
-			unset($dispatcher, $factory, $configuration, $url, $request, $routing, $server, $client, $environment, $header, $session, $settings, $compression, $cache, $view, $controller, $content, $maxage, $etag, $generation, $lifetime);
+			unset($node, $cacheable, $dispatcher, $factory, $configuration, $url, $request, $routing, $server, $client, $environment, $header, $session, $settings, $compression, $cache, $view, $controller, $content, $maxage, $etag, $generation, $lifetime);
 
 			exit;
 		}
