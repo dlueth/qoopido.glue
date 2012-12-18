@@ -184,7 +184,7 @@ namespace Glue {
 			$compression = $environment->get('compression');
 
 			// check core cache
-			$cacheable = !in_array($node, (array) $settings['cache']['exclude']);
+			$cacheable = (isset($settings['cache']['exclude'])) ? !in_array($node, (array) $settings['cache']['exclude']) : true;
 			if($settings['cache']['@attributes']['enabled'] === true && $cacheable === true) {
 				$id = $this->path['local'] . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize(array($environment->get('id'), $compression)));
 
