@@ -6,6 +6,9 @@ namespace Glue\Component;
  *
  * @require PHP "ZLIB" extension [optional]
  *
+ * @event glue.component.environment.process.pre() > _process()
+ * @event glue.component.environment.process.post() > _process()
+ *
  * @listen glue.gateway.view.render.pre > onPreRender()
  *
  * @author Dirk Lüth <info@qoopido.de>
@@ -35,7 +38,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 		try {
 			$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateway.view.render.pre');
 
-			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ | \Glue\Entity\Registry::PERMISSION_SET);
+			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ | \Glue\Entity\Registry::PERMISSION_SET | \Glue\Entity\Registry::PERMISSION_REGISTER);
 
 			$settings = \Glue\Component\Configuration::getInstance()->get(__CLASS__);
 			$url      = \Glue\Component\Url::getInstance();
@@ -58,9 +61,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				$data['node']                 = (!empty($_REQUEST['Glue']['node'])) ? \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true) : \Glue\Helper\Modifier::cleanPath($settings['defaults']['node'], true);
 				$data['alias']                = str_replace('/', '.', $data['node']);
 				$data['slug']                 = str_replace('.', '/', preg_replace('/[^\w.]/', '', $data['alias']));
-				$data['modifier']             = $_REQUEST['Glue']['modifier'];
-				$data['id']                   = (count($data['modifier']) > 0) ? 'site:' . $data['site'] . '/theme:' . $data['theme'] . '/language:' . $data['language'] . '/' . $data['node'] . '/' . implode('/', $data['modifier']) : 'site:' . $data['site'] . '/theme:' . $data['theme'] . '/language:' . $data['language'] . '/' . $data['node'] . '/';
-				$data['id']                   = \Glue\Helper\Modifier::cleanPath($data['id'], true);
+				$data['id']                   = NULL;
 
 			// set secondary environment variables
 				$data['mimetype']             = false;
@@ -83,6 +84,9 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				$data['url']['absolute']      = preg_replace('/\/*$/', '', $data['url']['absolute']) . '/';
 				$data['url']['relative']      = parse_url($data['url']['absolute']);
 				$data['url']['relative']      = $data['url']['relative']['path'];
+
+			// set modifier
+				$data['modifier']             = array();
 
 			// set controller
 				$data['controller']           = '\Glue\Controller\\' . implode('\\', array_map('ucfirst', explode('/', $data['slug'])));
@@ -111,10 +115,36 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 			// set registry
 				$this->registry->set(NULL, $data);
 
+			// process id
+				$this->_process();
+
 			unset($settings, $url, $data);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
+	}
+
+	/**
+	 * Method to build id for environment/caching
+	 *
+	 * @return void
+	 */
+	final protected function _process() {
+		$this->dispatcher->notify(new \Glue\Event($this->id . '.process.pre'));
+
+		$data     = $this->registry->get();
+		$id       = 'site:' . $data['site'] . '/theme:' . $data['theme'] . '/language:' . $data['language'] . '/' . $data['node'] . '/';
+		$modifier = $this->registry->get('modifier');
+
+		if(count($modifier) > 0) {
+			$id .= sha1(json_encode($modifier)) . '/';
+		}
+
+		$this->registry->set('id', $id);
+
+		$this->dispatcher->notify(new \Glue\Event($this->id . '.process.post'));
+
+		unset($data, $id, $modifier);
 	}
 
 	/**

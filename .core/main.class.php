@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.1.4';
+		const VERSION = '1.1.5';
 
 		/**
 		 * Private property to store core path information
@@ -126,8 +126,9 @@ namespace Glue {
 		 * @throw \CoreException
 		 */
 		final public function __construct() {
-			$node      = $_REQUEST['Glue']['node'];
-			$cacheable = false;
+			$_REQUEST['Glue']['modifier'] = array();
+
+			$node = $_REQUEST['Glue']['node'];
 
 			try {
 				// ignore user abort

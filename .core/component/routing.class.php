@@ -4,6 +4,8 @@ namespace Glue\Component;
 /**
  * Component to handle routing
  *
+ * @listen glue.component.environment.process.pre > onPreProcess()
+ *
  * @author Dirk Lüth <info@qoopido.de>
  */
 final class Routing extends \Glue\Abstracts\Base\Singleton {
@@ -15,12 +17,29 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 	private $registry = NULL;
 
 	/**
+	 * Private property to store modifier
+	 */
+	private $modifier = NULL;
+
+	/**
+	 * Event listener
+	 */
+	final public function onPreProcess() {
+		if($this->modifier !== NULL) {
+			\Glue\Component\Environment::getInstance()->register('modifier.routing', $this->modifier);
+		}
+	}
+
+
+	/**
 	 * Class constructor
 	 *
 	 * @throw \RuntimeException
 	 */
 	final protected function __initialize() {
 		try {
+			$this->dispatcher->addListener(array(&$this, 'onPreProcess'), 'glue.component.environment.process.pre');
+
 			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
 
 			$modifier  = array();
@@ -106,9 +125,10 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 					parse_str($uri['query'], $uriParameter);
 
 					$parameter = array_merge($parameter, $uriParameter);
+					$modifier  = array_flip($modifier);
 
 					foreach($parameter as $key => $value) {
-						if(in_array($key, $modifier) === true) {
+						if(isset($modifier[$key]) === true) {
 							$modifier[$key] = $value;
 						} else {
 							unset($modifier[$key]);
@@ -116,10 +136,15 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 					}
 
 					unset($uriParameter, $key, $value);
+				} else {
+					$modifier = array();
 				}
 
-				$_REQUEST['Glue']['node']     = \Glue\Helper\Modifier::cleanPath($uri['path']);
-				$_REQUEST['Glue']['modifier'] = $modifier;
+				$_REQUEST['Glue']['node'] = \Glue\Helper\Modifier::cleanPath($uri['path']);
+
+				if(count($modifier) > 0) {
+					$this->modifier = $modifier;
+				}
 
 				unset($routes, $modifier, $route, $methods);
 			}
