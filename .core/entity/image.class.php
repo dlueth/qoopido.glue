@@ -495,7 +495,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 		if(($result = \Glue\Helper\validator::batch(array(
 			'@$size'   => array($size, 'isNumeric', array('isGreater', array(0))),
-			'$mode'    => array($mode, 'isNumeric', array('isBetween', array(0, 4)))
+			'$mode'    => array($mode, 'isNumeric', array('isBetween', array(0, 5)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
 		}
