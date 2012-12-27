@@ -480,6 +480,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * mode = 2: scale to height (keeping aspect ratio)
 	 * mode = 3: scale to shortest side (keeping aspect ratio)
 	 * mode = 4: scale to longest side (keeping aspect ratio)
+	 * mode = 5: scale by ratio
 	 *
 	 * @param mixed $size
 	 * @param int $mode [optional]
@@ -534,6 +535,10 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 					unset($ratio);
 
+					break;
+				case 5:
+					$size[0] = (int) round($this->width * $size[0]);
+					$size[1] = (int) round($this->height * $size[1]);
 					break;
 			}
 
