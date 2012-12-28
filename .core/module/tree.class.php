@@ -136,7 +136,13 @@ class Tree extends \Glue\Abstracts\Base {
 						}
 
 						$temp[$tree['@attributes']['id']] = array();
-						$temp[$tree['@attributes']['id']]['childnodes'] =& $this->_parse($tree['childnodes']);
+
+						if(isset($tree['@attributes']['nodelist']) && $tree['@attributes']['nodelist'] == true) {
+							$temp[$tree['@attributes']['id']]['nodelist']   = array();
+							$temp[$tree['@attributes']['id']]['childnodes'] =& $this->_parse($tree['childnodes'], $temp[$tree['@attributes']['id']]['nodelist']);
+						} else {
+							$temp[$tree['@attributes']['id']]['childnodes'] =& $this->_parse($tree['childnodes']);
+						}
 
 						if(isset($tree['@attributes']['breadcrumb']) && $tree['@attributes']['breadcrumb'] == true) {
 							$temp[$tree['@attributes']['id']]['breadcrumb'] = array();
@@ -220,7 +226,7 @@ class Tree extends \Glue\Abstracts\Base {
 	 *
 	 * @throw \RuntimeException
 	 */
-	protected function &_parse(array &$tree) {
+	protected function &_parse(array &$tree, array &$nodelist = NULL) {
 		try {
 			foreach($tree as $index => $subtree) {
 				if(isset($tree[$index]['@attributes']) && is_array($tree[$index]['@attributes'])) {
@@ -246,6 +252,10 @@ class Tree extends \Glue\Abstracts\Base {
 				$tree[$index]['status']  =  0;
 				$tree[$index]['custom']  = array();
 
+				if($nodelist !== NULL) {
+					$nodelist[$tree[$index]['slug']] =& $tree[$index];
+				}
+
 				if(isset($subtree['custom'])) {
 					if(isset($subtree['custom']['@attributes']) && is_array($subtree['custom']['@attributes'])) {
 						foreach($subtree['custom']['@attributes'] as $key => $value) {
@@ -267,7 +277,7 @@ class Tree extends \Glue\Abstracts\Base {
 						$tree[$index]['childnodes'][$index2]['parent'] =& $tree[$index];
 					}
 
-					$tree[$index]['childnodes'] =& $this->_parse($tree[$index]['childnodes']);
+					$tree[$index]['childnodes'] =& $this->_parse($tree[$index]['childnodes'], $nodelist);
 				}
 			}
 
