@@ -88,20 +88,16 @@ abstract class Element {
 	 *
 	 * @param string $name
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
 	public function addModifier($name) {
-		$return = false;
-
 		if(isset($this->form->modifier[$name])) {
 			if(!in_array($name, $this->modifier)) {
 				$this->modifier[] = $name;
-
-				$return = true;
 			}
 		}
 
-		return $return;
+		return $this;
 	}
 
 	/**
@@ -109,11 +105,9 @@ abstract class Element {
 	 *
 	 * @param string $name
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
 	public function addValidator($name) {
-		$return = false;
-
 		if(isset($this->form->validator[$name])) {
 			$arguments = func_get_args();
 			array_shift($arguments);
@@ -123,11 +117,9 @@ abstract class Element {
 			}
 
 			$this->validator[$name][] = $arguments;
-
-			$return = true;
 		}
 
-		return $return;
+		return $this;
 	}
 
 	/**
