@@ -121,6 +121,13 @@ namespace Glue {
 		private $profile;
 
 		/**
+		 * Private property to store environment data
+		 *
+		 * @array
+		 */
+		private $environment;
+
+		/**
 		 * Class constructor
 		 *
 		 * @throw \CoreException
@@ -176,6 +183,8 @@ namespace Glue {
 				if($configuration->get('Component.Session.@attributes.enabled') === true) {
 					$session   = $factory->load('\Glue\Component\Session');
 				}
+
+				$this->environment = $environment->get();
 			} catch(\Exception $exception) {
 				throw new \CoreException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 			}
@@ -315,6 +324,10 @@ namespace Glue {
 		 * @param array $header [optional]
 		 */
 		final private function _output($content, array $header = array()) {
+			if($this->environment['raw'] !== $this->environment['slug']) {
+				@header('Link: <' . $this->environment['url']['absolute'] . $this->environment['slug'] . '/>; rel="canonical"', true);
+			}
+
 			foreach($header as $name => $values) {
 				if(is_array($values)) {
 					foreach($values as $index => $value) {
@@ -337,7 +350,7 @@ namespace Glue {
 		}
 
 		/**
-		 * Magic method for retrieving values of unkown or restricted properties
+		 * Magic method for retrieving values of unknown or restricted properties
 		 *
 		 * @param string $property
 		 *

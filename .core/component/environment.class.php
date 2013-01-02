@@ -48,6 +48,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				date_default_timezone_set($settings['defaults']['timezone']);
 
 			// initialize primary environment variables
+				$data['raw']                  = \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true);
 				$data['id']                   = false;
 				$data['node']                 = false;
 				$data['alias']                = false;
@@ -58,7 +59,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				$data['characterset']         = ini_get('default_charset');
 
 			// set primary environment variables
-				$data['node']                 = (!empty($_REQUEST['Glue']['node'])) ? \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true) : \Glue\Helper\Modifier::cleanPath($settings['defaults']['node'], true);
+				$data['node']                 = (!empty($data['raw'])) ? $data['raw'] : \Glue\Helper\Modifier::cleanPath($settings['defaults']['node'], true);
 				$data['alias']                = str_replace('/', '.', $data['node']);
 				$data['slug']                 = str_replace('.', '/', preg_replace('/[^\w.]/', '', $data['alias']));
 				$data['id']                   = NULL;
