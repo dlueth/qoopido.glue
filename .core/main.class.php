@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.1.5';
+		const VERSION = '1.1.6';
 
 		/**
 		 * Private property to store core path information
@@ -377,7 +377,7 @@ namespace Glue {
 		}
 
 		/**
-		 * Magic method for checking the existance of unkown or restricted properties
+		 * Magic method for checking the existance of unknown or restricted properties
 		 *
 		 * @param string $property
 		 *

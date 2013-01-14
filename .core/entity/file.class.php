@@ -82,7 +82,7 @@ class File {
 	}
 
 	/**
-	 * Magic method for checking the existance of unkown or restricted properties
+	 * Magic method for checking the existance of unknown or restricted properties
 	 *
 	 * @param string $property
 	 *
