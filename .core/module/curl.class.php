@@ -3,11 +3,11 @@ namespace Glue\Module {
 	/**
 	 * Curl module
 	 *
+	 * credits https://github.com/jmathai/php-multi-curl
+	 *
 	 * @require PHP "CURL" extension
 	 *
 	 * @author Dirk Lüth <info@qoopido.de>
-	 *
-	 * @credits https://github.com/jmathai/php-multi-curl
 	 */
 	class Curl extends \Glue\Abstracts\Base\Singleton {
 		/**

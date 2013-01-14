@@ -221,6 +221,7 @@ class Tree extends \Glue\Abstracts\Base {
 	 * Method to parse tree
 	 *
 	 * @param array $tree
+	 * @param array $nodelist [optional]
 	 *
 	 * @return array
 	 *

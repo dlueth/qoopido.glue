@@ -6,11 +6,11 @@ namespace Glue\Gateway;
  *
  * @event glue.gateway.view.render.pre(string $handler) > render()
  * @event glue.gateway.view.render.post(string $handler, string &$content) > render()
- * @event glue.gateway.view.render.error(string $handler, \Exception $exception) > render()
+ * @event glue.gateway.view.render.error(string $handler, \\Exception $exception) > render()
  *
  * @author Dirk Lüth <info@qoopido.de>
  */
-final class View extends \Glue\Abstracts\Gateway {
+class View extends \Glue\Abstracts\Gateway {
 	/**
 	 * Property to provide registry
 	 *
