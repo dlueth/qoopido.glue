@@ -101,7 +101,7 @@ class Dwoo_Plugin_image extends Dwoo_Block_Plugin {
 	public function process() {
 		$return = false;
 
-		$id     = (empty($_directory)) ? self::$path['local'] . '/cache/image/' . sha1(serialize(array($this->buffer, $this->interlace, $this->quality, $this->filter, $this->calls))) . '.png' : self::$path['local'] . '/cache/img/' . $_directory . '/' . sha1(serialize(array($this->buffer, $this->interlace, $this->quality, $this->filter, $this->calls))) . '.png';
+		$id     = (empty($_directory)) ? self::$path['local'] . '/cache/assets/img/' . sha1(serialize(array($this->buffer, $this->interlace, $this->quality, $this->filter, $this->calls))) . '.png' : self::$path['local'] . '/cache/assets/img/' . $_directory . '/' . sha1(serialize(array($this->buffer, $this->interlace, $this->quality, $this->filter, $this->calls))) . '.png';
 		$cache  = \Glue\Entity\Cache\File::getInstance($id)->setMode('raw');
 
 		if(\Glue\Helper\Validator::isLocal($this->buffer)) {

@@ -37,12 +37,12 @@ class Dwoo_Plugin_uglify extends Dwoo_Block_Plugin {
 		if(count($this->inline) > 0) {
 			$this->source = array();
 
-			$cache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/uglify/' . sha1(implode('', $this->inline)) . '.js')
+			$cache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/assets/js/' . sha1(implode('', $this->inline)) . '.js')
 				->setMode('raw');
 
 			if(($source = $cache->get()) === false) {
 				foreach($this->inline as $js) {
-					$fcache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/uglify/.src/' . sha1($js) . '.js')
+					$fcache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/assets/js/.src/' . sha1($js) . '.js')
 						->setMode('raw');
 
 					if(($data = $fcache->get()) === false) {
@@ -77,13 +77,13 @@ class Dwoo_Plugin_uglify extends Dwoo_Block_Plugin {
 
 		if(count($this->files) > 0) {
 			$this->source = array();
-			$cache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/uglify/' . sha1(implode(';', $this->files)) . '.js')
+			$cache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/assets/js/' . sha1(implode(';', $this->files)) . '.js')
 				->setMode('raw')
 				->setDependencies($this->files);
 
 			if($cache->get() === false) {
 				foreach($this->files as $file) {
-					$fcache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/uglify/.src/' . sha1($file) . '.js')
+					$fcache = \Glue\Entity\Cache\File::getInstance($this->path['local'] . '/cache/assets/js/.src/' . sha1($file) . '.js')
 						->setMode('raw')
 						->setDependencies($file);
 
@@ -107,9 +107,7 @@ class Dwoo_Plugin_uglify extends Dwoo_Block_Plugin {
 			unset($cache);
 		}
 
-		unset($this->files);
-		unset($this->source);
-		unset($this->results);
+		unset($this->inline, $this->files, $this->source, $this->results);
 
 		return implode(chr(10), $this->return);
 	} 
