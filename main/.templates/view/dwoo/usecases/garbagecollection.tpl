@@ -18,7 +18,7 @@
 			</p>
 
 			<script type="syntaxhighlighter" class="brush: php"><![CDATA[
-{fetch file="`$environment.path.local`/.controller/.examples/`$environment.slug`.class.php"}
+{fetch file="`$environment.path.local`/.controller/.examples/`$environment.slug`.php"}
 			]]></script>
 		</section>
 	</article>

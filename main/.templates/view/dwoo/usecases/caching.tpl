@@ -35,7 +35,7 @@
 			);
 
 			// define the cache id/path
-			$id = $this->environment->get('path.local) . '/.cache/' . strtolower(__CLASS__) . '/' . sha1(serialize($files));
+			$id = $this->environment->get('path.local) . '/.cache/' . __CLASS__ . '/' . sha1(serialize($files));
 
 			// initialize cache and set dependencies to local files
 			$cache = \Glue\Entity\Cache\File::getInstance($id)

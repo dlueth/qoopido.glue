@@ -21,7 +21,7 @@
 			<p>The controller example is directly taken from the source of the controller of this page. Keep in mind that the image created is neither used nor cached in this example but both is definitely recommended in real world usage.</p>
 
 			<script type="syntaxhighlighter" class="brush: php"><![CDATA[
-{fetch file="`$environment.path.local`/.controller/`$environment.slug`.class.php"}
+{fetch file="`$environment.path.local`/.controller/`$environment.slug`.php"}
 			]]></script>
 		</section>
 
