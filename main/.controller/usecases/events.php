@@ -10,8 +10,8 @@ class Events extends \Glue\Controller\General {
 		// call parent constructor
 		parent::__initialize();
 
-		// bind method onPreRender to the system event glue.adapter.view.render.pre
-		$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.adapter.view.render.pre');
+		// bind method onPreRender to the system event glue.gateway.view.render.pre
+		$this->dispatcher->addListener(array(&$this, 'onPreRender'), 'glue.gateway.view.render.pre');
 
 		// bind method onMath to all custom "math" events
 		$this->dispatcher->addListener(array(&$this, 'onMath'), 'math');
