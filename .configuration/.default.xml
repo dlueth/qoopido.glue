@@ -40,7 +40,7 @@
 	<Gateway>
 		<View>
 			<defaults>
-				<adapter>dwoo</adapter>
+				<adapter>Dwoo</adapter>
 			</defaults>
 		</View>
 	</Gateway>

@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with qoopido-framework. If not, see
 <http://www.gnu.org/licenses/>.
 */
-require('./.core/main.class.php');
+//require('./.core/main.class.php');
+require('./.libraries/Glue/Core.php');
 $Glue = new \Glue\Core();
 ?>
