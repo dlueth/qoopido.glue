@@ -12,4 +12,4 @@
 	url = git://github.com/kriskowal/q.git
 [submodule "portfolio/assets/vendor/qoopido"]
 	path = portfolio/assets/vendor/qoopido
-	url = git@github.com:dlueth/qoopido.js.git
+	url = git://github.com/dlueth/qoopido.js.git

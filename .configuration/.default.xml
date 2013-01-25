@@ -11,7 +11,7 @@
 				<switches>!</switches>
 			</identifier>
 			<switches>
-				<site>main|portfolio|responsive</site>
+				<site>main</site>
 				<theme>default</theme>
 				<language>en-US</language>
 			</switches>
@@ -19,7 +19,7 @@
 		<Environment>
 			<defaults>
 				<node>home</node>
-				<site>portfolio</site>
+				<site>main</site>
 				<theme>default</theme>
 				<language>en-US</language>
 				<timezone>Europe/Berlin</timezone>
