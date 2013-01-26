@@ -7,9 +7,3 @@
 [submodule "main/css/normalize"]
 	path = main/css/normalize
 	url = git://github.com/necolas/normalize.css.git
-[submodule "portfolio/assets/vendor/q"]
-	path = portfolio/assets/vendor/q
-	url = git://github.com/kriskowal/q.git
-[submodule "portfolio/assets/vendor/qoopido"]
-	path = portfolio/assets/vendor/qoopido
-	url = git://github.com/dlueth/qoopido.js.git
