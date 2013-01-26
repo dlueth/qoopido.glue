@@ -2,26 +2,6 @@ DirectoryIndex index.php
 Options -Indexes
 Options +FollowSymLinks
 
-# cache manifest
-AddType text/cache-manifest .manifest # offline caching
-
-# shrinkimage
-AddType application/json .shrunk # shrinkimage
-AddType application/javascript .shrunk.jsonp # shrinkimage
-
-# fonts
-AddType application/vnd.ms-fontobject .eot
-AddType application/x-font-ttf .ttf
-AddType application/x-font-woff .woff
-AddType image/svg+xml .svg
-
-# html5 video
-AddType video/ogg .ogv
-AddType video/ogg .ogg
-AddType video/mp4 .mp4
-AddType video/webm .webm
-AddType application/x-shockwave-flash swf
-
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 	RewriteBase /
@@ -29,24 +9,10 @@ AddType application/x-shockwave-flash swf
 	# protect files/directories with a leading "."
 	RewriteRule ((^|\/)\..*) ./ [F,L]
 
-	# prevent hotlinking
-	# RewriteCond %{HTTP_REFERER} !^http://(.+\.)?mysite\.com/ [NC]
-	# RewriteCond %{HTTP_REFERER} !^$
-	# RewriteRule .*\.(jpe?g|gif|bmp|png)$ /images/nohotlink.jpg [L]
-
-	# shrinkimage
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.+.q(?:[0-9]+).shrunk)$ portfolio/assets/php/shrinkimage.php?file=$1 [QSA,L]
-    RewriteRule ^(.+.q(?:[0-9]+).shrunk.jsonp)$ portfolio/assets/php/shrinkimage.php?file=$1&jsonp=1 [QSA,L]
-
-    # responsiveimage
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.+)@([0-9]|[0-9]+.[0-9]+).(mobile|desktop).(jpg|jpeg|png|gif)$ resize/?resize[file]=/$1.$4&resize[ratio]=$2&resize[layout]=$3 [QSA,L]
-
 	# set rewrite condition and rule
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^(.+[^/])$ $1/  [QSA]
-	RewriteRule ^((?:.+/)+)$ index.php?Glue[node]=$1 [QSA]
+	RewriteRule ^((?:.+/)+)$ index.php?Glue[node]=$1 [QSA,L]
 </IfModule>
 
 <IfModule mod_deflate.c>
@@ -71,10 +37,3 @@ AddType application/x-shockwave-flash swf
 <IfModule mod_headers.c>
 	Header set X-UA-Compatible "IE=edge;chrome=1"
 </IfModule>
-
-# cross domain font embedding for Firefox
-#<FilesMatch "\.(ttf|otf|eot|woff)$">
-#	<IfModule mod_headers.c>
-#		Header set Access-Control-Allow-Origin "http://yourdomain.com"
-#	</IfModule>
-#</FilesMatch>
