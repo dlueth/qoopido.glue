@@ -76,8 +76,7 @@ class Dwoo extends \Glue\Abstracts\Adapter\View {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

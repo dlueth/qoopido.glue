@@ -19,7 +19,7 @@ final class Apc extends \Glue\Entity\Cache\Abstracts\Base {
 	 */
 	public static function __once() {
 		if(extension_loaded('apc') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'APC'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'APC'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 	}
 
@@ -34,7 +34,7 @@ final class Apc extends \Glue\Entity\Cache\Abstracts\Base {
 		try {
 			return unserialize(apc_fetch(sha1($this->cid)));
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -51,7 +51,7 @@ final class Apc extends \Glue\Entity\Cache\Abstracts\Base {
 		try {
 			return apc_store(sha1($this->cid), serialize($data), ($this->lifetime !== NULL) ? $this->timestamp + $this->lifetime : NULL);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -66,8 +66,7 @@ final class Apc extends \Glue\Entity\Cache\Abstracts\Base {
 		try {
 			return apc_delete(sha1($this->cid));
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

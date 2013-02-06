@@ -26,7 +26,7 @@ abstract class Adapter extends \Glue\Abstracts\Base {
 		try {
 			self::$environment = \Glue\Component\Environment::getInstance();
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -52,8 +52,7 @@ abstract class Adapter extends \Glue\Abstracts\Base {
 
 			unset($gateway, $arguments);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 }
-?>

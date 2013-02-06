@@ -23,7 +23,7 @@ class Converter {
 			'$size' => array($size, 'isNumeric', array('isGreater', array(0, true))),
 			'$base' => array($base, array('matchesPattern', array('1000|1024'), true))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -39,7 +39,7 @@ class Converter {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -57,7 +57,7 @@ class Converter {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$value' => array($value, 'isNumeric')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -67,7 +67,7 @@ class Converter {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -85,7 +85,7 @@ class Converter {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$value' => array($value, 'isNumeric')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -95,7 +95,7 @@ class Converter {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -113,7 +113,7 @@ class Converter {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$value' => array($value, 'isNumeric')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -123,7 +123,7 @@ class Converter {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -141,7 +141,7 @@ class Converter {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$value' => array($value, 'isString', array('matchesPattern', array('^#[a-f0-9]{3,3}|[a-f0-9]{6,6}$')))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -165,7 +165,7 @@ class Converter {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -189,7 +189,7 @@ class Converter {
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
 			'$a' => array($a, 'isNumeric', array('isBetween', array(0, 255)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -206,7 +206,7 @@ class Converter {
 				return sprintf("%s%02X%02X%02X%02X", '#', $a, $r, $g, $b);
 			}
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -225,7 +225,7 @@ class Converter {
 			'$color' => array($color, 'isInteger')
 		))) !== true) {
 			echo '=> ' . gettype($color) . '<br />';
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -238,7 +238,7 @@ class Converter {
 				'a' => ($color & 0x7F000000) >> 24,
 			);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -262,7 +262,7 @@ class Converter {
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
 			'$a' => array($a, 'isNumeric', array('isBetween', array(0, 255)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -270,7 +270,7 @@ class Converter {
 
 			return ((int) $r << 16) + ((int) $g << 8) + (int) $b + ((int) $a << 24);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -288,7 +288,7 @@ class Converter {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$color' => array($color, 'isInteger')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -299,7 +299,7 @@ class Converter {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -323,7 +323,7 @@ class Converter {
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
 			'$a' => array($a, 'isNumeric', array('isBetween', array(0, 255)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -344,7 +344,7 @@ class Converter {
 				'a' => (int) $a,
 			);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -368,7 +368,7 @@ class Converter {
 			'$v' => array($v, 'isNumeric', array('isBetween', array(0, 100))),
 			'$a' => array($a, 'isNumeric', array('isBetween', array(0, 100)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -389,7 +389,7 @@ class Converter {
 				'a' => (int) $a,
 			);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -413,7 +413,7 @@ class Converter {
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
 			'$a' => array($a, 'isNumeric', array('isBetween', array(0, 255)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -459,7 +459,7 @@ class Converter {
 				'a' => $a,
 			);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -483,7 +483,7 @@ class Converter {
 			'$l' => array($l, 'isNumeric', array('isBetween', array(0, 1))),
 			'$a' => array($a, 'isNumeric', array('isBetween', array(0, 1)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -511,7 +511,7 @@ class Converter {
 				'a' => $a,
 			);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -533,7 +533,7 @@ class Converter {
 			'$q' => array($q, 'isNumeric', array('isBetween', array(0, 1))),
 			'$t' => array($t, 'isNumeric', array('isBetween', array(0, 1)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -547,8 +547,7 @@ class Converter {
 
 			return $p;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

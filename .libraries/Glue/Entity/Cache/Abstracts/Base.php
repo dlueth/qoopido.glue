@@ -65,7 +65,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$cid' => array($cid, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -75,7 +75,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			unset($result);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -144,7 +144,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$lifetime' => array($lifetime, 'isInteger', array('isGreater', array(0)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -158,7 +158,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -176,7 +176,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$status' => array($status, 'isBoolean')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -186,7 +186,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -206,7 +206,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'@$dependencies' => array($dependencies, 'isPathValid')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -236,7 +236,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -271,7 +271,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -296,7 +296,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -378,7 +378,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -412,7 +412,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -454,4 +454,3 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	 */
 	abstract protected function _clear();
 }
-?>

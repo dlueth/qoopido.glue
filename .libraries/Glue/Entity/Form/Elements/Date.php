@@ -13,4 +13,3 @@ class Date extends \Glue\Entity\Form\Abstracts\Element {
 		$this->addValidator('isDate');
 	}
 }
-?>

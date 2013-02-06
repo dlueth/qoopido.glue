@@ -56,4 +56,3 @@ final class Event {
 		return isset($this->$property);
 	}
 }
-?>

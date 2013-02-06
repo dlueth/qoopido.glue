@@ -70,7 +70,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 */
 	public static function __once() {
 		if(extension_loaded('gd') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'GD'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'GD'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 
 		try {
@@ -81,7 +81,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			self::$urlfopen         = (bool) ini_get('allow_url_fopen');
 			self::$exif             = extension_loaded('exif');
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -102,7 +102,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			unset($image);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -280,7 +280,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -315,7 +315,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -350,7 +350,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -368,7 +368,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$percent' => array($percent, 'isNumeric', array('isBetween', array(0, 100)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -402,7 +402,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -424,7 +424,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$saturation' => array($saturation, 'isNumeric', array('isBetween', array(-100, 100))),
 			'$lightness'  => array($lightness, 'isNumeric', array('isBetween', array(-100, 100)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -468,7 +468,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -497,7 +497,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'@$size'   => array($size, 'isNumeric', array('isGreater', array(0))),
 			'$mode'    => array($mode, 'isNumeric', array('isBetween', array(0, 5)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -557,7 +557,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -579,7 +579,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$width'   => array($width, 'isNumeric', array('isGreater', array(0))),
 			'$height'  => array($height, 'isNumeric', array('isGreater', array(0)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -604,7 +604,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -622,7 +622,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$angle'   => array($angle, 'isNumeric')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -640,7 +640,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -661,7 +661,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$axes'   => array($axes, 'isNumeric', array('isBetween', array(1, 2)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -704,7 +704,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -721,13 +721,13 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 */
 	public function blur($amount = 50) {
 		if(self::$imageconvolution !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'function' => 'imageconvolution'), EXCEPTION_FUNCTION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'function' => 'imageconvolution'), GLUE_EXCEPTION_FUNCTION_MISSING));
 		}
 
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$amount'   => array($amount, 'isNumeric', array('isBetween', array(1, 100)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -753,7 +753,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -770,13 +770,13 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 */
 	public function sharpen($amount = 50) {
 		if(self::$imageconvolution !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'function' => 'imageconvolution'), EXCEPTION_FUNCTION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'function' => 'imageconvolution'), GLUE_EXCEPTION_FUNCTION_MISSING));
 		}
 
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$amount'    => array($amount, 'isNumeric', array('isBetween', array(1, 100)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -802,7 +802,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -824,7 +824,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$height'   => array($height, 'isNumeric', array('isGreater', array(0))),
 			'$alpha'    => array($alpha, 'isNumeric', array('isBetween', array(0, 100)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -880,7 +880,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -900,7 +900,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$color'  => array($color, 'isString', 'isNotEmpty'),
 			'$stroke' => array($stroke, 'isNumeric', array('isGreater', array(0)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -921,7 +921,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -951,7 +951,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$size'       => array($size, 'isNumeric', array('isGreater', array(0))),
 			'$spread'     => array($spread, 'isNumeric', array('isGreater', array(0, true)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -1060,7 +1060,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return $this;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -1081,7 +1081,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$type'      => array($type, 'isString', array('matchesPattern', array('^png|jpeg|gif$', 'i'))),
 			'$interlace' => array($interlace, 'isBoolean')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -1090,7 +1090,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			unset($type, $interlace, $quality, $filter, $result);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -1112,7 +1112,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			'$type'      => array($type, 'isString', array('matchesPattern', array('^png|jpeg|gif$', 'i'))),
 			'$interlace' => array($interlace, 'isBoolean')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -1153,7 +1153,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 
 			return trim(ob_get_clean());
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -1199,4 +1199,3 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 		}
 	}
 }
-?>

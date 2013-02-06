@@ -219,4 +219,3 @@ final class Delete extends \Glue\Entity\Query\Abstracts\Query {
 		return $return;
 	}
 }
-?>

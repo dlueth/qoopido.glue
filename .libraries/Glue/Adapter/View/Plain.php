@@ -16,8 +16,7 @@ class Plain extends \Glue\Abstracts\Adapter\View {
 		try {
 			return (string) $this->gateway->get('data');
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

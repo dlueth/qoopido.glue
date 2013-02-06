@@ -13,4 +13,3 @@ class Email extends \Glue\Entity\Form\Abstracts\Element {
 		$this->addValidator('isEmail');
 	}
 }
-?>

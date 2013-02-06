@@ -1,9 +1,20 @@
 <?php
 namespace {
 	/**
-	 * Define constant for base directory
+	 * set default timezone
 	 */
-	define('__BASE__', dirname($_SERVER['SCRIPT_FILENAME']));
+	@date_default_timezone_set(@date_default_timezone_get());
+
+	/**
+	 * alter settings in PHP.ini
+	 */
+	ini_set('default_charset',                'UTF-8');
+	ini_set('error_reporting',                E_ALL ^ E_NOTICE);
+	ini_set('display_errors',                 1);
+	ini_set('register_globals',               0);
+	ini_set('magic_quotes_gpc',               0);
+	ini_set('allow_call_time_pass_reference', 0);
+	ini_set('short_open_tag',                 0);
 
 	/**
 	 * Define missing constants for some versions of PHP
@@ -38,46 +49,35 @@ namespace {
 	}
 
 	/**
+	 * Define constant for base directory
+	 */
+	define('GLUE_DIRECTORY_BASE', dirname($_SERVER['SCRIPT_FILENAME']));
+
+	/**
 	 * Constants for scopes
 	 */
-	const SCOPE_GLOBAL = 1;
-	const SCOPE_LOCAL  = 2;
-	const SCOPE_ALL    = 3;
+	const GLUE_SCOPE_GLOBAL = 1;
+	const GLUE_SCOPE_LOCAL  = 2;
+	const GLUE_SCOPE_ALL    = 3;
 
 	/**
 	 * Constants for exception messages
 	 */
-	const EXCEPTION_CLASS_INITIALIZE   = '{class}: failed to initialize';
-	const EXCEPTION_CLASS_SINGLETON    = '{class}: singleton already initialized';
-	const EXCEPTION_CLASS_CONTROLLER   = '{class}: controller must extend \Glue\Abstract\Controller';
-	const EXCEPTION_METHOD_FAILED      = '{method}: failed unexpectedly';
-	const EXCEPTION_METHOD_PERMISSIONS = '{method}: insufficient permissions';
-	const EXCEPTION_METHOD_CONTEXT     = '{method}: unavailable in context';
-	const EXCEPTION_PARAMETER          = '{method}: parameter {parameter} invalid';
-	const EXCEPTION_EXTENSION_MISSING  = '{class}: extension {extension} not installed';
-	const EXCEPTION_FUNCTION_MISSING   = '{class}: function {function} does not exist';
-	const EXCEPTION_SETTING_MISSING    = '{class}: PHP.ini directive {setting} is not set';
-
-	/**
-	 * set default timezone
-	 */
-	@date_default_timezone_set(@date_default_timezone_get());
-
-	/**
-	 * alter settings in PHP.ini
-	 */
-	ini_set('default_charset',                'UTF-8');
-	ini_set('error_reporting',                E_ALL ^ E_NOTICE);
-	ini_set('display_errors',                 1);
-	ini_set('register_globals',               0);
-	ini_set('magic_quotes_gpc',               0);
-	ini_set('allow_call_time_pass_reference', 0);
-	ini_set('short_open_tag',                 0);
-
-	class CoreException extends LogicException {}
+	const GLUE_EXCEPTION_CLASS_INITIALIZE   = '{class}: failed to initialize';
+	const GLUE_EXCEPTION_CLASS_SINGLETON    = '{class}: singleton already initialized';
+	const GLUE_EXCEPTION_CLASS_CONTROLLER   = '{class}: controller must extend \Glue\Abstract\Controller';
+	const GLUE_EXCEPTION_METHOD_FAILED      = '{method}: failed unexpectedly';
+	const GLUE_EXCEPTION_METHOD_PERMISSIONS = '{method}: insufficient permissions';
+	const GLUE_EXCEPTION_METHOD_CONTEXT     = '{method}: unavailable in context';
+	const GLUE_EXCEPTION_PARAMETER          = '{method}: parameter {parameter} invalid';
+	const GLUE_EXCEPTION_EXTENSION_MISSING  = '{class}: extension {extension} not installed';
+	const GLUE_EXCEPTION_FUNCTION_MISSING   = '{class}: function {function} does not exist';
+	const GLUE_EXCEPTION_SETTING_MISSING    = '{class}: PHP.ini directive {setting} is not set';
 }
 
 namespace Glue {
+	class CoreException extends \LogicException {}
+
 	/**
 	 * Bootstrap process + further core processing
 	 *
@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.1.7';
+		const VERSION = '1.1.9';
 
 		/**
 		 * Private property to store core path information
@@ -130,9 +130,10 @@ namespace Glue {
 		/**
 		 * Class constructor
 		 *
-		 * @throw \CoreException
+		 * @throw \Glue\CoreException
 		 */
 		final public function __construct() {
+			$_REQUEST['Glue']['node']     = (isset($_REQUEST['Glue']['node'])) ? $_REQUEST['Glue']['node'] : NULL;
 			$_REQUEST['Glue']['modifier'] = array();
 
 			$node = $_REQUEST['Glue']['node'];
@@ -143,7 +144,7 @@ namespace Glue {
 
 				// initiate path
 				$this->path = array(
-					'global' => str_replace('\\', DIRECTORY_SEPARATOR, __BASE__),
+					'global' => str_replace('\\', DIRECTORY_SEPARATOR, GLUE_DIRECTORY_BASE),
 					'local'  => NULL
 				);
 
@@ -184,9 +185,9 @@ namespace Glue {
 					$session   = $factory->load('\Glue\Component\Session');
 				}
 
-				$this->environment = $environment->get();
+				$this->environment =& $environment;
 			} catch(\Exception $exception) {
-				throw new \CoreException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+				throw new \Glue\CoreException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 			}
 
 			// fetch configuration
@@ -195,6 +196,7 @@ namespace Glue {
 
 			// check core cache
 			$cacheable = (isset($settings['cache']['exclude'])) ? !in_array($node, (array) $settings['cache']['exclude']) : true;
+
 			if($settings['cache']['@attributes']['enabled'] === true && $cacheable === true) {
 				$id = $this->path['local'] . '/.cache/' . __CLASS__ . '/' . sha1(serialize(array($environment->get('id'), $compression)));
 
@@ -206,6 +208,7 @@ namespace Glue {
 
 				if(($content = $cache->get()) !== false) {
 					$maxage                  = ($cache->timestamp + $cache->lifetime) - time();
+					$canonical               = $cache->extras['canonical'];
 					$header                  = $cache->extras['header'];
 					$header['Date']          = array(gmdate('D, d M Y H:i:s', time()) . ' GMT');
 					$header['Cache-Control'] = array('public', 'max-age=' . $maxage, 's-maxage=' . $maxage, 'must-revalidate', 'proxy-revalidate');
@@ -217,7 +220,7 @@ namespace Glue {
 
 					$dispatcher->notify(new \Glue\Event('glue.core.output.pre'));
 
-					$this->_output($content, $header);
+					$this->_output($content, $header, $canonical);
 
 					$dispatcher->notify(new \Glue\Event('glue.core.output.post'));
 
@@ -254,6 +257,7 @@ namespace Glue {
 			$etag       = md5($content);
 			$generation = $environment->get('generation');
 			$lifetime   = strtotime($environment->get('lifetime'), $generation);
+			$canonical  = $environment->get('canonical');
 
 			$header->set('Date', gmdate('D, d M Y H:i:s', time()) . ' GMT', true);
 			$header->set('Vary', 'Accept', true);
@@ -285,13 +289,13 @@ namespace Glue {
 				$header = $header->get();
 				$header['HTTP/1.1 304 Not Modified'] = NULL;
 
-				$this->_output(NULL, $header);
+				$this->_output(NULL, $header, $canonical);
 
 				$dispatcher->notify(new \Glue\Event('glue.core.output.post'));
 
 				exit;
 			} else {
-				$this->_output($content, $header->get());
+				$this->_output($content, $header->get(), $canonical);
 			}
 
 			// flush output and clean outputbuffer
@@ -307,12 +311,12 @@ namespace Glue {
 			if($settings['cache']['@attributes']['enabled'] === true && $cacheable === true) {
 				$cache
 					->setLifetime(strtotime($settings['cache']['lifetime']))
-					->setExtras(array('etag' => $etag, 'header' => $header->get()))
+					->setExtras(array('etag' => $etag, 'canonical' => $canonical, 'header' => $header->get()))
 					->setData($content)
 					->set();
 			}
 
-			unset($node, $cacheable, $dispatcher, $factory, $configuration, $url, $request, $routing, $server, $client, $environment, $header, $session, $settings, $compression, $cache, $view, $controller, $content, $maxage, $etag, $generation, $lifetime);
+			unset($node, $cacheable, $dispatcher, $factory, $configuration, $url, $request, $routing, $server, $client, $environment, $header, $session, $settings, $compression, $cache, $view, $controller, $content, $maxage, $etag, $generation, $lifetime, $canonical);
 
 			exit;
 		}
@@ -323,10 +327,8 @@ namespace Glue {
 		 * @param string $content
 		 * @param array $header [optional]
 		 */
-		final private function _output($content, array $header = array()) {
-			if($this->environment['raw'] !== $this->environment['slug']) {
-				@header('Link: <' . $this->environment['url']['absolute'] . $this->environment['slug'] . '/>; rel="canonical"', true);
-			}
+		final private function _output($content, array $header = array(), $canonical) {
+			$environment = $this->environment->get();
 
 			foreach($header as $name => $values) {
 				if(is_array($values)) {
@@ -342,11 +344,15 @@ namespace Glue {
 				}
 			}
 
+			if($canonical !== false && \Glue\Helper\Modifier::cleanPath($_SERVER['REQUEST_URI']) !== '/' . $canonical) {
+				@header('Link: <' . $environment['url']['absolute'] . $canonical . '>; rel="canonical"');
+			}
+
 			@header('Connection: close', true);
 
 			echo $content;
 
-			unset($content, $header, $name, $values, $index, $value);
+			unset($environment, $content, $header, $canonical, $name, $values, $index, $value);
 		}
 
 		/**
@@ -433,4 +439,3 @@ namespace Glue {
 		}
 	}
 }
-?>

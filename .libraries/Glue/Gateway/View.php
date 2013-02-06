@@ -43,7 +43,7 @@ class View extends \Glue\Abstracts\Gateway {
 
 			$this->setAdapter(\Glue\Component\Configuration::getInstance()->get(__CLASS__ . '.defaults.adapter'));
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -73,7 +73,7 @@ class View extends \Glue\Abstracts\Gateway {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$adapter' => array($adapter, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -85,7 +85,7 @@ class View extends \Glue\Abstracts\Gateway {
 
 			unset($adapter, $result, $mimetype);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -100,7 +100,7 @@ class View extends \Glue\Abstracts\Gateway {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$template' => array($template, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		$this->template = $template;
@@ -120,7 +120,7 @@ class View extends \Glue\Abstracts\Gateway {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$filename' => array($filename, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -130,7 +130,7 @@ class View extends \Glue\Abstracts\Gateway {
 
 			unset($filename, $result);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -148,7 +148,7 @@ class View extends \Glue\Abstracts\Gateway {
 			$this->dispatcher->notify(new \Glue\Event($this->id . '.render.pre', array($classname)));
 
 			$this->adapter           = new $classname($this);
-			$this->adapter->template = ($this->template === NULL) ? \Glue\Component\Environment::getInstance()->get('slug') : $this->template;
+			$this->adapter->template = ($this->template === NULL) ? \Glue\Component\Environment::getInstance()->get('node') : $this->template;
 
 			$return = $this->adapter->fetch();
 
@@ -159,8 +159,7 @@ class View extends \Glue\Abstracts\Gateway {
 			return $return;
 		} catch(\Exception $exception) {
 			$this->dispatcher->notify(new \Glue\Event($this->id . '.render.error', array($classname, $exception)));
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

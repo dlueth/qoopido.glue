@@ -112,4 +112,3 @@ class Dwoo_Plugin_uglify extends Dwoo_Block_Plugin {
 		return implode(chr(10), $this->return);
 	} 
 }
-?>

@@ -16,7 +16,7 @@ class Cryptology {
 	 */
 	public static function __once() {
 		if(extension_loaded('mcrypt') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'MCRYPT'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'MCRYPT'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 	}
 
@@ -38,7 +38,7 @@ class Cryptology {
 			'$key' => array($key, 'isString', 'isNotEmpty'),
 			'$value' => array($value, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -57,7 +57,7 @@ class Cryptology {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -79,7 +79,7 @@ class Cryptology {
 			'$key' => array($key, 'isString', 'isNotEmpty'),
 			'$value' => array($value, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -98,7 +98,7 @@ class Cryptology {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -128,8 +128,7 @@ class Cryptology {
 					break;
 			}
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

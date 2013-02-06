@@ -16,6 +16,11 @@ class Tree extends \Glue\Abstracts\Base {
 	protected $registry = NULL;
 
 	/**
+	 * Property to store environment
+	 */
+	protected static $environment = NULL;
+
+	/**
 	 * Property to store path
 	 */
 	protected static $path = NULL;
@@ -32,10 +37,11 @@ class Tree extends \Glue\Abstracts\Base {
 	 */
 	public static function __once() {
 		try {
-			self::$path = \Glue\Component\Environment::getInstance()->get('path');
-			self::$node = '/' . \Glue\Component\Environment::getInstance()->get('node');
+			self::$environment = \Glue\Component\Environment::getInstance();
+			self::$path        = self::$environment->get('path');
+			self::$node        = '/' . self::$environment->get('node');
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -48,7 +54,7 @@ class Tree extends \Glue\Abstracts\Base {
 		try {
 			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_READ);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -77,14 +83,14 @@ class Tree extends \Glue\Abstracts\Base {
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public function load($language, $scope = SCOPE_ALL) {
+	public function load($language, $scope = GLUE_SCOPE_ALL) {
 		$language = (is_string($language)) ? (array) $language : $language;
 
 		if(($result = \Glue\Helper\validator::batch(array(
 			'@$language' => array($language, 'isString'),
-			'$scope'     => array($scope, array('matchesBitmask', array(SCOPE_ALL)))
+			'$scope'     => array($scope, array('matchesBitmask', array(GLUE_SCOPE_ALL)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -93,17 +99,17 @@ class Tree extends \Glue\Abstracts\Base {
 			$dependencies = array();
 
 			switch($scope) {
-				case SCOPE_GLOBAL:
+				case GLUE_SCOPE_GLOBAL:
 					foreach($language as $code) {
 						$dependencies[] = self::$path['global'] . '/.internationalization/tree/' . $code . '.xml';
 					}
 					break;
-				case SCOPE_LOCAL:
+				case GLUE_SCOPE_LOCAL:
 					foreach($language as $code) {
 						$dependencies[] = self::$path['local'] . '/.internationalization/tree/' . $code . '.xml';
 					}
 					break;
-				case SCOPE_ALL:
+				case GLUE_SCOPE_ALL:
 					foreach(self::$path as $scope) {
 						foreach($language as $code) {
 							$dependencies[] = $scope . '/.internationalization/tree/' . $code . '.xml';
@@ -135,14 +141,10 @@ class Tree extends \Glue\Abstracts\Base {
 							$tree['childnodes'] = array($tree['childnodes']);
 						}
 
-						$temp[$tree['@attributes']['id']] = array();
-
-						if(isset($tree['@attributes']['nodelist']) && $tree['@attributes']['nodelist'] == true) {
-							$temp[$tree['@attributes']['id']]['nodelist']   = array();
-							$temp[$tree['@attributes']['id']]['childnodes'] =& $this->_parse($tree['childnodes'], $temp[$tree['@attributes']['id']]['nodelist']);
-						} else {
-							$temp[$tree['@attributes']['id']]['childnodes'] =& $this->_parse($tree['childnodes']);
-						}
+						$temp[$tree['@attributes']['id']]               =  array();
+						$temp[$tree['@attributes']['id']]['nodelist']   =  array();
+						$temp[$tree['@attributes']['id']]['current']    =  NULL;
+						$temp[$tree['@attributes']['id']]['childnodes'] =& $this->_processTree($tree['childnodes'], $temp[$tree['@attributes']['id']]);
 
 						if(isset($tree['@attributes']['breadcrumb']) && $tree['@attributes']['breadcrumb'] == true) {
 							$temp[$tree['@attributes']['id']]['breadcrumb'] = array();
@@ -161,8 +163,10 @@ class Tree extends \Glue\Abstracts\Base {
 
 			if($data !== false) {
 				foreach($data as &$tree) {
+					$this->_processState($tree);
+
 					if(isset($tree['breadcrumb'])) {
-						$this->_breadcrumb($tree, $tree['breadcrumb']);
+						$this->_processBreadcrumb($tree, $tree['breadcrumb']);
 						$tree['current'] =& $tree['breadcrumb'][count($tree['breadcrumb']) - 1];
 					}
 				}
@@ -174,7 +178,38 @@ class Tree extends \Glue\Abstracts\Base {
 
 			unset($language, $scope, $result, $dependencies, $id, $cache, $data);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
+		}
+	}
+
+	/**
+	 * Method to process state for tree
+	 *
+	 * @param array $tree
+	 * @param array $result
+	 *
+	 * @throw \RuntimeException
+	 */
+	protected function _processState(array &$tree) {
+		try {
+			foreach($tree['nodelist'] as &$item) {
+				$node  = '/' . $item['node'];
+				$state = (preg_match('/^' . preg_quote($node, '/') . '.*/', self::$node . '/')) ? (($node == self::$node) ? 2 : 1) : 0;
+
+				if($state !== 0) {
+					$item['state'] = $state;
+
+					if($state === 2) {
+						$tree['current'] =& $item;
+					}
+				}
+
+				unset($item, $node, $state);
+			}
+
+			unset($tree);
+		} catch(\Exception $exception) {
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -186,22 +221,15 @@ class Tree extends \Glue\Abstracts\Base {
 	 *
 	 * @throw \RuntimeException
 	 */
-	protected function _breadcrumb(array &$tree, array &$result) {
+	protected function _processBreadcrumb(array &$tree, array &$result) {
 		try {
 			if(isset($tree['childnodes'])) {
 				foreach($tree['childnodes'] as &$item) {
-					$node   = '/' . $item['node'];
-					$status = (preg_match('/^' . preg_quote($node, '/') . '.*/', self::$node . '/')) ? 1 : 0;
-
-					if($status === 1) {
-						$status = ($node == self::$node) ? 2 : $status;
-
+					if($item['state'] > 0) {
 						$result[] =& $item;
 
-						$item['status'] = $status;
-
-						if($status === 1 && isset($item['childnodes'])) {
-							$this->_breadcrumb($item, $result);
+						if(isset($item['childnodes'])) {
+							$this->_processBreadcrumb($item, $result);
 						}
 
 						break;
@@ -213,7 +241,7 @@ class Tree extends \Glue\Abstracts\Base {
 
 			unset($tree, $result);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -221,13 +249,13 @@ class Tree extends \Glue\Abstracts\Base {
 	 * Method to parse tree
 	 *
 	 * @param array $tree
-	 * @param array $nodelist [optional]
+	 * @param array $root
 	 *
 	 * @return array
 	 *
 	 * @throw \RuntimeException
 	 */
-	protected function &_parse(array &$tree, array &$nodelist = NULL) {
+	protected function &_processTree(array &$tree, array &$root) {
 		try {
 			foreach($tree as $index => $subtree) {
 				if(isset($tree[$index]['@attributes']) && is_array($tree[$index]['@attributes'])) {
@@ -250,12 +278,10 @@ class Tree extends \Glue\Abstracts\Base {
 
 				$tree[$index]['alias']   = str_replace('/', '.', $tree[$index]['node']);
 				$tree[$index]['visible'] =  (!isset($subtree['@attributes']['visible']) || !is_bool($subtree['@attributes']['visible'])) ? true : $subtree['@attributes']['visible'];
-				$tree[$index]['status']  =  0;
+				$tree[$index]['state']   =  0;
 				$tree[$index]['custom']  = array();
 
-				if($nodelist !== NULL) {
-					$nodelist[$tree[$index]['slug']] =& $tree[$index];
-				}
+				$root['nodelist'][$tree[$index]['slug']] =& $tree[$index];
 
 				if(isset($subtree['custom'])) {
 					if(isset($subtree['custom']['@attributes']) && is_array($subtree['custom']['@attributes'])) {
@@ -278,14 +304,13 @@ class Tree extends \Glue\Abstracts\Base {
 						$tree[$index]['childnodes'][$index2]['parent'] =& $tree[$index];
 					}
 
-					$tree[$index]['childnodes'] =& $this->_parse($tree[$index]['childnodes'], $nodelist);
+					$tree[$index]['childnodes'] =& $this->_processTree($tree[$index]['childnodes'], $root);
 				}
 			}
 
 			return $tree;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

@@ -14,4 +14,3 @@ interface Gateway {
 	 */
 	public function setAdapter($adapter);
 }
-?>

@@ -97,7 +97,7 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 			}
 
 			if(isset($settings['route'])) {
-				$routes   = array();
+				$routes = array();
 
 				if(isset($settings['route']['pattern'])) {
 					$settings['route'] = array($settings['route']);
@@ -146,14 +146,14 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 					$this->modifier = $modifier;
 				}
 
-				unset($routes, $modifier, $route, $methods);
+				unset($routes, $route, $methods);
 			}
 
 			$this->registry->set(NULL, $parameter);
 
 			unset($modifier, $parameter, $settings, $method, $uri);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -204,7 +204,7 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -222,4 +222,3 @@ final class Routing extends \Glue\Abstracts\Base\Singleton {
 		}
 	}
 }
-?>

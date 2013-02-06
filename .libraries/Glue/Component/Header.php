@@ -23,7 +23,7 @@ final class Header extends \Glue\Abstracts\Base\Singleton {
 		try {
 			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_WRITE);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -68,4 +68,3 @@ final class Header extends \Glue\Abstracts\Base\Singleton {
 		return $return;
 	}
 }
-?>

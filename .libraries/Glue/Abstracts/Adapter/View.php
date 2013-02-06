@@ -8,4 +8,3 @@ namespace Glue\Abstracts\Adapter;
  */
 abstract class View extends \Glue\Abstracts\Adapter implements \Glue\Interfaces\Adapter\View {
 }
-?>

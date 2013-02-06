@@ -37,7 +37,7 @@ final class Session extends \Glue\Abstracts\Base\Singleton {
 	 */
 	public static function __once() {
 		if(extension_loaded('session') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'SESSION'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'SESSION'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 	}
 
@@ -104,7 +104,7 @@ final class Session extends \Glue\Abstracts\Base\Singleton {
 
 			unset($settings, $request, $page, $data);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -135,7 +135,7 @@ final class Session extends \Glue\Abstracts\Base\Singleton {
 
 			$this->dispatcher->notify(new \Glue\Event($this->id . '.close.post'));
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -157,8 +157,7 @@ final class Session extends \Glue\Abstracts\Base\Singleton {
 
 			$this->dispatcher->notify(new \Glue\Event($this->id . '.destroy.post'));
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

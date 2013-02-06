@@ -346,4 +346,3 @@ abstract class Query extends \Glue\Abstracts\Base\Chainable implements \Glue\Ent
 		return $this;
 	}
 }
-?>

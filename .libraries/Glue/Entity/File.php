@@ -48,7 +48,7 @@ class File {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$path' => array($path, 'isString', 'isPathValid')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -64,7 +64,7 @@ class File {
 
 			unset($path, $filename, $mimetype, $size, $status, $result);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -92,4 +92,3 @@ class File {
 		return isset($this->$property);
 	}
 }
-?>

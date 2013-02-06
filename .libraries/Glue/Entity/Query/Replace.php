@@ -86,4 +86,3 @@ final class Replace extends \Glue\Entity\Query\Abstracts\Query {
 		return $return;
 	}
 }
-?>

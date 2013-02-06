@@ -30,4 +30,3 @@ class Dwoo_Plugin_url extends Dwoo_Block_Plugin {
 		return \Glue\Helper\Url::make($this->buffer, $this->scope, $this->parameters, $this->anchor, $this->separator);
 	}
 }
-?>

@@ -42,7 +42,7 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 	 */
 	public static function __once() {
 		if(extension_loaded('simplexml') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'SIMPLEXML'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'SIMPLEXML'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 	}
 
@@ -87,7 +87,7 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 
 			unset($path, $files, $id, $cache, $data);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -105,4 +105,3 @@ final class Configuration extends \Glue\Abstracts\Base\Singleton {
 		}
 	}
 }
-?>

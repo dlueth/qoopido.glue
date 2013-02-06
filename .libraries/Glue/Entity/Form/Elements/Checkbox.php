@@ -8,4 +8,3 @@ namespace Glue\Entity\Form\Elements;
  */
 class Checkbox extends \Glue\Entity\Form\Abstracts\Element {
 }
-?>

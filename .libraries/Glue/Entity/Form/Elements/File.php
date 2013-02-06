@@ -36,4 +36,3 @@ class File extends \Glue\Entity\Form\Abstracts\Element {
 		}
 	}
 }
-?>

@@ -8,4 +8,3 @@ namespace Glue\Entity\Form\Elements;
  */
 class Radiobutton extends \Glue\Entity\Form\Abstracts\Element {
 }
-?>

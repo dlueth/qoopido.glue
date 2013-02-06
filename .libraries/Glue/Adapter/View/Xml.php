@@ -17,11 +17,11 @@ class Xml extends \Glue\Abstracts\Adapter\View {
 	 */
 	public static function __once() {
 		if(extension_loaded('simplexml') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'SIMPLEXML'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'SIMPLEXML'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 
 		if(extension_loaded('libxml') !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'LIBXML'), EXCEPTION_EXTENSION_MISSING));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'LIBXML'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 	}
 
@@ -52,8 +52,7 @@ class Xml extends \Glue\Abstracts\Adapter\View {
 
 			return($data->saveXML());
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

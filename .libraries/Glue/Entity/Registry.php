@@ -89,7 +89,7 @@ final class Registry {
 				};
 			}
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -107,7 +107,7 @@ final class Registry {
 			'$parent'      => array($parent, 'isObject'),
 			'$permissions' => array($permissions, 'isInteger', array('matchesBitmask', array(self::PERMISSION_ALL)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -119,7 +119,7 @@ final class Registry {
 
 			unset($parent, $permissions, $result);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -138,11 +138,11 @@ final class Registry {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$node' => array($node, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		if($this->_checkPermission(self::PERMISSION_EXISTS) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
@@ -152,7 +152,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -168,13 +168,13 @@ final class Registry {
 	 */
 	final public function get($node = NULL) {
 		if($this->_checkPermission(self::PERMISSION_GET) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
 			return $this->_getNode($node);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -190,13 +190,13 @@ final class Registry {
 	 */
 	final public function &getReference($node = NULL) {
 		if($this->_checkPermission(self::PERMISSION_GETREFERENCE) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
 			return $this->_getNode($node);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -213,7 +213,7 @@ final class Registry {
 	 */
 	final public function register($node, $value = NULL) {
 		if($this->_checkPermission(self::PERMISSION_REGISTER) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
@@ -242,7 +242,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -259,7 +259,7 @@ final class Registry {
 	 */
 	final public function &registerReference($node, &$value = NULL) {
 		if($this->_checkPermission(self::PERMISSION_REGISTERREFERENCE) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
@@ -288,7 +288,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -305,7 +305,7 @@ final class Registry {
 	 */
 	final public function set($node, $value) {
 		if($this->_checkPermission(self::PERMISSION_SET) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
@@ -331,7 +331,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -348,7 +348,7 @@ final class Registry {
 	 */
 	final public function setReference($node, &$value) {
 		if($this->_checkPermission(self::PERMISSION_SETREFERENCE) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
@@ -383,7 +383,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -399,7 +399,7 @@ final class Registry {
 	 */
 	final public function unregister($node = NULL) {
 		if($this->_checkPermission(self::PERMISSION_UNREGISTER) !== true) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_PERMISSIONS));
+			throw new \LogicException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_PERMISSIONS));
 		}
 
 		try {
@@ -415,7 +415,7 @@ final class Registry {
 
 			return true;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -433,7 +433,7 @@ final class Registry {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$node' => array($node, 'isString', 'isNotEmpty')
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
@@ -443,7 +443,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -459,7 +459,7 @@ final class Registry {
 		if(($result = \Glue\Helper\validator::batch(array(
 			'$permissions' => array($permissions, 'isInteger', array('matchesBitmask', array(self::PERMISSION_ALL)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		$this->permissions = $permissions;
@@ -498,7 +498,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -545,8 +545,7 @@ final class Registry {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

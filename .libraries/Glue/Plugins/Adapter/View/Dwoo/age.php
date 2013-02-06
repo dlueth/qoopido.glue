@@ -21,4 +21,3 @@ class Dwoo_Plugin_age extends Dwoo_Block_Plugin {
 		return \Glue\Helper\Datetime::getAge($this->buffer);
 	} 
 }
-?>

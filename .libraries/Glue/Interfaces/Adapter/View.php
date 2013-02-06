@@ -12,4 +12,3 @@ interface View {
 	 */
 	public function fetch();
 }
-?>

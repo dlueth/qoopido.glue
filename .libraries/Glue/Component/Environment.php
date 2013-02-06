@@ -48,18 +48,18 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				date_default_timezone_set($settings['defaults']['timezone']);
 
 			// initialize primary environment variables
-				$data['raw']                  = \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true);
 				$data['id']                   = false;
 				$data['node']                 = false;
 				$data['alias']                = false;
 				$data['slug']                 = false;
+				$data['canonical']            = false;
 				$data['site']                 = $url->get('switches.site') ?: $settings['defaults']['site'];
 				$data['theme']                = $url->get('switches.theme') ?: $settings['defaults']['theme'];
 				$data['language']             = $url->get('switches.language') ?: $settings['defaults']['language'];
 				$data['characterset']         = ini_get('default_charset');
 
 			// set primary environment variables
-				$data['node']                 = (!empty($data['raw'])) ? $data['raw'] : \Glue\Helper\Modifier::cleanPath($settings['defaults']['node'], true);
+				$data['node']                 = \Glue\Helper\Modifier::cleanPath($_REQUEST['Glue']['node'], true);
 				$data['alias']                = str_replace('/', '.', $data['node']);
 				$data['slug']                 = str_replace('.', '/', preg_replace('/[^\w.]/', '', $data['alias']));
 				$data['id']                   = NULL;
@@ -101,7 +101,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 				}
 
 				if($data['controller'] !== NULL && !is_subclass_of($data['controller'], '\Glue\Abstracts\Controller')) {
-					throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_CONTROLLER));
+					throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_CONTROLLER));
 				}
 
 			// clean request
@@ -121,7 +121,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 
 			unset($settings, $url, $data);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -162,4 +162,3 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 		}
 	}
 }
-?>

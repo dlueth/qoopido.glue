@@ -31,7 +31,7 @@ class Language extends \Glue\Abstracts\Base {
 		try {
 			self::$path = \Glue\Component\Environment::getInstance()->get('path');
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -42,7 +42,7 @@ class Language extends \Glue\Abstracts\Base {
 		try {
 			$this->registry = new \Glue\Entity\Registry($this, \Glue\Entity\Registry::PERMISSION_WRITE ^ \Glue\Entity\Registry::PERMISSION_UNREGISTER);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -72,22 +72,22 @@ class Language extends \Glue\Abstracts\Base {
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public function load($language, $apply = true, $scope = SCOPE_ALL) {
+	public function load($language, $apply = true, $scope = GLUE_SCOPE_ALL) {
 		$language = (is_string($language)) ? (array) $language : $language;
 
 		if(($result = \Glue\Helper\validator::batch(array(
 			'@$language' => array($language, 'isString'),
 			'$apply'     => array($apply, 'isBoolean'),
-			'$scope'     => array($scope, array('matchesBitmask', array(SCOPE_ALL)))
+			'$scope'     => array($scope, array('matchesBitmask', array(GLUE_SCOPE_ALL)))
 		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
 			$this->dispatcher->notify(new \Glue\Event($this->id . '.load.pre', array($language, $apply)));
 
 			switch($scope) {
-				case SCOPE_GLOBAL:
+				case GLUE_SCOPE_GLOBAL:
 					$dependencies = array(
 						self::$path['global'] . '/.internationalization/language/.default.xml'
 					);
@@ -96,7 +96,7 @@ class Language extends \Glue\Abstracts\Base {
 						$dependencies[] = self::$path['global'] . '/.internationalization/language/' . $code . '.xml';
 					}
 					break;
-				case SCOPE_LOCAL:
+				case GLUE_SCOPE_LOCAL:
 					$dependencies = array(
 						self::$path['local'] . '/.internationalization/language/.default.xml'
 					);
@@ -105,7 +105,7 @@ class Language extends \Glue\Abstracts\Base {
 						$dependencies[] = self::$path['local'] . '/.internationalization/language/' . $code . '.xml';
 					}
 					break;
-				case SCOPE_ALL:
+				case GLUE_SCOPE_ALL:
 					$dependencies = array(
 						self::$path['global'] . '/.internationalization/language/.default.xml',
 						self::$path['local'] . '/.internationalization/language/.default.xml'
@@ -170,7 +170,7 @@ class Language extends \Glue\Abstracts\Base {
 
 			unset($language, $apply, $result, $dependencies, $id, $cache, $data);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -236,8 +236,7 @@ class Language extends \Glue\Abstracts\Base {
 
 			unset($registry);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

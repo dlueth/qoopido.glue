@@ -164,4 +164,3 @@ class Dwoo_Plugin_image extends Dwoo_Block_Plugin {
 		return $return;
 	}
 }
-?>

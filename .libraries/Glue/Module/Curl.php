@@ -17,7 +17,7 @@ namespace Glue\Module {
 		 */
 		public static function __once() {
 			if(extension_loaded('curl') !== true) {
-				throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'PDO'), EXCEPTION_EXTENSION_MISSING));
+				throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'PDO'), GLUE_EXCEPTION_EXTENSION_MISSING));
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace Glue\Module {
 			try {
 				$this->curl = curl_multi_init();
 			} catch(\Exception $exception) {
-				throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+				throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 			}
 		}
 
@@ -78,7 +78,7 @@ namespace Glue\Module {
 			if(($result = \Glue\Helper\validator::batch(array(
 				'$curl' => array($curl, 'isResource')
 			))) !== true) {
-				throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+				throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 			}
 
 			try {
@@ -99,7 +99,7 @@ namespace Glue\Module {
 
 				return $status;
 			} catch(\Exception $exception) {
-				throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+				throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 			}
 		}
 
@@ -117,7 +117,7 @@ namespace Glue\Module {
 			if(($result = \Glue\Helper\validator::batch(array(
 				'$key' => array($key, 'isString')
 			))) !== true) {
-				throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), EXCEPTION_PARAMETER));
+				throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 			}
 
 			try {
@@ -155,7 +155,7 @@ namespace Glue\Module {
 
 				return NULL;
 			} catch(\Exception $exception) {
-				throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+				throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 			}
 		}
 
@@ -235,4 +235,3 @@ namespace Glue\Entity {
 		}
 	}
 }
-?>

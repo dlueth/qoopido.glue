@@ -62,7 +62,7 @@ final class Exception extends \Glue\Abstracts\Base\Singleton {
 			set_error_handler(array(&$this, 'handleError'));
 			error_reporting(E_ALL);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -91,4 +91,3 @@ final class Exception extends \Glue\Abstracts\Base\Singleton {
 		$this->dispatcher->notify(new \Glue\Event('glue.exception', array($exception)));
 	}
 }
-?>

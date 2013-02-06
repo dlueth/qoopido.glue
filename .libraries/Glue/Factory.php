@@ -26,7 +26,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 		try {
 			$this->registry = new \Glue\Entity\Registry($this);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -46,7 +46,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 		$instancename = ($instancename === NULL) ? $classname : $instancename;
 
 		if(($instance = $this->registry->get($instancename)) !== NULL && is_subclass_of($instance, '\Glue\Abstract\Base\Singleton')) {
-			throw new \LogicException(\Glue\Helper\General::replace(array('class' => $classname), EXCEPTION_CLASS_SINGLETON));
+			throw new \LogicException(\Glue\Helper\General::replace(array('class' => $classname), GLUE_EXCEPTION_CLASS_SINGLETON));
 		}
 
 		try {
@@ -76,7 +76,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -114,7 +114,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -146,7 +146,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 
 			return $return;
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 
@@ -166,8 +166,7 @@ final class Factory extends \Glue\Abstracts\Base\Singleton {
 
 			return $this->registry->registerReference($instancename, $instance);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), EXCEPTION_METHOD_FAILED), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
 	}
 }
-?>

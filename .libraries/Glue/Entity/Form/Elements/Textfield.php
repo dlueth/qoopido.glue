@@ -8,4 +8,3 @@ namespace Glue\Entity\Form\Elements;
  */
 class Textfield extends \Glue\Entity\Form\Abstracts\Element {
 }
-?>

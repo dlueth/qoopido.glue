@@ -33,7 +33,7 @@ class Exception extends \Glue\Abstracts\Base  {
 			$this->dispatcher->addListener(array(&$this, 'handleException'), 'glue.error');
 			$this->dispatcher->addListener(array(&$this, 'handleException'), 'glue.exception');
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -75,4 +75,3 @@ class Exception extends \Glue\Abstracts\Base  {
 		unset($configuration, $message);
 	}
 }
-?>

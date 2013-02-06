@@ -26,7 +26,7 @@ abstract class Singleton extends \Glue\Abstracts\Base {
 			$arguments = func_get_args();
 
 			if(isset(self::$instance[$classname])) {
-				throw new \LogicException(\Glue\Helper\General::replace(array('class' => $classname), EXCEPTION_CLASS_SINGLETON));
+				throw new \LogicException(\Glue\Helper\General::replace(array('class' => $classname), GLUE_EXCEPTION_CLASS_SINGLETON));
 			} else {
 				self::$instance[$classname] =& $this;
 			}
@@ -39,7 +39,7 @@ abstract class Singleton extends \Glue\Abstracts\Base {
 
 			unset($classname, $arguments);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -49,7 +49,7 @@ abstract class Singleton extends \Glue\Abstracts\Base {
 	 * @throw \LogicException
 	 */
 	final public function __clone() {
-		throw new \LogicException(\Glue\Helper\General::replace(array('class' => get_called_class()), EXCEPTION_CLASS_SINGLETON));
+		throw new \LogicException(\Glue\Helper\General::replace(array('class' => get_called_class()), GLUE_EXCEPTION_CLASS_SINGLETON));
 	}
 
 	/**
@@ -80,8 +80,7 @@ abstract class Singleton extends \Glue\Abstracts\Base {
 
 			return self::$instance[$classname];
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 }
-?>

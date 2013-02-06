@@ -36,4 +36,3 @@ final class Truncate extends \Glue\Entity\Query\Abstracts\Query {
 		return $return;
 	}
 }
-?>

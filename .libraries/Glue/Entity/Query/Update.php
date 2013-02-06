@@ -219,4 +219,3 @@ final class Update extends \Glue\Entity\Query\Abstracts\Query {
 		return $return;
 	}
 }
-?>

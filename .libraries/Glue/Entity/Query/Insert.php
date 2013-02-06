@@ -86,4 +86,3 @@ final class Insert extends \Glue\Entity\Query\Abstracts\Query {
 		return $return;
 	}
 }
-?>

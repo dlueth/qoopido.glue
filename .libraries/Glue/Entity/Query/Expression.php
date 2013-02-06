@@ -32,4 +32,3 @@ final class Expression {
 		return $this->value;
 	}
 }
-?>

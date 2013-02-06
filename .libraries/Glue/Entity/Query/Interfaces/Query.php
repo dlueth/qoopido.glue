@@ -9,4 +9,3 @@ namespace Glue\Entity\Query\Interfaces;
 interface Query {
 	public function build();
 }
-?>

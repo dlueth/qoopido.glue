@@ -63,7 +63,7 @@ final class Url extends \Glue\Abstracts\Base\Singleton {
 
 			unset($path, $configuration, $settings);
 		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
+			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
 	}
 
@@ -81,4 +81,3 @@ final class Url extends \Glue\Abstracts\Base\Singleton {
 		}
 	}
 }
-?>
