@@ -345,7 +345,7 @@ namespace Glue {
 			}
 
 			if($canonical !== false && \Glue\Helper\Modifier::cleanPath($_SERVER['REQUEST_URI']) !== '/' . $canonical) {
-				@header('Link: <' . $environment['url']['absolute'] . $canonical . '>; rel="canonical"');
+				@header('Link: <' . $environment['url']['absolute'] . $canonical . '/>; rel="canonical"');
 			}
 
 			@header('Connection: close', true);
