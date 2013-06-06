@@ -569,7 +569,7 @@ class Filesystem {
 					}
 
 					unset($fh);
-				} elseif(self::$mimemagic === true) {
+				} elseif(self::$mimetype === true) {
 					$mimetype = mime_content_type($file);
 				}
 
