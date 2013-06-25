@@ -77,7 +77,7 @@ final class Registry {
 			} else {
 				self::$_closureGetCaller = function() {
 					$return    = false;
-					$backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT | DEBUG_BACKTRACE_IGNORE_ARGS, 3);
+					$backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT | DEBUG_BACKTRACE_IGNORE_ARGS, 4);
 
 					if(isset($backtrace[3]['object'])) {
 						$return =& $backtrace[3]['object'];
@@ -483,13 +483,14 @@ final class Registry {
 
 			if(($this->permissions & $permission) !== $permission) {
 				$closure = self::$_closureGetCaller;
-				$caller = $closure();
 
-				if($caller === $this->parent) {
-					$return = true;
+				if($closure !== false) {
+					$caller = $closure();
+
+					if($caller === $this->parent) {
+						$return = true;
+					}
 				}
-
-				unset($stack);
 			} else {
 				$return = true;
 			}
