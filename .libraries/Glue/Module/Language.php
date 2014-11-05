@@ -75,7 +75,7 @@ class Language extends \Glue\Abstracts\Base {
 	public function load($language, $apply = true, $scope = GLUE_SCOPE_ALL) {
 		$language = (is_string($language)) ? (array) $language : $language;
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@$language' => array($language, 'isString'),
 			'$apply'     => array($apply, 'isBoolean'),
 			'$scope'     => array($scope, array('matchesBitmask', array(GLUE_SCOPE_ALL)))

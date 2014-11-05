@@ -103,7 +103,7 @@ final class Registry {
 	 * @throw \RuntimeException
 	 */
 	final public function __construct(&$parent, $permissions = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$parent'      => array($parent, 'isObject'),
 			'$permissions' => array($permissions, 'isInteger', array('matchesBitmask', array(self::PERMISSION_ALL)))
 		))) !== true) {
@@ -135,7 +135,7 @@ final class Registry {
 	 * @throw \RuntimeException
 	 */
 	final public function exists($node) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$node' => array($node, 'isString', 'isNotEmpty')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -430,7 +430,7 @@ final class Registry {
 	 * @throw \RuntimeException
 	 */
 	final public function splitNode($node) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$node' => array($node, 'isString', 'isNotEmpty')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -456,7 +456,7 @@ final class Registry {
 	 * @throw \InvalidArgumentException
 	 */
 	final private function _setPermissions($permissions) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$permissions' => array($permissions, 'isInteger', array('matchesBitmask', array(self::PERMISSION_ALL)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

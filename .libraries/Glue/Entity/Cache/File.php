@@ -26,7 +26,7 @@ final class File extends \Glue\Entity\Cache\Abstracts\Base {
 	final public function __initialize($cid) {
 		$cid = (is_string($cid)) ? \Glue\Helper\Modifier::cleanPath($cid) : $cid;
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$cid' => array($cid, 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -54,7 +54,7 @@ final class File extends \Glue\Entity\Cache\Abstracts\Base {
 	 * @throw \RuntimeException
 	 */
 	final public function setMode($mode) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$mode' => array($mode, 'isString', array('matchesPattern', array('^serialize|raw$', 'i')))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -118,10 +118,10 @@ final class File extends \Glue\Entity\Cache\Abstracts\Base {
 		try {
 			switch($this->mode) {
 				case 'serialize':
-					return \Glue\Helper\Filesystem::updateFile($this->cid, serialize($data), true);
+					return \Glue\Helper\Filesystem::updateFile($this->cid, serialize($data));
 					break;
 				case 'raw':
-					if(\Glue\Helper\Filesystem::updateFile($this->cid . '.status', serialize($data['status']), true)	&& \Glue\Helper\Filesystem::updateFile($this->cid, $data['content'], true)) {
+					if(\Glue\Helper\Filesystem::updateFile($this->cid . '.status', serialize($data['status']))	&& \Glue\Helper\Filesystem::updateFile($this->cid, $data['content'])) {
 						return true;
 					} else {
 						try {

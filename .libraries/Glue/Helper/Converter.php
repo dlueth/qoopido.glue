@@ -19,7 +19,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function bytes2human($size, $base = 1024) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$size' => array($size, 'isNumeric', array('isGreater', array(0, true))),
 			'$base' => array($base, array('matchesPattern', array('1000|1024'), true))
 		))) !== true) {
@@ -54,7 +54,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function kilometer2miles($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value' => array($value, 'isNumeric')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -82,7 +82,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function miles2kilometer($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value' => array($value, 'isNumeric')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -110,7 +110,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function nauticalmiles2kilometer($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value' => array($value, 'isNumeric')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -138,7 +138,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function hex2rgb($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value' => array($value, 'isString', array('matchesPattern', array('^#[a-f0-9]{3,3}|[a-f0-9]{6,6}$')))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -183,7 +183,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function rgb2hex($r, $g, $b, $a = 255) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$r' => array($r, 'isNumeric', array('isBetween', array(0, 255))),
 			'$g' => array($g, 'isNumeric', array('isBetween', array(0, 255))),
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
@@ -221,7 +221,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function color2rgb($color) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$color' => array($color, 'isInteger')
 		))) !== true) {
 			echo '=> ' . gettype($color) . '<br />';
@@ -256,7 +256,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function rgb2color($r, $g, $b, $a = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$r' => array($r, 'isNumeric', array('isBetween', array(0, 255))),
 			'$g' => array($g, 'isNumeric', array('isBetween', array(0, 255))),
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
@@ -285,7 +285,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function color2grayscale($color) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$color' => array($color, 'isInteger')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -317,7 +317,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function rgb2yuv($r, $g, $b, $a = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$r' => array($r, 'isNumeric', array('isBetween', array(0, 255))),
 			'$g' => array($g, 'isNumeric', array('isBetween', array(0, 255))),
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
@@ -362,7 +362,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function yuv2rgb($y, $u, $v, $a = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$y' => array($y, 'isNumeric', array('isBetween', array(0, 100))),
 			'$u' => array($u, 'isNumeric', array('isBetween', array(0, 100))),
 			'$v' => array($v, 'isNumeric', array('isBetween', array(0, 100))),
@@ -407,7 +407,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function rgb2hsl($r, $g, $b, $a = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$r' => array($r, 'isNumeric', array('isBetween', array(0, 255))),
 			'$g' => array($g, 'isNumeric', array('isBetween', array(0, 255))),
 			'$b' => array($b, 'isNumeric', array('isBetween', array(0, 255))),
@@ -477,7 +477,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	public static function hsl2rgb($h, $s, $l, $a = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$h' => array($h, 'isNumeric', array('isBetween', array(0, 1))),
 			'$s' => array($s, 'isNumeric', array('isBetween', array(0, 1))),
 			'$l' => array($l, 'isNumeric', array('isBetween', array(0, 1))),
@@ -528,7 +528,7 @@ class Converter {
 	 * @throw \RuntimeException
 	 */
 	private static function hue2rgb($p, $q, $t) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$p' => array($p, 'isNumeric', array('isBetween', array(0, 1))),
 			'$q' => array($q, 'isNumeric', array('isBetween', array(0, 1))),
 			'$t' => array($t, 'isNumeric', array('isBetween', array(0, 1)))

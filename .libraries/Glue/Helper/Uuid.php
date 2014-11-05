@@ -24,17 +24,19 @@ class Uuid {
 	 */
 	public static function __once() {
 		try {
+		/*
 			if(function_exists('posix_getpid') === true) {
 				self::$_closureGetRandom = function($min, $max) {
 					mt_srand(crc32((double) (microtime() ^ posix_getpid())));
 					return mt_rand($min, $max);
 				};
 			} else {
+			*/
 				self::$_closureGetRandom = function($min, $max) {
 					mt_srand(hexdec(substr(md5(microtime()), -8)) & 0x7fffffff);
 					return mt_rand($min, $max);
 				};
-			}
+			//}
 
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
@@ -53,7 +55,7 @@ class Uuid {
 	 * @throw \RuntimeException
 	 */
 	public static function v3($namespace, $name) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$namespace' => array($namespace, 'isUUID')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -124,7 +126,7 @@ class Uuid {
 	 * @throw \RuntimeException
 	 */
 	public static function v5($namespace, $name) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$namespace' => array($namespace, 'isUUID')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

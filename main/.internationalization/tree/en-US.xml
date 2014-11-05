@@ -47,7 +47,7 @@
 			</childnodes>
 		</childnodes>
 
-		<childnodes node="use-cases">
+		<childnodes node="usecases">
 			<title>Use cases</title>
 
 			<childnodes node="events">
@@ -62,7 +62,7 @@
 			<childnodes node="databases">
 				<title>Databases</title>
 			</childnodes>
-			<childnodes node="garbage-collection">
+			<childnodes node="garbagecollection">
 				<title>Garbage collection</title>
 			</childnodes>
 			<childnodes node="caching">
@@ -79,25 +79,25 @@
 			</childnodes>
 		</childnodes>
 
-		<childnodes node="other-topics">
+		<childnodes node="othertopics">
 			<title>Other topics</title>
 
-			<childnodes node="naming-conventions">
+			<childnodes node="namingconventions">
 				<title>Naming conventions</title>
 			</childnodes>
-			<childnodes node="exception-handling">
+			<childnodes node="exceptionhandling">
 				<title>Exception handling</title>
 			</childnodes>
-			<childnodes node="url-handling">
+			<childnodes node="urlhandling">
 				<title>URL handling</title>
 			</childnodes>
-			<childnodes node="multiple-sites">
+			<childnodes node="multiplesites">
 				<title>Multiple sites</title>
 			</childnodes>
-			<childnodes node="multiple-languages">
+			<childnodes node="multiplelanguages">
 				<title>Multiple languages</title>
 			</childnodes>
-			<childnodes node="multiple-themes">
+			<childnodes node="multiplethemes">
 				<title>Multiple themes</title>
 			</childnodes>
 		</childnodes>

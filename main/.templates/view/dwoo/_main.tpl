@@ -107,15 +107,15 @@
 			</nav>
 
 			<section>
-				Qoopido Glue: {$core->version} | {$core->profile.duration|string_format:'%.4f'}s | {$core->profile.memory}
+				{* Qoopido Glue: {$core->version} | {$core->profile.duration|stringformat:'%.4f'}s | {$core->profile.memory} *}
 			</section>
 		</footer>
 	</div>
 
-	{literal}
+	{* literal}
 		<script type="jscript">
 			try { jQuery(document).ready(); } catch(e) {}
 		</script>
-	{/literal}
+	{/literal *}
 </body>
 </html>

@@ -61,7 +61,7 @@ class Exception extends \Glue\Abstracts\Base  {
 		if($configuration['file'] === true) {
 			$logfile = ($this->path['local'] !== NULL) ? $this->path['local'] . '/.logfiles/' . date('Ymd') . '.exception.log' : $this->path['global'] . '/.logfiles/' . date('Ymd') . '.exception.log';
 
-			\Glue\Helper\Filesystem::updateFile($logfile, $message, true, true);
+			\Glue\Helper\Filesystem::updateFile($logfile, $message, \Glue\Helper\Filesystem::FILE_ALL);
 
 			unset($logfile);
 		}

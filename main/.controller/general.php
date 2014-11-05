@@ -4,7 +4,7 @@ namespace Glue\Controller;
 class General extends \Glue\Abstracts\Controller {
 	protected function __initialize() {
 		// initialize handling of rendering erros
-			$this->dispatcher->addListener(array(&$this, 'onRenderError'), 'glue.gateway.view.render.error');
+			// $this->dispatcher->addListener(array(&$this, 'onRenderError'), 'glue.gateway.view.render.error');
 
 		// initialize & register language
 			$language = $this->factory->load('\Glue\Module\Language');

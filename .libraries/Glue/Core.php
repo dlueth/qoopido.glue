@@ -104,7 +104,7 @@ namespace Glue {
 		/**
 		 * Version
 		 */
-		const VERSION = '1.2.0';
+		const VERSION = '1.2.1';
 
 		/**
 		 * Private property to store core path information
@@ -133,7 +133,7 @@ namespace Glue {
 		 * @throw \Glue\CoreException
 		 */
 		final public function __construct() {
-			$_REQUEST['Glue']['node']     = (isset($_REQUEST['Glue']['node']) && !empty($_REQUEST['Glue']['node'])) ? $_REQUEST['Glue']['node'] : NULL;
+			$_REQUEST['Glue']['node']     = (isset($_REQUEST['Glue']['node'])) ? $_REQUEST['Glue']['node'] : NULL;
 			$_REQUEST['Glue']['modifier'] = array();
 
 			$node = $_REQUEST['Glue']['node'];
@@ -348,11 +348,7 @@ namespace Glue {
 				@header('Link: <' . $environment['url']['absolute'] . $canonical . '/>; rel="canonical"');
 			}
 
-			@header('Connection: close', true);
-
-			echo $content;
-
-			unset($environment, $content, $header, $canonical, $name, $values, $index, $value);
+			die($content);
 		}
 
 		/**

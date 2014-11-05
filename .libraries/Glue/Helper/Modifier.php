@@ -85,7 +85,7 @@ class Modifier {
 	 * @throw \InvalidArgumentException
 	 */
 	public static function trim($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -106,7 +106,7 @@ class Modifier {
 	 * @throw \InvalidArgumentException
 	 */
 	public static function uc($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -127,7 +127,7 @@ class Modifier {
 	 * @throw \InvalidArgumentException
 	 */
 	public static function ucFirst($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -148,7 +148,7 @@ class Modifier {
 	 * @throw \InvalidArgumentException
 	 */
 	public static function ucWords($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -176,7 +176,7 @@ class Modifier {
 			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'MBSTRING'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -208,7 +208,7 @@ class Modifier {
 	 * @throw \RuntimeException
 	 */
 	public static function sluggify($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -246,7 +246,7 @@ class Modifier {
 			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'extension' => 'ICONV'), GLUE_EXCEPTION_EXTENSION_MISSING));
 		}
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -277,7 +277,7 @@ class Modifier {
 	 * @throw \RuntimeException
 	 */
 	public static function sanitize($value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$value'   => array($value, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -306,7 +306,7 @@ class Modifier {
 	 * @throw \InvalidArgumentException
 	 */
 	public static function cleanPath($path, $leading = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$path'       => array($path, 'isString'),
 			'$leading' => array($leading, 'isBoolean')
 		))) !== true) {

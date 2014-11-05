@@ -82,7 +82,7 @@ class Form {
 	 * @throw \RuntimeException
 	 */
 	public function __construct($id, $method) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$id'     => array($id, 'isString', 'isNotEmpty'),
 			'$method' => array($method, 'isString', array('matchesPattern', array('^get|post|put|delete$')))
 		))) !== true) {
@@ -226,7 +226,7 @@ class Form {
 	 * @throw \RuntimeException
 	 */
 	public function register($id, $type = 'textfield', $required = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$id'       => array($id, 'isString', 'isNotEmpty'),
 			'$type'     => array($id, 'isString', 'isNotEmpty'),
 			'$required' => array($required, 'isBoolean')

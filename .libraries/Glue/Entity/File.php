@@ -45,7 +45,7 @@ class File {
 	 * @throw \RuntimeException
 	 */
 	public function __construct($path, $filename = NULL, $mimetype = NULL, $size = NULL, $status = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$path' => array($path, 'isString', 'isPathValid')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

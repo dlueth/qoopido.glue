@@ -33,7 +33,7 @@ class Cryptology {
 	 * @throw \RuntimeException
 	 */
 	public static function encrypt($algorithm = '3des', $key, $value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$algorithm' => array($algorithm, 'isString', array('matchesPattern', array('^des|3des|aes|gost$'))),
 			'$key' => array($key, 'isString', 'isNotEmpty'),
 			'$value' => array($value, 'isString', 'isNotEmpty')
@@ -74,7 +74,7 @@ class Cryptology {
 	 * @throw \RuntimeException
 	 */
 	public static function decrypt($algorithm = '3des', $key, $value) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$algorithm' => array($algorithm, 'isString', array('matchesPattern', array('^des|3des|aes|gost$'))),
 			'$key' => array($key, 'isString', 'isNotEmpty'),
 			'$value' => array($value, 'isString', 'isNotEmpty')

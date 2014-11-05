@@ -32,10 +32,17 @@ class Validator {
 			foreach($batch as $key => $validator) {
 				$each  = (preg_match('/^@/', $key) > 0) ? true : false;
 				$key   = ($each === true) ? preg_replace('/^@/', '', $key) : $key;
+
+				if($validator === NULL) {
+					continue;
+				}
+
 				$value = array_shift($validator);
 
 				foreach($validator as $v) {
 					list($method, $parameter, $expected) = ((array) $v) + $default;
+
+					$result = $expected;
 
 					if($parameter === NULL) {
 						if($each === false || !is_array($value)) {
@@ -100,7 +107,7 @@ class Validator {
 	 */
 	public static function matchesPattern($value, $pattern, $options = '') {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value'   => array($value, 'isScalar'),
                 '$pattern' => array($pattern, 'isScalar'),
                 '$options' => array($options, 'isString')
@@ -130,7 +137,7 @@ class Validator {
 	 */
 	public static function matchesBitmask($value, $bitmask) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value'   => array($value, 'isInteger', array('isGreater', array(0, true))),
                 '$bitmask' => array($bitmask, 'isInteger', array('isGreater', array(0, true)))
             )) !== true) {
@@ -158,7 +165,7 @@ class Validator {
 	 */
 	public static function isEmail($value) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value' => array($value, 'isString')
             )) !== true) {
                 return false;
@@ -382,7 +389,7 @@ class Validator {
 	 */
 	public static function isDate($value) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value' => array($value, 'isString')
             )) !== true) {
                 return false;
@@ -413,7 +420,7 @@ class Validator {
 	 */
 	public static function isUUID($value) {
     	try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value' => array($value, 'isString')
             )) !== true) {
                 return false;
@@ -436,7 +443,7 @@ class Validator {
 	 */
 	public static function isEAN($value) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value' => array($value, 'isString', array('matchesPattern', array('\d{13}')))
             )) !== true) {
                 return false;
@@ -459,7 +466,7 @@ class Validator {
 	 */
 	public static function isUPC($value) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value' => array($value, 'isString', array('matchesPattern', array('\d{12}')))
             )) !== true) {
                 return false;
@@ -520,7 +527,7 @@ class Validator {
 	 */
 	public static function isGreater($source_value, $compare_value, $equal = false) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$source_value'  => array($source_value, 'isScalar'),
                 '$compare_value' => array($compare_value, 'isScalar'),
                 '$equal'         => array($equal, 'isBoolean')
@@ -547,7 +554,7 @@ class Validator {
 	 */
 	public static function isLess($source_value, $compare_value, $equal = false) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$source_value'  => array($source_value, 'isScalar'),
                 '$compare_value' => array($compare_value, 'isScalar'),
                 '$equal'         => array($equal, 'isBoolean')
@@ -575,7 +582,7 @@ class Validator {
 	 */
 	public static function isBetween($value, $compare_min, $compare_max, $equal = true) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value'       => array($value, 'isScalar'),
                 '$compare_min' => array($compare_min, 'isScalar'),
                 '$compare_max' => array($compare_max, 'isScalar'),
@@ -603,7 +610,7 @@ class Validator {
 	 */
 	public static function isLength($value, $length_min = 0, $length_max = INF) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value'      => array($value, 'isScalar'),
                 '$length_min' => array($length_min, 'isNumeric', array('isGreater', array(0))),
                 '$length_max' => array($length_max, 'isNumeric', array('isGreater', array($length_min, true)))
@@ -633,7 +640,7 @@ class Validator {
 	 */
 	public static function isSecure($value, $length_min = 6, $length_max = 12, $score = 0) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value'      => array($value, 'isScalar'),
                 '$length_min' => array($length_min, 'isNumeric', array('isGreater', array(0))),
                 '$length_max' => array($length_max, 'isNumeric', array('isGreater', array($length_min))),
@@ -690,7 +697,7 @@ class Validator {
 	 */
 	public static function isLocal($path) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$path' => array($path, 'isString')
             )) !== true) {
                 return false;
@@ -715,7 +722,7 @@ class Validator {
 	 */
 	public static function isPathValid($path) {
     	try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$path' => array($path, 'isString')
             )) !== true) {
                 return false;
@@ -738,7 +745,7 @@ class Validator {
 	 */
 	public static function isPathAllowed($path) {
     	try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$path' => array($path, 'isPathValid')
             )) !== true) {
                 return false;
@@ -784,7 +791,7 @@ class Validator {
 	 */
 	public static function isFilename($value) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$value' => array($value, 'isString')
             )) !== true) {
                 return false;
@@ -808,7 +815,7 @@ class Validator {
 	 */
 	public static function isFileUpload(\Glue\Entity\File $file, $status = true) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$status' => array($status, 'isBoolean')
             )) !== true) {
                 return false;
@@ -845,7 +852,7 @@ class Validator {
 	 */
 	public static function isFileSize(\Glue\Entity\File $file, $min = 0, $max = INF) {
 		try {
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$min' => array($min, 'isNumeric', array('isGreater', array(0))),
                 '$max' => array($max, 'isNumeric', array('isGreater', array($min, true)))
             )) !== true) {
@@ -878,7 +885,7 @@ class Validator {
 		try {
             $mimetype = (is_string($mimetype)) ? (array) $mimetype : $mimetype;
 
-            if(\Glue\Helper\validator::batch(array(
+            if(\Glue\Helper\Validator::batch(array(
                 '$mimetype' => array($mimetype, 'isArray')
             )) !== true) {
                 return false;

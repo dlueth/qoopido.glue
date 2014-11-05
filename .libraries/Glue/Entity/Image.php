@@ -365,7 +365,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function brightness($percent = 25) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$percent' => array($percent, 'isNumeric', array('isBetween', array(0, 100)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -419,7 +419,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function hsl($hue = 0, $saturation = NULL, $lightness = NULL) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$hue'        => array($hue, 'isNumeric', array('isBetween', array(-180, 180))),
 			'$saturation' => array($saturation, 'isNumeric', array('isBetween', array(-100, 100))),
 			'$lightness'  => array($lightness, 'isNumeric', array('isBetween', array(-100, 100)))
@@ -493,7 +493,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	public function resize($size, $mode = 3) {
 		$size = (is_scalar($size)) ? array_fill(0, 2, $size) : $size;
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@$size'   => array($size, 'isNumeric', array('isGreater', array(0))),
 			'$mode'    => array($mode, 'isNumeric', array('isBetween', array(0, 5)))
 		))) !== true) {
@@ -575,7 +575,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function crop($width, $height, $x = false, $y = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$width'   => array($width, 'isNumeric', array('isGreater', array(0))),
 			'$height'  => array($height, 'isNumeric', array('isGreater', array(0)))
 		))) !== true) {
@@ -619,7 +619,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function rotate($angle) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$angle'   => array($angle, 'isNumeric')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -658,7 +658,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function flip($axes = 1) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$axes'   => array($axes, 'isNumeric', array('isBetween', array(1, 2)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -724,7 +724,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'function' => 'imageconvolution'), GLUE_EXCEPTION_FUNCTION_MISSING));
 		}
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$amount'   => array($amount, 'isNumeric', array('isBetween', array(1, 100)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -773,7 +773,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'function' => 'imageconvolution'), GLUE_EXCEPTION_FUNCTION_MISSING));
 		}
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$amount'    => array($amount, 'isNumeric', array('isBetween', array(1, 100)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -819,7 +819,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function addReflection($aperture = 80, $height = INF, $alpha = 40) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$aperture' => array($aperture, 'isNumeric', array('isBetween', array(0, 100))),
 			'$height'   => array($height, 'isNumeric', array('isGreater', array(0))),
 			'$alpha'    => array($alpha, 'isNumeric', array('isBetween', array(0, 100)))
@@ -896,7 +896,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function addBorder($color = '#000', $stroke = 1) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$color'  => array($color, 'isString', 'isNotEmpty'),
 			'$stroke' => array($stroke, 'isNumeric', array('isGreater', array(0)))
 		))) !== true) {
@@ -942,7 +942,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function addShadow($color = '#000', $background = '#fff', $alpha = 50, $angle = 135, $distance = 2, $size = 5, $spread = 0) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$color'      => array($color, 'isString', 'isNotEmpty'),
 			'$background' => array($background, 'isString', 'isNotEmpty'),
 			'$alpha'      => array($alpha, 'isNumeric', array('isBetween', array(0, 100))),
@@ -1077,7 +1077,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function show($type = 'png', $interlace = false, $quality = NULL, $filter = NULL) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$type'      => array($type, 'isString', array('matchesPattern', array('^png|jpeg|gif$', 'i'))),
 			'$interlace' => array($interlace, 'isBoolean')
 		))) !== true) {
@@ -1108,7 +1108,7 @@ class Image extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function get($type = 'png', $interlace = false, $quality = NULL, $filter = PNG_ALL_FILTERS) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$type'      => array($type, 'isString', array('matchesPattern', array('^png|jpeg|gif$', 'i'))),
 			'$interlace' => array($interlace, 'isBoolean')
 		))) !== true) {

@@ -38,7 +38,7 @@ class General {
 	public static function loadConfiguration($files) {
 		$files = (is_string($files)) ? (array) $files : $files;
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@$files' => array($files, 'isString', 'isPathValid')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -78,7 +78,7 @@ class General {
 	 * @throw \RuntimeException
 	 */
 	public static function replace(array $replacements, $string) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@$replacements' => array($replacements, 'isString'),
 			'$string'        => array($string, 'isString')
 		))) !== true) {
@@ -109,7 +109,7 @@ class General {
 	public static function merge() {
 		$arguments = func_get_args();
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@' => array($arguments, 'isArray')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

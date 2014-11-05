@@ -62,7 +62,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	public function __initialize($cid) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$cid' => array($cid, 'isString', 'isNotEmpty')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -141,7 +141,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	final public function setLifetime($lifetime = INF) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$lifetime' => array($lifetime, 'isInteger', array('isGreater', array(0)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -173,7 +173,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	 * @throw \RuntimeException
 	 */
 	final public function setReload($status) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$status' => array($status, 'isBoolean')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -203,7 +203,7 @@ abstract class Base extends \Glue\Abstracts\Base\Chainable {
 	final public function setDependencies($dependencies = array()) {
 		$dependencies = (is_string($dependencies)) ? (array) $dependencies : $dependencies;
 
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@$dependencies' => array($dependencies, 'isPathValid')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

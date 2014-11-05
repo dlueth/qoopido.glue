@@ -53,16 +53,10 @@ class Garbagecollection extends \Glue\Abstracts\Base {
 
 			$path  = \Glue\Component\Environment::getInstance()->get('path');
 			$files = array();
-			$temp  = NULL;
 
 			foreach($this->configuration['directories'] as $directory) {
-				if(($temp = \Glue\Helper\Filesystem::getFiles($path['global'] . '/' . $directory, true, true)) !== false) {
-					$files = array_merge($files, $temp);
-				}
-
-				if(($temp = \Glue\Helper\Filesystem::getFiles($path['local'] . '/' . $directory, true, true)) !== false) {
-					$files = array_merge($files, $temp);
-				}
+				$files = array_merge($files, \Glue\Helper\Filesystem::getContents($path['global'] . '/' . $directory, NULL, \Glue\Helper\Filesystem::MATCH_FILES | \Glue\Helper\Filesystem::MODE_ALL));
+				$files = array_merge($files, \Glue\Helper\Filesystem::getContents($path['local'] . '/' . $directory, NULL, \Glue\Helper\Filesystem::MATCH_FILES | \Glue\Helper\Filesystem::MODE_ALL));
 			}
 
 			foreach($files as $index => $file) {
@@ -77,7 +71,7 @@ class Garbagecollection extends \Glue\Abstracts\Base {
 
 			$this->dispatcher->notify(new \Glue\Event($this->id . '.process.post', array($files)));
 
-			unset($path, $files, $temp, $directory, $index, $file);
+			unset($path, $files, $directory, $index, $file);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}

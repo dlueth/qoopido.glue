@@ -61,7 +61,7 @@ final class Environment extends \Glue\Abstracts\Base\Singleton {
 			// set primary environment variables
 				$data['node']                 = \Glue\Helper\Modifier::cleanPath(!empty($_REQUEST['Glue']['node']) ? $_REQUEST['Glue']['node'] : $settings['defaults']['node'], true);
 				$data['alias']                = str_replace('/', '.', $data['node']);
-				$data['slug']                 = str_replace('.', '/', preg_replace('/[^\w.]/', '', $data['alias']));
+				$data['slug']                 = str_replace('.', '/', preg_replace('/[^\w-_.]/i', '', $data['alias']));
 				$data['id']                   = NULL;
 
 			// set secondary environment variables
