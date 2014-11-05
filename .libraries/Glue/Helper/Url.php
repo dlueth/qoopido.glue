@@ -45,7 +45,7 @@ class Url {
 	 * @throw \RuntimeException
 	 */
 	public static function make($url, $scope = 'local', array $parameters = array(), $anchor = false, $separator = '&amp;') {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$url'        => array($url, 'isString'),
 			'$scope'      => array($scope, 'isString', array('matchesPattern', array('^global|local$'))),
 			'$parameters' => array($parameters, 'isArray'),
@@ -127,10 +127,12 @@ class Url {
 	 * @param array $parameters [optional]
 	 * @param string $anchor [optional]
 	 *
+	 * @todo check to add parameter "status" (see 307 below)
+	 *
 	 * @throw \RuntimeException
 	 */
 	public static function redirect($url, $scope = 'global', $parameters = array(), $anchor = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$url'        => array($url, 'isString'),
 			'$scope'      => array($scope, 'isString', array('matchesPattern', array('^global|local$'))),
 			'$parameters' => array($parameters, 'isArray')
@@ -145,8 +147,7 @@ class Url {
 			$url      = self::make($url, $scope, $parameters, $anchor, '&');
 			$url      = ($internal == true) ? self::$environment->get('url.relative') . $url : $url;
 
-			header('Location: ' . $url);
-			header('Connection: close');
+			header('Location: ' . $url, true, 307);
 
 			unset($url, $scope, $parameters, $anchor, $result, $temp, $internal);
 

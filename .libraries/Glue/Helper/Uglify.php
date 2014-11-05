@@ -44,7 +44,7 @@ class Uglify {
 	 * @throw \RuntimeException
 	 */
 	public static function compress($source) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$source'      => array($source, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

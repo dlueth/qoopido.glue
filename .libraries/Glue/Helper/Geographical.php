@@ -28,7 +28,7 @@ class Geographical {
 	 * @throw \RuntimeException
 	 */
 	public static function getCartesian($longitude, $latitude) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$longitude' => array($longitude, 'isNumeric'),
 			'$latitude' => array($latitude, 'isNumeric')
 		))) !== true) {
@@ -68,7 +68,7 @@ class Geographical {
 	 * @throw \RuntimeException
 	 */
 	public static function getDistanceByLatLng($lat1, $lng1, $lat2, $lng2, $method = self::METHOD_COSINES) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$lat1'   => array($lat1, 'isNumeric'),
 			'$lng1'   => array($lng1, 'isNumeric'),
 			'$lat2'   => array($lat2, 'isNumeric'),
@@ -196,7 +196,7 @@ class Geographical {
 	 * @throw \RuntimeException
 	 */
 	public static function getDistanceByCartesian($x1, $y1, $z1, $x2, $y2, $z2) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$x1'   => array($x1, 'isNumeric'),
 			'$y1'   => array($y1, 'isNumeric'),
 			'$z1'   => array($z1, 'isNumeric'),

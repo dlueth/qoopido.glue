@@ -60,11 +60,14 @@ class Database extends \Glue\Abstracts\Base {
 			$this->configuration = \Glue\Helper\General::merge((array) \Glue\Component\Configuration::getInstance()->get(__CLASS__), $configuration);
 
 			$this->options       = array(
-				\PDO::ATTR_PERSISTENT         => true,
-				\PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
-				\PDO::ATTR_CASE               => \PDO::CASE_NATURAL,
-				\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES ' . $this->configuration['characterset'] . '; SET CHARACTER SET ' . $this->configuration['characterset'] . ';'
+				\PDO::ATTR_PERSISTENT               => true,
+				\PDO::ATTR_ERRMODE                  => \PDO::ERRMODE_EXCEPTION,
+				\PDO::ATTR_CASE                     => \PDO::CASE_NATURAL
 			);
+
+			if($this->configuration['type'] === 'mysql') {
+				$this->options[\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY] = true;
+			}
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('class' => __CLASS__), GLUE_EXCEPTION_CLASS_INITIALIZE), NULL, $exception);
 		}
@@ -80,13 +83,12 @@ class Database extends \Glue\Abstracts\Base {
 			if($this->pdo === NULL) {
 				$this->dispatcher->notify(new \Glue\Event($this->id . '.connect.pre'));
 
-
-					$this->pdo = new \PDO(
-						$this->configuration['type'] . ':host=' . $this->configuration['hostname'] . ';port=' . $this->configuration['port'] . ';dbname=' . $this->configuration['database'],
-						$this->configuration['username'],
-						$this->configuration['password'],
-						$this->options
-					);
+				$this->pdo = new \PDO(
+					$this->configuration['type'] . ':host=' . $this->configuration['hostname'] . ';port=' . $this->configuration['port'] . ';dbname=' . $this->configuration['database'] . ';charset=' . $this->configuration['characterset'],
+					$this->configuration['username'],
+					$this->configuration['password'],
+					$this->options
+				);
 
 				$this->dispatcher->notify(new \Glue\Event($this->id . '.connect.post'));
 			}
@@ -106,7 +108,7 @@ class Database extends \Glue\Abstracts\Base {
 	 * @throw \RuntimeException
 	 */
 	public function statementPrepare($sql) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$sql' => array($sql, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -120,12 +122,12 @@ class Database extends \Glue\Abstracts\Base {
 
 				$this->statements[$id] = $this->pdo->prepare($sql);
 
-				$this->statements[$id]->_callback = 'fetchAll';
-				$this->statements[$id]->_params   = \PDO::FETCH_ASSOC;
+				$this->statements[$id]->_callback  = 'fetchAll';
+				$this->statements[$id]->_parameter = array(\PDO::FETCH_ASSOC);
 
 				if(preg_match('/^(insert|replace|update|delete) /i', $sql)) {
 					$this->statements[$id]->_callback  = 'rowCount';
-					$this->statements[$id]->_parameter = array();;
+					$this->statements[$id]->_parameter = array();
 				}
 			}
 
@@ -150,24 +152,26 @@ class Database extends \Glue\Abstracts\Base {
 	 * @throw \RuntimeException
 	 */
 	public function statementExecute(\PDOStatement $statement, array $bindings = array()) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'@$bindings' => array($bindings, 'isScalar')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
+			$result = false;
+
 			$this->connect();
 
 			if($statement->execute($bindings) !== false) {
-				return call_user_func_array(array($statement, $statement->_callback), $statement->_parameter);
+				$result = call_user_func_array(array($statement, $statement->_callback), isset($statement->_parameter) ? $statement->_parameter : array());
 			}
 
 			$statement->closeCursor();
 
-			unset($statement, $bindings, $result);
+			unset($statement, $bindings);
 
-			return false;
+			return $result;
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
@@ -185,7 +189,7 @@ class Database extends \Glue\Abstracts\Base {
 	 * @throw \RuntimeException
 	 */
 	public function execute($sql, array $bindings = array()) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$sql'       => array($sql, 'isString'),
 			'@$bindings' => array($bindings, 'isScalar')
 		))) !== true) {
@@ -208,7 +212,7 @@ class Database extends \Glue\Abstracts\Base {
 	 */
 	public function lastInsertId() {
 		try {
-            $this->connect();
+			$this->connect();
 
 			return $this->pdo->lastInsertId();
 		} catch(\Exception $exception) {
@@ -226,7 +230,7 @@ class Database extends \Glue\Abstracts\Base {
 	public function transactionStart() {
 		try {
 			$this->connect();
-		
+
 			return $this->pdo->beginTransaction();
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
@@ -243,7 +247,7 @@ class Database extends \Glue\Abstracts\Base {
 	public function transactionCommit() {
 		try {
 			$this->connect();
-		
+
 			return $this->pdo->commit();
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
@@ -278,14 +282,14 @@ class Database extends \Glue\Abstracts\Base {
 	 * @throw \RuntimeException
 	 */
 	public function getColumns($table) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$table'       => array($table, 'isString')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$table' => array($table, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
-            $this->connect();
+			$this->connect();
 
 			if(!isset($this->columns[$table])) {
 				switch($this->configuration['type']) {
@@ -340,8 +344,8 @@ class Database extends \Glue\Abstracts\Base {
 	 * @throw \RuntimeException
 	 */
 	public function filterParameter($table, array $parameter) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$table'       => array($table, 'isString')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$table' => array($table, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}

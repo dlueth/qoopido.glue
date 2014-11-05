@@ -19,7 +19,7 @@ class Datetime {
 	 * @throw \RuntimeException
 	 */
 	public static function getAge($birthday, $base = -INF) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$birthday' => array($birthday, 'isString', 'isDate'),
 			'$base'     => array($base, 'isNumeric')
 		))) !== true) {

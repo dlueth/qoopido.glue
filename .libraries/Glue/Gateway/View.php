@@ -70,7 +70,7 @@ class View extends \Glue\Abstracts\Gateway {
 	 * @throw \RuntimeException
 	 */
 	final public function setAdapter($adapter) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$adapter' => array($adapter, 'isString', 'isNotEmpty')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -97,7 +97,7 @@ class View extends \Glue\Abstracts\Gateway {
 	 * @throw \InvalidArgumentException
 	 */
 	final public function setTemplate($template) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$template' => array($template, 'isString', 'isNotEmpty')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -117,7 +117,7 @@ class View extends \Glue\Abstracts\Gateway {
 	 * @throw \RuntimeException
 	 */
 	final public function setDownload($filename) {
-		if(($result = \Glue\Helper\validator::batch(array(
+		if(($result = \Glue\Helper\Validator::batch(array(
 			'$filename' => array($filename, 'isString', 'isNotEmpty')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

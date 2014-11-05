@@ -75,7 +75,7 @@ namespace Glue\Module {
 		 * @throw \RuntimeException
 		 */
 		public function add($curl) {
-			if(($result = \Glue\Helper\validator::batch(array(
+			if(($result = \Glue\Helper\Validator::batch(array(
 				'$curl' => array($curl, 'isResource')
 			))) !== true) {
 				throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -108,13 +108,13 @@ namespace Glue\Module {
 		 *
 		 * @param string $key
 		 *
-		 * @return imxed
+		 * @return mixed
 		 *
 		 * @throw \InvalidArgumentException
 		 * @throw \RuntimeException
 		 */
 		public function get($key) {
-			if(($result = \Glue\Helper\validator::batch(array(
+			if(($result = \Glue\Helper\Validator::batch(array(
 				'$key' => array($key, 'isString')
 			))) !== true) {
 				throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));

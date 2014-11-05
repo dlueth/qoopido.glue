@@ -11,6 +11,18 @@ namespace Glue\Helper;
  * @author Dirk Lüth <info@qoopido.com>
  */
 class Filesystem {
+	const MATCH_FILES       = 1;
+	const MATCH_DIRECTORIES = 2;
+	const FILE_CREATE       = 4;
+	const FILE_APPEND       = 8;
+	const MODE_RECURSIVE    = 16;
+	const MODE_ABSOLUTE     = 32;
+
+
+	const MATCH_ALL         = 3;
+	const FILE_ALL          = 12;
+	const MODE_ALL          = 48;
+
 	/**
 	 * Property to store type of server operating system
 	 */
@@ -58,8 +70,8 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function createDirectory($directory) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$directory' => array($directory, 'isString', 'isPathValid', 'isPathAllowed')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$directory' => array($directory, 'isNotEmpty', 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -81,88 +93,40 @@ class Filesystem {
 	}
 
 	/**
-	 * Method to get subdirectories of a directory
+	 * Method to get contents of a directory
 	 *
 	 * @param string $directory
-	 * @param bool $recursive [optional]
 	 * @param string $pattern [optional]
-	 * @param bool $absolute [optional]
+	 * @param int $flags [optional]
 	 *
 	 * @return mixed
 	 *
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function getDirectories($directory, $recursive = false, $pattern = NULL, $absolute = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$directory' => array($directory, 'isString', 'isNotEmpty', 'isPathValid'),
-			'$recursive' => array($recursive, 'isBoolean'),
-			'$pattern'   => array($pattern, 'isString', 'isNotEmpty'),
-			'$absolute'  => array($absolute, 'isBoolean')
+	public static function getContents($directory, $pattern = NULL, $flags = self::MATCH_ALL) {
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$directory' => array($directory, 'isNotEmpty', 'isPathValid'),
+			'$pattern'   => ($pattern === NULL) ? NULL : array($pattern, 'isString', 'isNotEmpty'),
+			'$flags'     => array($flags, array('matchesBitmask', array($flags, self::MATCH_ALL | self::FILE_ALL | self::MODE_ALL)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
 			$return    = array();
-			$iterator  = ($recursive === false) ? new \FilesystemIterator($directory, \FilesystemIterator::SKIP_DOTS) : new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::SELF_FIRST);
+			$directory = \Glue\Helper\Modifier::cleanPath($directory);
+			$iterator  = ($flags & self::MODE_RECURSIVE) ? new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) : new \FilesystemIterator($directory, \FilesystemIterator::SKIP_DOTS);
 			$iterator  = ($pattern !== NULL) ? new \RegexIterator($iterator, '/' . $pattern . '/i') : $iterator;
 			$directory = preg_quote($directory . '/', '/');
 
 			foreach($iterator as $path) {
-				if($path->isDir() === true) {
-					$return[] = ($absolute !== false) ? $path->getPathname() : preg_replace('/^' . $directory . '/', '', $path->getPathname());
+				if( (($flags & self::MATCH_FILES) && $path->isFile() === true) || (($flags & self::MATCH_DIRECTORIES) && $path->isDir() === true)) {
+					$return[] = ($flags & self::MODE_ABSOLUTE) ? $path->getPathname() : preg_replace('/^' . $directory . '/', '', $path->getPathname());
 				}
 			}
 
 			sort($return);
-
-			unset($directory, $absolute, $iterator);
-
-			return $return;
-		} catch(\Exception $exception) {
-			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
-		}
-	}
-
-	/**
-	 * Method to get files from a directory
-	 *
-	 * @param string $directory
-	 * @param bool $recursive [optional]
-	 * @param string $pattern [optional]
-	 * @param bool $absolute [optional]
-	 *
-	 * @return mixed
-	 *
-	 * @throw \InvalidArgumentException
-	 * @throw \RuntimeException
-	 */
-	public static function getFiles($directory, $recursive = false, $pattern = NULL, $absolute = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$directory' => array($directory, 'isString', 'isNotEmpty', 'isPathValid'),
-			'$recursive' => array($recursive, 'isBoolean'),
-			'$pattern'   => array($pattern, 'isString', 'isNotEmpty'),
-			'$absolute'  => array($absolute, 'isBoolean')
-		))) !== true) {
-			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
-		}
-
-		try {
-			$return    = array();
-			$iterator  = ($recursive === false) ? new \FilesystemIterator($directory, \FilesystemIterator::SKIP_DOTS) : new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::SELF_FIRST);
-			$iterator  = ($pattern !== NULL) ? new \RegexIterator($iterator, '/' . $pattern . '/i') : $iterator;
-			$directory = preg_quote($directory . '/', '/');
-
-			foreach($iterator as $path) {
-				if($path->isFile() === true) {
-					$return[] = ($absolute !== false) ? $path->getPathname() : preg_replace('/^' . $directory . '/', '', $path->getPathname());
-				}
-			}
-
-			sort($return);
-
-			unset($directory, $recursive, $pattern, $absolute, $iterator);
 
 			return $return;
 		} catch(\Exception $exception) {
@@ -181,14 +145,15 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function emptyDirectory($directory) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$directory' => array($directory, 'isString', 'isPathValid', 'isPathAllowed')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$directory' => array($directory, 'isNotEmpty', 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
-			$iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::CHILD_FIRST );
+			$directory = \Glue\Helper\Modifier::cleanPath($directory);
+			$iterator  = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($directory), \RecursiveIteratorIterator::CHILD_FIRST );
 
 			foreach($iterator as $path) {
 				if($path->isFile() === true) {
@@ -197,8 +162,6 @@ class Filesystem {
 					self::removeDirectory($path->getPathname());
 				}
 			}
-
-			sort($return);
 
 			unset($directory, $iterator);
 
@@ -219,8 +182,8 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function removeDirectory($directory) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$directory' => array($directory, 'isString', 'isPathValid', 'isPathAllowed')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$directory' => array($directory, 'isNotEmpty', 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -255,8 +218,8 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function createFile($file, $content = '') {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$file'    => array($file, 'isString', 'isPathValid', 'isPathAllowed'),
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$file'    => array($file, 'isNotEmpty', 'isPathAllowed'),
 			'$content' => array($content, 'isString')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
@@ -289,20 +252,18 @@ class Filesystem {
 	 *
 	 * @param string $file
 	 * @param string $content
-	 * @param bool $autocreate [optional]
-	 * @param bool $append [optional]
+	 * @param int $flags [optional]
 	 *
 	 * @return bool
 	 *
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function updateFile($file, $content, $autocreate = true, $append = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$file'       => array($file, 'isString', 'isPathValid', 'isPathAllowed'),
-			'$content'    => array($content, 'isString'),
-			'$autocreate' => array($autocreate, 'isBoolean'),
-			'$append'     => array($append, 'isBoolean')
+	public static function updateFile($file, $content, $flags = self::FILE_CREATE) {
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$file'    => array($file, 'isNotEmpty', 'isPathAllowed'),
+			'$content' => array($content, 'isString'),
+			'$flags'   => array($flags, array('matchesBitmask', array($flags, self::FILE_ALL)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -311,13 +272,13 @@ class Filesystem {
 			$return = false;
 			$file   = \Glue\Helper\Modifier::cleanPath($file);
 
-			if(!is_file($file) && $autocreate == true) {
+			if(!is_file($file) && ($flags & self::FILE_CREATE)) {
 				if(self::createFile($file, $content) === true) {
 					$return = true;
 				}
 			} else {
 				if(is_file($file)) {
-					if($append == true) {
+					if($flags & self::FILE_APPEND) {
 						if(file_put_contents($file, $content, FILE_APPEND | LOCK_EX) !==  false) {
 							$return = true;
 						}
@@ -329,7 +290,7 @@ class Filesystem {
 				}
 			}
 
-			unset($file, $content, $autocreate, $append, $result);
+			unset($file, $content, $result);
 
 			return $return;
 		} catch(\Exception $exception) {
@@ -342,18 +303,18 @@ class Filesystem {
 	 *
 	 * @param string $file
 	 * @param string $content
-	 * @param bool $autocreate [optional]
+	 * @param int $flags [optional]
 	 *
 	 * @return bool
 	 *
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function appendFile($file, $content, $autocreate = true) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$file'       => array($file, 'isString', 'isPathValid', 'isPathAllowed'),
-			'$content'    => array($content, 'isString'),
-			'$autocreate' => array($autocreate, 'isBoolean')
+	public static function appendFile($file, $content, $flags = self::FILE_CREATE) {
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$file'    => array($file, 'isNotEmpty', 'isPathAllowed'),
+			'$content' => array($content, 'isString'),
+			'$flags'   => array($flags, array('matchesBitmask', array($flags, self::FILE_CREATE)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -361,7 +322,7 @@ class Filesystem {
 		try {
 			unset($result);
 
-			return self::updateFile($file, $content, $autocreate, true);
+			return self::updateFile($file, $content, $flags | self::FILE_APPEND);
 		} catch(\Exception $exception) {
 			throw new \RuntimeException(\Glue\Helper\General::replace(array('method' => __METHOD__), GLUE_EXCEPTION_METHOD_FAILED), NULL, $exception);
 		}
@@ -379,9 +340,9 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function copyFile($source, $target) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$source'       => array($source, 'isString', 'isPathValid'),
-			'$target'       => array($target, 'isString', 'isPathValid', 'isPathAllowed')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$source' => array($source, 'isNotEmpty', 'isPathValid'),
+			'$target' => array($target, 'isNotEmpty', 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -421,9 +382,9 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function moveFile($source, $target) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$source'       => array($source, 'isString', 'isPathValid'),
-			'$target'       => array($target, 'isString', 'isPathValid', 'isPathAllowed')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$source' => array($source, 'isNotEmpty', 'isPathValid'),
+			'$target' => array($target, 'isNotEmpty', 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -462,14 +423,15 @@ class Filesystem {
 	 * @throw \RuntimeException
 	 */
 	public static function removeFile($file) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$file'       => array($file, 'isString', 'isPathValid', 'isPathAllowed')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$file' => array($file, 'isNotEmpty', 'isPathAllowed')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
 
 		try {
 			$return = false;
+			$file   = \Glue\Helper\Modifier::cleanPath($file);
 
 			if(is_file($file)) {
 				if(unlink($file)) {
@@ -489,17 +451,17 @@ class Filesystem {
 	 * Method to touch a file
 	 *
 	 * @param string $file
-	 * @param bool $autocreate [optional]
+	 * @param int $flags [optional]
 	 *
 	 * @return bool
 	 *
 	 * @throw \InvalidArgumentException
 	 * @throw \RuntimeException
 	 */
-	public static function touchFile($file, $autocreate = false) {
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$file'       => array($file, 'isString', 'isPathValid', 'isPathAllowed'),
-			'$autocreate' => array($autocreate, 'isBoolean')
+	public static function touchFile($file, $flags = 0) {
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$file'  => array($file, 'isNotEmpty', 'isPathAllowed'),
+			'$flags' => array($flags, array('matchesBitmask', array($flags, self::FILE_CREATE)))
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
@@ -508,7 +470,7 @@ class Filesystem {
 			$return = false;
 			$file   = \Glue\Helper\Modifier::cleanPath($file);
 
-			if(!is_file($file) && $autocreate == true) {
+			if(!is_file($file) && ($flags & self::FILE_CREATE)) {
 				self::createFile($file);
 			}
 
@@ -518,7 +480,7 @@ class Filesystem {
 				}
 			}
 
-			unset($file, $autocreate, $result);
+			unset($file, $result);
 
 			return $return;
 		} catch(\Exception $exception) {
@@ -549,8 +511,8 @@ class Filesystem {
 			throw new \LogicException(\Glue\Helper\General::replace(array('class' => __CLASS__, 'setting' => 'mime_magic.magicfile'), GLUE_EXCEPTION_SETTING_MISSING));
 		}
 
-		if(($result = \Glue\Helper\validator::batch(array(
-			'$file'       => array($file, 'isString', 'isPathValid')
+		if(($result = \Glue\Helper\Validator::batch(array(
+			'$file'       => array($file, 'isNotEmpty', 'isPathValid')
 		))) !== true) {
 			throw new \InvalidArgumentException(\Glue\Helper\General::replace(array('method' => __METHOD__, 'parameter' => $result), GLUE_EXCEPTION_PARAMETER));
 		}
