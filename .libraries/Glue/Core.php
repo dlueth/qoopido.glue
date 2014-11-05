@@ -133,7 +133,7 @@ namespace Glue {
 		 * @throw \Glue\CoreException
 		 */
 		final public function __construct() {
-			$_REQUEST['Glue']['node']     = (isset($_REQUEST['Glue']['node'])) ? $_REQUEST['Glue']['node'] : NULL;
+			$_REQUEST['Glue']['node']     = (isset($_REQUEST['Glue']['node']) && !empty($_REQUEST['Glue']['node'])) ? $_REQUEST['Glue']['node'] : NULL;
 			$_REQUEST['Glue']['modifier'] = array();
 
 			$node = $_REQUEST['Glue']['node'];
